@@ -74,7 +74,7 @@
         }
 
         .logo img {
-            height: 56px;
+            height: 74px;
             width: auto;
             display: block;
             filter: drop-shadow(0 2px 8px rgba(212, 175, 55, 0.25));
@@ -610,7 +610,6 @@
         .gallery-item:nth-child(3) { transition-delay: 0.3s; }
         .gallery-item:nth-child(4) { transition-delay: 0.4s; }
         .gallery-item:nth-child(5) { transition-delay: 0.5s; }
-        .gallery-item:nth-child(6) { transition-delay: 0.6s; }
 
         .gallery-item::before {
             content: '';
@@ -765,7 +764,7 @@
         }
 
         .footer-logo img {
-            height: 64px;
+            height: 83px;
             width: auto;
             filter: drop-shadow(0 2px 12px rgba(212, 175, 55, 0.3));
         }
@@ -773,55 +772,58 @@
         .snrg-credit {
             width: 100%;
             text-align: center;
-            margin-top: 2rem;
+            margin-top: 2.5rem;
             padding-top: 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 0.5rem;
         }
 
         .snrg-credit a {
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.75rem;
             text-decoration: none;
             font-family: 'Space Mono', monospace;
-            font-size: 0.75rem;
-            letter-spacing: 0.18em;
+            font-size: 0.8rem;
+            letter-spacing: 0.22em;
             text-transform: uppercase;
-            color: rgba(255, 255, 255, 0.35);
+            color: var(--elite-gold);
             font-weight: 700;
-            transition: color 0.3s ease;
+            transition: all 0.3s ease;
             position: relative;
+            text-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
         }
 
         .snrg-credit a:hover {
-            color: var(--elite-gold);
+            color: var(--pure-white);
+            text-shadow: 0 0 30px rgba(212, 175, 55, 0.8);
+            letter-spacing: 0.28em;
         }
 
-        .snrg-credit a::before {
-            content: '';
-            display: inline-block;
-            width: 22px;
-            height: 1px;
-            background: rgba(255, 255, 255, 0.2);
-            transition: background 0.3s ease;
-        }
-
+        .snrg-credit a::before,
         .snrg-credit a::after {
             content: '';
             display: inline-block;
-            width: 22px;
+            width: 36px;
             height: 1px;
-            background: rgba(255, 255, 255, 0.2);
-            transition: background 0.3s ease;
+            background: linear-gradient(90deg, transparent, var(--elite-gold));
+            transition: all 0.3s ease;
+        }
+
+        .snrg-credit a::after {
+            background: linear-gradient(90deg, var(--elite-gold), transparent);
         }
 
         .snrg-credit a:hover::before,
         .snrg-credit a:hover::after {
-            background: var(--elite-gold);
+            width: 48px;
+            background: linear-gradient(90deg, transparent, var(--pure-white));
+        }
+
+        .snrg-credit a:hover::after {
+            background: linear-gradient(90deg, var(--pure-white), transparent);
         }
 
         .footer-social {
@@ -830,13 +832,22 @@
         }
 
         .social-link {
-            color: var(--pure-white);
-            font-size: 1.5rem;
-            transition: color 0.3s ease;
+            color: rgba(255, 255, 255, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            transition: all 0.3s ease;
         }
 
         .social-link:hover {
             color: var(--elite-gold);
+            border-color: var(--elite-gold);
+            background: rgba(212, 175, 55, 0.1);
+            transform: translateY(-2px);
         }
 
         .footer-copyright {
@@ -863,7 +874,7 @@
             }
 
             .hero {
-                padding: 8rem 5vw 6rem;
+                padding: 4rem 5vw 6rem;
                 min-height: 100vh;
             }
 
@@ -1214,9 +1225,6 @@
             <div class="gallery-item">
                 <div class="gallery-placeholder">👑</div>
             </div>
-            <div class="gallery-item">
-                <div class="gallery-placeholder">⚡</div>
-            </div>
         </div>
     </section>
 
@@ -1267,12 +1275,16 @@
                 <img src="born-elite-logo.png" alt="Born Elite Basketball" />
             </div>
             <div class="footer-social">
-                <a href="https://www.instagram.com/bornelitebasketball/" target="_blank" class="social-link">📷</a>
-                <a href="#" class="social-link">🐦</a>
-                <a href="#" class="social-link">📘</a>
+                <a href="https://www.instagram.com/bornelitebasketball/" target="_blank" class="social-link" aria-label="Instagram">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke="currentColor" stroke-width="2" fill="none"/>
+                        <circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="2" fill="none"/>
+                        <circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/>
+                    </svg>
+                </a>
             </div>
             <div class="footer-copyright">
-                © 2024 Born Elite Basketball. All rights reserved.
+                © 2026 Born Elite Basketball. All rights reserved.
             </div>
             <div class="snrg-credit">
                 <a href="https://snrgweb.com" target="_blank" rel="noopener noreferrer">Built by SNRG Web</a>
