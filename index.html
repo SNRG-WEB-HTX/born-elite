@@ -58,14 +58,16 @@
             position: fixed;
             top: 0;
             width: 100%;
-            padding: 2rem 5vw;
+            padding: 1rem 5vw;
             display: flex;
             justify-content: space-between;
             align-items: center;
             z-index: 100;
-            background: linear-gradient(180deg, rgba(10, 10, 10, 0.95) 0%, transparent 100%);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            background: rgba(10, 10, 10, 0.98);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.08);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.6);
         }
 
         .logo {
@@ -748,33 +750,33 @@
         /* Footer */
         footer {
             background: var(--elite-black);
-            padding: 3rem 5vw;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            text-align: center;
+            padding: 5rem 5vw 3.5rem;
+            border-top: 1px solid rgba(212, 175, 55, 0.12);
+            position: relative;
+            z-index: 2;
         }
 
         .footer-content {
-            max-width: 1200px;
+            max-width: 400px;
             margin: 0 auto;
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
             align-items: center;
-            flex-wrap: wrap;
-            gap: 2rem;
+            gap: 2.5rem;
         }
 
         .footer-logo img {
-            height: 83px;
+            height: 90px;
             width: auto;
-            filter: drop-shadow(0 2px 12px rgba(212, 175, 55, 0.3));
+            filter: drop-shadow(0 0 18px rgba(212, 175, 55, 0.25));
+            transition: filter 0.3s ease;
+        }
+
+        .footer-logo img:hover {
+            filter: drop-shadow(0 0 30px rgba(212, 175, 55, 0.55));
         }
 
         .snrg-credit {
-            width: 100%;
-            text-align: center;
-            margin-top: 2.5rem;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(212, 175, 55, 0.2);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -826,38 +828,11 @@
             background: linear-gradient(90deg, var(--pure-white), transparent);
         }
 
-        .footer-social {
-            display: flex;
-            gap: 2rem;
-        }
 
-        .social-link {
-            color: rgba(255, 255, 255, 0.6);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            transition: all 0.3s ease;
-        }
 
-        .social-link:hover {
-            color: var(--elite-gold);
-            border-color: var(--elite-gold);
-            background: rgba(212, 175, 55, 0.1);
-            transform: translateY(-2px);
-        }
 
-        .footer-copyright {
-            width: 100%;
-            margin-top: 2rem;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: rgba(255, 255, 255, 0.5);
-            font-size: 0.875rem;
-        }
+
+
 
         /* Animations */
         @keyframes fadeInUp {
@@ -874,8 +849,10 @@
             }
 
             .hero {
-                padding: 4rem 5vw 6rem;
-                min-height: 100vh;
+                padding: 6.5rem 5vw 5rem;
+                min-height: unset;
+                height: auto;
+                align-items: flex-start;
             }
 
             .hero-tagline {
@@ -913,10 +890,7 @@
                 gap: 3rem;
             }
 
-            .footer-content {
-                flex-direction: column;
-                text-align: center;
-            }
+
 
             section {
                 padding: 5rem 5vw;
@@ -1273,18 +1247,6 @@
         <div class="footer-content">
             <div class="footer-logo">
                 <img src="born-elite-logo.png" alt="Born Elite Basketball" />
-            </div>
-            <div class="footer-social">
-                <a href="https://www.instagram.com/bornelitebasketball/" target="_blank" class="social-link" aria-label="Instagram">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke="currentColor" stroke-width="2" fill="none"/>
-                        <circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="2" fill="none"/>
-                        <circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/>
-                    </svg>
-                </a>
-            </div>
-            <div class="footer-copyright">
-                © 2026 Born Elite Basketball. All rights reserved.
             </div>
             <div class="snrg-credit">
                 <a href="https://snrgweb.com" target="_blank" rel="noopener noreferrer">Built by SNRG Web</a>
