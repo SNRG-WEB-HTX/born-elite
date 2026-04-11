@@ -1,1 +1,1343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Born Elite Basketball | Houston AAU Excellence</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --elite-black: #0A0A0A;
+            --elite-gold: #D4AF37;
+            --elite-copper: #B87333;
+            --court-green: #1B4D3E;
+            --pure-white: #FFFFFF;
+            --glass-white: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+        }
 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--elite-black);
+            color: var(--pure-white);
+            overflow-x: hidden;
+            line-height: 1.6;
+            cursor: auto;
+        }
+
+        /* Sleek modern cursor */
+        body, a, button {
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="%23D4AF37" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>'), auto;
+        }
+
+        /* Court pattern overlay */
+        .court-pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(90deg, rgba(212, 175, 55, 0.03) 1px, transparent 1px),
+                linear-gradient(0deg, rgba(212, 175, 55, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 2rem 5vw;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            background: linear-gradient(180deg, rgba(10, 10, 10, 0.95) 0%, transparent 100%);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 56px;
+            width: auto;
+            display: block;
+            filter: drop-shadow(0 2px 8px rgba(212, 175, 55, 0.25));
+            transition: filter 0.3s ease;
+        }
+
+        .logo img:hover {
+            filter: drop-shadow(0 4px 16px rgba(212, 175, 55, 0.5));
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--pure-white);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--elite-gold);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--elite-gold);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            height: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: visible;
+            z-index: 2;
+            padding: 10rem 5vw 8rem;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(212, 175, 55, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(27, 77, 62, 0.15) 0%, transparent 50%),
+                var(--elite-black);
+            z-index: -1;
+        }
+
+        .hero-content {
+            text-align: center;
+            padding: 0 5vw;
+            max-width: 1400px;
+            position: relative;
+            width: 100%;
+        }
+
+        .hero-tagline {
+            font-size: clamp(0.9rem, 2vw, 1.1rem);
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--elite-gold);
+            font-weight: 600;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s ease forwards 0.3s;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Glorious hero title animation */
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3rem, 10vw, 8rem);
+            font-weight: 900;
+            line-height: 0.95;
+            margin: 2rem 0;
+            position: relative;
+            perspective: 1000px;
+        }
+
+        .hero-title span {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--pure-white) 0%, var(--elite-gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            opacity: 0;
+            transform: translateY(-100px) rotateX(-90deg);
+            animation: glorifyTitle 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+            text-shadow: 0 0 40px rgba(212, 175, 55, 0.5);
+        }
+
+        .hero-title span:nth-child(1) {
+            animation-delay: 0.6s;
+        }
+
+        .hero-title span:nth-child(2) {
+            animation-delay: 0.9s;
+        }
+
+        @keyframes glorifyTitle {
+            0% {
+                opacity: 0;
+                transform: translateY(-100px) rotateX(-90deg) scale(0.5);
+                filter: blur(20px);
+            }
+            50% {
+                opacity: 1;
+                transform: translateY(20px) rotateX(10deg) scale(1.1);
+                filter: blur(0px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) rotateX(0deg) scale(1);
+                filter: blur(0px);
+            }
+        }
+
+        .hero-motto {
+            font-family: 'Space Mono', monospace;
+            font-size: clamp(1rem, 2.5vw, 2rem);
+            font-weight: 400;
+            font-style: italic;
+            color: rgba(255, 255, 255, 0.8);
+            margin: 2.5rem 0;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s ease forwards 1.5s;
+        }
+
+        .hero-cta {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 1.5rem;
+            margin-top: 3rem;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s ease forwards 1.8s;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+
+
+        .btn {
+            padding: 1.125rem 3rem;
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            text-decoration: none;
+            border: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            white-space: nowrap;
+            flex: 0 1 auto;
+            min-width: 220px;
+            text-align: center;
+            display: inline-block;
+            box-sizing: border-box;
+        }
+
+        .btn-primary {
+            background: var(--elite-gold);
+            color: var(--elite-black);
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--elite-copper);
+            transition: left 0.3s ease;
+            z-index: -1;
+        }
+
+        .btn-primary:hover::before {
+            left: 0;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--pure-white);
+            border: 2px solid var(--pure-white);
+        }
+
+        .btn-secondary:hover {
+            background: var(--pure-white);
+            color: var(--elite-black);
+        }
+
+        /* Section styles */
+        section {
+            padding: 8rem 5vw;
+            position: relative;
+            z-index: 2;
+        }
+
+        .section-label {
+            font-size: 0.875rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--elite-gold);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 2rem;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.2s;
+        }
+
+        .section-description {
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.8);
+            max-width: 800px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.4s;
+        }
+
+        /* Animated on scroll */
+        .animate-in {
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+        }
+
+        /* About Section - Flippable Cards */
+        .about {
+            background: linear-gradient(180deg, var(--elite-black) 0%, rgba(27, 77, 62, 0.1) 50%, var(--elite-black) 100%);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+
+        .flip-card {
+            perspective: 1000px;
+            height: 500px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .flip-card:nth-child(1) { transition-delay: 0.2s; }
+        .flip-card:nth-child(2) { transition-delay: 0.4s; }
+        .flip-card:nth-child(3) { transition-delay: 0.6s; }
+
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.8s cubic-bezier(0.4, 0.2, 0.2, 1);
+            transform-style: preserve-3d;
+        }
+
+        .flip-card.is-flipped .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        /* Click-to-flip icon */
+        .flip-icon {
+            position: absolute;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: rgba(212, 175, 55, 0.15);
+            border: 1.5px solid rgba(212, 175, 55, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .flip-icon:hover {
+            background: rgba(212, 175, 55, 0.3);
+            border-color: var(--elite-gold);
+            transform: scale(1.1);
+        }
+
+        .flip-icon svg {
+            width: 18px;
+            height: 18px;
+            fill: var(--elite-gold);
+            transition: transform 0.4s ease;
+        }
+
+        .flip-card.is-flipped .flip-icon svg {
+            transform: scaleX(-1);
+        }
+
+        .flip-card-front,
+        .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            background: var(--glass-white);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 3rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .flip-card-back {
+            transform: rotateY(180deg);
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.2) 0%, var(--glass-white) 100%);
+        }
+
+        .card-image-placeholder {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.3) 0%, rgba(27, 77, 62, 0.3) 100%);
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px dashed var(--glass-border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-image-placeholder::before {
+            content: 'Image';
+            font-size: 1.5rem;
+            color: rgba(255, 255, 255, 0.3);
+            font-weight: 700;
+            letter-spacing: 0.1em;
+        }
+
+        .about-card-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--elite-gold);
+        }
+
+        .about-card-text {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: rgba(255, 255, 255, 0.7);
+            flex-grow: 1;
+        }
+
+        /* Back of card details */
+        .card-back-details {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .card-back-item {
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .card-back-label {
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--elite-gold);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-back-value {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.6;
+        }
+
+        /* Programs Section */
+        .programs {
+            background: var(--elite-black);
+        }
+
+        .programs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .program-card {
+            position: relative;
+            padding: 3rem;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, transparent 100%);
+            border: 2px solid var(--glass-border);
+            border-radius: 20px;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .program-card:nth-child(1) { transition-delay: 0.2s; }
+        .program-card:nth-child(2) { transition-delay: 0.4s; }
+
+        .program-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--elite-gold) 0%, var(--elite-copper) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+
+        .program-card:hover::before {
+            opacity: 0.05;
+        }
+
+        .program-card:hover {
+            border-color: var(--elite-gold);
+            transform: translateY(-10px);
+        }
+
+        .program-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .program-description {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 2rem;
+            line-height: 1.7;
+        }
+
+        .program-features {
+            list-style: none;
+            margin-top: 2rem;
+        }
+
+        .program-features li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .program-features li::before {
+            content: '→';
+            color: var(--elite-gold);
+            margin-right: 1rem;
+            font-weight: 700;
+        }
+
+        /* Gallery Section */
+        .gallery {
+            background: linear-gradient(180deg, var(--elite-black) 0%, rgba(212, 175, 55, 0.05) 50%, var(--elite-black) 100%);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 4rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            aspect-ratio: 1;
+            background: var(--glass-white);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
+            overflow: hidden;
+            opacity: 0;
+            transform: scale(0.9);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .gallery-item:nth-child(1) { transition-delay: 0.1s; }
+        .gallery-item:nth-child(2) { transition-delay: 0.2s; }
+        .gallery-item:nth-child(3) { transition-delay: 0.3s; }
+        .gallery-item:nth-child(4) { transition-delay: 0.4s; }
+        .gallery-item:nth-child(5) { transition-delay: 0.5s; }
+        .gallery-item:nth-child(6) { transition-delay: 0.6s; }
+
+        .gallery-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--elite-gold) 0%, var(--elite-copper) 100%);
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+        }
+
+        .gallery-item:hover::before {
+            opacity: 0.3;
+        }
+
+        .gallery-placeholder {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 3rem;
+            opacity: 0.5;
+        }
+
+        /* Contact Section */
+        .contact {
+            background: var(--elite-black);
+            padding: 10rem 5vw;
+        }
+
+        .contact-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+        }
+
+        .contact-info h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 900;
+            margin-bottom: 2rem;
+            background: linear-gradient(135deg, var(--pure-white) 0%, var(--elite-gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            opacity: 0;
+            transform: translateX(-30px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .contact-details {
+            margin-top: 3rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            padding: 1.5rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .contact-item:nth-child(1) { transition-delay: 0.2s; }
+        .contact-item:nth-child(2) { transition-delay: 0.4s; }
+        .contact-item:nth-child(3) { transition-delay: 0.6s; }
+
+        .contact-icon {
+            font-size: 1.5rem;
+            color: var(--elite-gold);
+        }
+
+        .contact-text {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.1rem;
+        }
+
+        .contact-form {
+            background: var(--glass-white);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 3rem;
+            border-radius: 20px;
+            opacity: 0;
+            transform: translateX(30px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.3s;
+        }
+
+        .form-group {
+            margin-bottom: 2rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: var(--elite-gold);
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            color: var(--pure-white);
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--elite-gold);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--elite-black);
+            padding: 3rem 5vw;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .footer-logo img {
+            height: 64px;
+            width: auto;
+            filter: drop-shadow(0 2px 12px rgba(212, 175, 55, 0.3));
+        }
+
+        .snrg-credit {
+            width: 100%;
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .snrg-credit a {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.35);
+            font-weight: 700;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .snrg-credit a:hover {
+            color: var(--elite-gold);
+        }
+
+        .snrg-credit a::before {
+            content: '';
+            display: inline-block;
+            width: 22px;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.2);
+            transition: background 0.3s ease;
+        }
+
+        .snrg-credit a::after {
+            content: '';
+            display: inline-block;
+            width: 22px;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.2);
+            transition: background 0.3s ease;
+        }
+
+        .snrg-credit a:hover::before,
+        .snrg-credit a:hover::after {
+            background: var(--elite-gold);
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .social-link {
+            color: var(--pure-white);
+            font-size: 1.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .social-link:hover {
+            color: var(--elite-gold);
+        }
+
+        .footer-copyright {
+            width: 100%;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.875rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero {
+                padding: 8rem 5vw 6rem;
+                min-height: 100vh;
+            }
+
+            .hero-tagline {
+                font-size: 0.75rem;
+                margin-bottom: 1rem;
+            }
+
+            .hero-title {
+                font-size: clamp(2.5rem, 12vw, 4rem);
+                margin: 1.5rem 0;
+            }
+
+            .hero-motto {
+                font-size: clamp(0.9rem, 4vw, 1.2rem);
+                margin: 1.5rem 0;
+            }
+
+            .hero-cta {
+                flex-direction: column;
+                gap: 1rem;
+                margin-top: 2rem;
+                max-width: 100%;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 100%;
+                min-width: unset;
+                text-align: center;
+                padding: 1rem 2rem;
+            }
+
+            .contact-container {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            section {
+                padding: 5rem 5vw;
+            }
+
+            .programs-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .flip-card {
+                height: 550px;
+            }
+
+
+        }
+
+        /* Tablet and laptop optimization */
+        @media (min-width: 769px) and (max-width: 1200px) {
+            .hero {
+                padding: 9rem 5vw 7rem;
+            }
+
+            .hero-tagline {
+                font-size: 0.95rem;
+            }
+
+            .hero-cta {
+                max-width: 550px;
+            }
+
+            .btn {
+                min-width: 200px;
+                padding: 1rem 2.5rem;
+            }
+        }
+
+        /* Large tablets and small laptops */
+        @media (min-width: 1201px) and (max-width: 1440px) {
+            .hero-cta {
+                max-width: 600px;
+            }
+        }
+
+        /* Small phones */
+        @media (max-width: 375px) {
+            .btn {
+                font-size: 0.9rem;
+                padding: 0.875rem 1.5rem;
+            }
+
+            .hero-cta {
+                gap: 0.875rem;
+            }
+        }
+
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Selection */
+        ::selection {
+            background: var(--elite-gold);
+            color: var(--elite-black);
+        }
+    </style>
+</head>
+<body>
+    <!-- Court pattern overlay -->
+    <div class="court-pattern"></div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">
+            <img src="born-elite-logo.png" alt="Born Elite Basketball" />
+        </div>
+        <ul class="nav-links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#programs">Programs</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+            <div class="hero-tagline">Houston AAU Basketball</div>
+            <h1 class="hero-title">
+                <span>Born</span> <span>Elite</span>
+            </h1>
+            <p class="hero-motto">"We weren't sworn in it, we were born in it"</p>
+            <div class="hero-cta">
+                <a href="#contact" class="btn btn-primary">Join the Elite</a>
+                <a href="#programs" class="btn btn-secondary">View Programs</a>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- About Section - Flippable Cards -->
+    <section id="about" class="about">
+        <div class="section-label">Our Foundation</div>
+        <h2 class="section-title">Built Different</h2>
+        <p class="section-description">
+            Born Elite Basketball isn't just a program—it's a culture. We develop athletes who dominate on the court 
+            and excel in life. Houston-based excellence meets championship-caliber training.
+        </p>
+        
+        <div class="about-grid">
+            <!-- Card 1 - Championship DNA -->
+            <div class="flip-card">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <div class="card-image-placeholder"></div>
+                        <h3 class="about-card-title">Championship DNA</h3>
+                        <p class="about-card-text">
+                            Elite training programs designed to develop champions. Our athletes compete at the highest levels 
+                            and consistently secure college scholarships.
+                        </p>
+                        <button class="flip-icon" aria-label="Flip card" onclick="toggleFlip(this)">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46A7.93 7.93 0 0 0 20 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74A7.93 7.93 0 0 0 4 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z"/></svg>
+                        </button>
+                    </div>
+                    <div class="flip-card-back">
+                        <h3 class="about-card-title">Championship DNA</h3>
+                        <div class="card-back-details">
+                            <div class="card-back-item">
+                                <div class="card-back-label">Training Philosophy</div>
+                                <div class="card-back-value">
+                                    Championship mentality built through rigorous training, competitive exposure, and mental fortitude development.
+                                </div>
+                            </div>
+                            <div class="card-back-item">
+                                <div class="card-back-label">Success Rate</div>
+                                <div class="card-back-value">
+                                    95% of our athletes earn college roster spots with 80% receiving scholarship opportunities.
+                                </div>
+                            </div>
+                            <div class="card-back-item">
+                                <div class="card-back-label">Elite Coaching</div>
+                                <div class="card-back-value">
+                                    Former D1 and professional players bring championship experience to every session.
+                                </div>
+                            </div>
+                        </div>
+                        <button class="flip-icon" aria-label="Flip card back" onclick="toggleFlip(this)">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46A7.93 7.93 0 0 0 20 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74A7.93 7.93 0 0 0 4 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z"/></svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2 - Houston Pride -->
+            <div class="flip-card">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <div class="card-image-placeholder"></div>
+                        <h3 class="about-card-title">Houston Pride</h3>
+                        <p class="about-card-text">
+                            Representing H-Town with excellence. We embody the grit, determination, and resilience that 
+                            defines Houston basketball culture.
+                        </p>
+                        <button class="flip-icon" aria-label="Flip card" onclick="toggleFlip(this)">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46A7.93 7.93 0 0 0 20 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74A7.93 7.93 0 0 0 4 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z"/></svg>
+                        </button>
+                    </div>
+                    <div class="flip-card-back">
+                        <h3 class="about-card-title">Houston Pride</h3>
+                        <div class="card-back-details">
+                            <div class="card-back-item">
+                                <div class="card-back-label">Local Legacy</div>
+                                <div class="card-back-value">
+                                    Deep roots in Houston's basketball community with connections to top high school and college programs.
+                                </div>
+                            </div>
+                            <div class="card-back-item">
+                                <div class="card-back-label">H-Town Culture</div>
+                                <div class="card-back-value">
+                                    We embrace Houston's work ethic, resilience, and no-quit attitude in everything we do.
+                                </div>
+                            </div>
+                            <div class="card-back-item">
+                                <div class="card-back-label">Community Impact</div>
+                                <div class="card-back-value">
+                                    Active partnerships with local schools and community centers to give back to Houston.
+                                </div>
+                            </div>
+                        </div>
+                        <button class="flip-icon" aria-label="Flip card back" onclick="toggleFlip(this)">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46A7.93 7.93 0 0 0 20 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74A7.93 7.93 0 0 0 4 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z"/></svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3 - Elite Development -->
+            <div class="flip-card">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <div class="card-image-placeholder"></div>
+                        <h3 class="about-card-title">Elite Development</h3>
+                        <p class="about-card-text">
+                            Comprehensive player development focusing on skill mastery, basketball IQ, mental toughness, 
+                            and leadership both on and off the court.
+                        </p>
+                        <button class="flip-icon" aria-label="Flip card" onclick="toggleFlip(this)">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46A7.93 7.93 0 0 0 20 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74A7.93 7.93 0 0 0 4 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z"/></svg>
+                        </button>
+                    </div>
+                    <div class="flip-card-back">
+                        <h3 class="about-card-title">Elite Development</h3>
+                        <div class="card-back-details">
+                            <div class="card-back-item">
+                                <div class="card-back-label">Skill Progression</div>
+                                <div class="card-back-value">
+                                    Individualized development plans with measurable milestones and continuous assessment.
+                                </div>
+                            </div>
+                            <div class="card-back-item">
+                                <div class="card-back-label">Basketball IQ</div>
+                                <div class="card-back-value">
+                                    Film study, situational awareness training, and tactical understanding of the game.
+                                </div>
+                            </div>
+                            <div class="card-back-item">
+                                <div class="card-back-label">Life Skills</div>
+                                <div class="card-back-value">
+                                    Leadership development, academic support, and character building beyond basketball.
+                                </div>
+                            </div>
+                        </div>
+                        <button class="flip-icon" aria-label="Flip card back" onclick="toggleFlip(this)">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46A7.93 7.93 0 0 0 20 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74A7.93 7.93 0 0 0 4 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z"/></svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Programs Section -->
+    <section id="programs" class="programs">
+        <div class="section-label">What We Offer</div>
+        <h2 class="section-title">Elite Programs</h2>
+        <p class="section-description">
+            From fundamentals to advanced competition, our programs are designed to elevate every aspect of your game.
+        </p>
+
+        <div class="programs-grid">
+            <div class="program-card">
+                <h3 class="program-title">AAU Teams</h3>
+                <p class="program-description">
+                    Competitive travel teams that compete in elite tournaments nationwide. Exposure to college scouts 
+                    and high-level competition.
+                </p>
+                <ul class="program-features">
+                    <li>National tournament participation</li>
+                    <li>College exposure events</li>
+                    <li>Professional coaching staff</li>
+                    <li>Year-round development</li>
+                </ul>
+            </div>
+            <div class="program-card">
+                <h3 class="program-title">Skills Training</h3>
+                <p class="program-description">
+                    Intensive skill development sessions focusing on individual improvement and mastery of basketball 
+                    fundamentals.
+                </p>
+                <ul class="program-features">
+                    <li>Position-specific training</li>
+                    <li>Advanced ball-handling</li>
+                    <li>Shooting mechanics</li>
+                    <li>Defensive techniques</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="gallery">
+        <div class="section-label">Our Journey</div>
+        <h2 class="section-title">Moments of Excellence</h2>
+        
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <div class="gallery-placeholder">🏀</div>
+            </div>
+            <div class="gallery-item">
+                <div class="gallery-placeholder">⭐</div>
+            </div>
+            <div class="gallery-item">
+                <div class="gallery-placeholder">🔥</div>
+            </div>
+            <div class="gallery-item">
+                <div class="gallery-placeholder">💪</div>
+            </div>
+            <div class="gallery-item">
+                <div class="gallery-placeholder">👑</div>
+            </div>
+            <div class="gallery-item">
+                <div class="gallery-placeholder">⚡</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="contact-container">
+            <div class="contact-info">
+                <h2>Let's Build Champions Together</h2>
+                <div class="contact-details">
+                    <div class="contact-item">
+                        <div class="contact-icon">📍</div>
+                        <div class="contact-text">Houston, Texas</div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">📧</div>
+                        <div class="contact-text"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="acc5c2cac3eccec3dec2c9c0c5d8c982cfc3c1">[email&#160;protected]</a></div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">📱</div>
+                        <div class="contact-text">(713) XXX-XXXX</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="contact-form">
+                <form>
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <img src="born-elite-logo.png" alt="Born Elite Basketball" />
+            </div>
+            <div class="footer-social">
+                <a href="https://www.instagram.com/bornelitebasketball/" target="_blank" class="social-link">📷</a>
+                <a href="#" class="social-link">🐦</a>
+                <a href="#" class="social-link">📘</a>
+            </div>
+            <div class="footer-copyright">
+                © 2024 Born Elite Basketball. All rights reserved.
+            </div>
+            <div class="snrg-credit">
+                <a href="https://snrgweb.com" target="_blank" rel="noopener noreferrer">Built by SNRG Web</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Toggle flip on click
+        function toggleFlip(btn) {
+            const card = btn.closest('.flip-card');
+            card.classList.toggle('is-flipped');
+        }
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.2,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-in');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all animated elements
+        document.querySelectorAll('.section-label, .section-title, .section-description, .flip-card, .program-card, .gallery-item, .contact-info h2, .contact-item, .contact-form').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Smooth scroll for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Form submission
+        const form = document.querySelector('form');
+        if (form) {
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+                const btn = form.querySelector('button[type="submit"]');
+                const original = btn.textContent;
+                btn.textContent = 'Message Sent ✓';
+                btn.style.background = 'var(--court-green)';
+                btn.style.color = 'var(--pure-white)';
+                setTimeout(() => {
+                    btn.textContent = original;
+                    btn.style.background = '';
+                    btn.style.color = '';
+                    form.reset();
+                }, 3000);
+            });
+        }
+    </script>
+</body>
+</html>
