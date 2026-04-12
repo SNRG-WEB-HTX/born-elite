@@ -883,10 +883,11 @@
             }
 
             .hero {
-                padding: 3.9rem 5vw 2.6rem;
-                min-height: 100vh;
-                align-items: flex-start;
-                justify-content: flex-start;
+                margin-top: 6.375rem;
+                min-height: calc(100vh - 6.375rem);
+                padding: 0 5vw;
+                align-items: center;
+                justify-content: center;
             }
 
             .hero-content {
@@ -894,8 +895,7 @@
                 flex-direction: column;
                 align-items: center;
                 justify-content: center;
-                padding: 0 5vw;
-                transform: translateY(-10%);
+                padding: 0;
             }
 
             .hero-tagline {
@@ -1524,7 +1524,7 @@
                     </div>
                     <div class="contact-item">
                         <div class="contact-icon">📧</div>
-                        <div class="contact-text"><a href="mailto:info@bornelitebasketball.com">info@bornelitebasketball.com</a></div>
+                        <div class="contact-text"><a href="/cdn-cgi/l/email-protection#f891969e97b89a978a969d94918c9d9a998b939d8c9a999494d69b9795"><span class="__cf_email__" data-cfemail="6801060e07280a071a060d04011c0d0a091b030d1c0a090404460b0705">[email&#160;protected]</span></a></div>
                     </div>
                     <div class="contact-item">
                         <div class="contact-icon">📱</div>
@@ -1571,7 +1571,7 @@
         </div>
     </footer>
 
-    <script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
         // Toggle flip on click
         function toggleFlip(btn) {
             const card = btn.closest('.flip-card');
@@ -1665,15 +1665,4 @@
                 const target = document.querySelector(link.getAttribute('href'));
                 closeMenu();
                 setTimeout(() => {
-                    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }, 380);
-            });
-        });
-
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') closeMenu();
-        });
-
-    </script>
-</body>
-</html>
+                    if (target) ta
