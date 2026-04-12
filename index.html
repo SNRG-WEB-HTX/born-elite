@@ -883,11 +883,10 @@
             }
 
             .hero {
-                margin-top: 6.375rem;
-                min-height: calc(100vh - 6.375rem);
-                padding: 0 5vw;
-                align-items: center;
-                justify-content: center;
+                padding: 3.9rem 5vw 2.6rem;
+                min-height: 100vh;
+                align-items: flex-start;
+                justify-content: flex-start;
             }
 
             .hero-content {
@@ -895,8 +894,8 @@
                 flex-direction: column;
                 align-items: center;
                 justify-content: center;
-                padding: 0;
-                transform: translateY(-7%);
+                padding: 0 5vw;
+                transform: translateY(22%);
             }
 
             .hero-tagline {
@@ -1666,4 +1665,15 @@
                 const target = document.querySelector(link.getAttribute('href'));
                 closeMenu();
                 setTimeout(() => {
-                    if (target) ta
+                    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 380);
+            });
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeMenu();
+        });
+
+    </script>
+</body>
+</html>
