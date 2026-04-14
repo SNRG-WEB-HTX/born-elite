@@ -529,6 +529,40 @@
             line-height: 1.6;
         }
 
+
+        /* Flip-back button on card backs — desktop only */
+        .flip-back-btn {
+            position: absolute;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: rgba(85, 224, 37, 0.08);
+            border: 1.5px solid rgba(85, 224, 37, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+        .flip-back-btn:hover {
+            background: rgba(85, 224, 37, 0.18);
+            border-color: var(--elite-green);
+            transform: scale(1.1);
+            box-shadow: 0 0 14px rgba(85,224,37,0.35);
+        }
+        .flip-back-btn svg {
+            width: 18px;
+            height: 18px;
+            fill: var(--elite-green);
+        }
+        /* Hide on mobile — whole card is tappable */
+        @media (max-width: 768px) {
+            .flip-back-btn { display: none; }
+        }
+
         /* Programs Section */
         .programs {
             background: var(--elite-black);
@@ -1587,6 +1621,9 @@
                                 <div class="card-back-label">Elite Coaching</div>
                                 <div class="card-back-value">
                                     Former D1 and professional players bring championship experience to every session.
+                        <button class="flip-back-btn" aria-label="Flip card back" onclick="toggleFlip(this)">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 20v3l-4-4 4-4v3c3.31 0 6-2.69 6-6 0-1.01-.25-1.97-.7-2.8l1.46 1.46A7.93 7.93 0 0 1 20 12c0 4.42-3.58 8-8 8zm.5-16.5V1L8 5l4.5 4.5V7c2.76 0 5 2.24 5 5 0 .65-.13 1.26-.36 1.82l1.48 1.48A6.97 6.97 0 0 0 19.5 12c0-3.86-3.14-7-7-7z"/></svg>
+                        </button>
                                 </div>
                             </div>
                         </div>
@@ -1627,6 +1664,9 @@
                                 <div class="card-back-label">Community Impact</div>
                                 <div class="card-back-value">
                                     Active partnerships with local schools and community centers to give back to Houston.
+                        <button class="flip-back-btn" aria-label="Flip card back" onclick="toggleFlip(this)">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 20v3l-4-4 4-4v3c3.31 0 6-2.69 6-6 0-1.01-.25-1.97-.7-2.8l1.46 1.46A7.93 7.93 0 0 1 20 12c0 4.42-3.58 8-8 8zm.5-16.5V1L8 5l4.5 4.5V7c2.76 0 5 2.24 5 5 0 .65-.13 1.26-.36 1.82l1.48 1.48A6.97 6.97 0 0 0 19.5 12c0-3.86-3.14-7-7-7z"/></svg>
+                        </button>
                                 </div>
                             </div>
                         </div>
@@ -1667,6 +1707,9 @@
                                 <div class="card-back-label">Life Skills</div>
                                 <div class="card-back-value">
                                     Leadership development, academic support, and character building beyond basketball.
+                        <button class="flip-back-btn" aria-label="Flip card back" onclick="toggleFlip(this)">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 20v3l-4-4 4-4v3c3.31 0 6-2.69 6-6 0-1.01-.25-1.97-.7-2.8l1.46 1.46A7.93 7.93 0 0 1 20 12c0 4.42-3.58 8-8 8zm.5-16.5V1L8 5l4.5 4.5V7c2.76 0 5 2.24 5 5 0 .65-.13 1.26-.36 1.82l1.48 1.48A6.97 6.97 0 0 0 19.5 12c0-3.86-3.14-7-7-7z"/></svg>
+                        </button>
                                 </div>
                             </div>
                         </div>
@@ -1806,7 +1849,7 @@
                                 <polyline points="2,4 12,13 22,4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>
                         </div>
-                        <div class="contact-text"><a href="/cdn-cgi/l/email-protection#fb92959d94bb999489959e97928f9e999a88909e8f999a9797d5989496"><span class="__cf_email__" data-cfemail="c6afa8a0a986a4a9b4a8a3aaafb2a3a4a7b5ada3b2a4a7aaaae8a5a9ab">[email&#160;protected]</span></a></div>
+                        <div class="contact-text"><a href="/cdn-cgi/l/email-protection#fb92959d94bb999489959e97928f9e999a88909e8f999a9797d5989496"><span class="__cf_email__" data-cfemail="c6afa8a0a986a4a9b4a8a3aaafb2a3a4a7b5ada3b2a4a7aaaae8a5a9ab">info@born-elite.com</span></a></div>
                     </div>
                     <div class="contact-item">
                         <div class="contact-icon">
