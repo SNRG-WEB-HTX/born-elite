@@ -471,6 +471,7 @@
         .mobile-menu.is-open .mobile-nav-links li:nth-child(2){ opacity:1; transform:translateY(0); transition-delay:0.22s; }
         .mobile-menu.is-open .mobile-nav-links li:nth-child(3){ opacity:1; transform:translateY(0); transition-delay:0.29s; }
         .mobile-menu.is-open .mobile-nav-links li:nth-child(4){ opacity:1; transform:translateY(0); transition-delay:0.36s; }
+        .mobile-menu.is-open .mobile-nav-links li:nth-child(5){ opacity:1; transform:translateY(0); transition-delay:0.43s; }
         .mobile-link {
             display:block; font-family:'Playfair Display',serif;
             font-size:clamp(2.2rem,10vw,3.5rem); font-weight:900;
@@ -495,7 +496,7 @@
 
     <nav>
         <div class="logo">
-            <a href="index.html"><img src="born-elite-logo.png" alt="Born Elite" /></a>
+            <a href="index.html" aria-label="Born Elite — Go to Home"><img src="born-elite-logo.png" alt="Born Elite Basketball" /></a>
         </div>
         <ul class="nav-links">
             <li><a href="index.html#about">About</a></li>
@@ -516,8 +517,9 @@
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6L18 18"/><path d="M18 6L6 18"/></svg>
         </button>
         <div class="mobile-menu-inner">
-            <div class="mobile-logo"><img src="born-elite-logo.png" alt="Born Elite" /></div>
+            <div class="mobile-logo"><a href="index.html" aria-label="Go to Home"><img src="born-elite-logo.png" alt="Born Elite" /></a></div>
             <ul class="mobile-nav-links">
+                <li><a href="index.html" class="mobile-link">Home</a></li>
                 <li><a href="index.html#about" class="mobile-link">About</a></li>
                 <li><a href="index.html#programs" class="mobile-link">Programs</a></li>
                 <li><a href="gallery.html" class="mobile-link">Gallery</a></li>
