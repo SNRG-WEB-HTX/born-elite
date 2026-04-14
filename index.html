@@ -1943,4 +1943,15 @@
                 const target = document.querySelector(link.getAttribute('href'));
                 closeMenu();
                 setTimeout(() => {
-                    if (target) ta
+                    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 380);
+            });
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeMenu();
+        });
+
+    </script>
+</body>
+</html>
