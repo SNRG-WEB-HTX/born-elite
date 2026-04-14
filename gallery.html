@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Born Elite | Gallery</title>
+    <meta name="description" content="Born Elite Basketball — Photos and videos from the court.">
+    <link rel="icon" type="image/png" sizes="192x192" href="born-elite-logo.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="born-elite-logo.png">
+    <link rel="shortcut icon" type="image/png" href="born-elite-logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --elite-black: #0A0A0A;
+            --elite-green: #55E025;
+            --accent-green: #6DBF2E;
+            --pure-white: #FFFFFF;
+            --glass-white: rgba(255,255,255,0.07);
+            --glass-border: rgba(255,255,255,0.15);
+        }
+        *{ margin:0; padding:0; box-sizing:border-box; }
+        html { overflow-x:hidden; scroll-behavior:smooth; }
+        body {
+            font-family:'Inter',sans-serif;
+            background:var(--elite-black);
+            color:var(--pure-white);
+            overflow-x:hidden;
+            max-width:100vw;
+            line-height:1.6;
+        }
+        body,a,button {
+            cursor:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="%2355E025" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>'),auto;
+        }
+        .court-pattern {
+            position:fixed; top:0; left:0; width:100%; height:100%;
+            background-image:
+                linear-gradient(90deg,rgba(85,224,37,0.04) 1px,transparent 1px),
+                linear-gradient(0deg,rgba(255,255,255,0.02) 1px,transparent 1px);
+            background-size:50px 50px;
+            pointer-events:none; z-index:1;
+        }
+
+        /* ── NAV ── */
+        nav {
+            position:fixed; top:0; width:100%;
+            padding:0.875rem 5vw;
+            display:flex; justify-content:space-between; align-items:center;
+            z-index:100;
+            background:rgba(4,4,4,0.97);
+            backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px);
+            border-bottom:1px solid rgba(109,191,46,0.2);
+            box-shadow:0 2px 20px rgba(0,0,0,0.5);
+        }
+        .logo { display:flex; align-items:center; }
+        .logo img {
+            height:74px; width:auto; display:block;
+            filter:drop-shadow(0 2px 8px rgba(0,0,0,0.6));
+            transition:filter 0.3s ease;
+        }
+        .logo img:hover { filter:drop-shadow(0 4px 16px rgba(0,0,0,0.8)); }
+        .nav-links { display:flex; gap:2rem; list-style:none; }
+        .nav-links a {
+            color:rgba(255,255,255,0.82); text-decoration:none;
+            font-size:0.85rem; font-weight:600; letter-spacing:0.12em;
+            text-transform:uppercase; transition:all 0.25s ease; position:relative;
+        }
+        .nav-links a::after {
+            content:''; position:absolute; bottom:-5px; left:0;
+            width:0; height:2px; background:var(--accent-green); transition:width 0.3s ease;
+        }
+        .nav-links a:hover { color:#55E025; }
+        .nav-links a:hover::after { width:100%; }
+        .nav-links a.active { color:#55E025; }
+        .nav-links a.active::after { width:100%; }
+
+        /* ── PAGE HEADER ── */
+        .page-header {
+            padding: 8rem 5vw 3rem;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+        .page-header-label {
+            font-size:0.875rem; letter-spacing:0.2em; text-transform:uppercase;
+            color:var(--accent-green); font-weight:600; margin-bottom:0.5rem;
+        }
+        .page-header-title {
+            font-family:'Playfair Display',serif;
+            font-size:clamp(2.5rem,7vw,5rem); font-weight:900; line-height:1.1;
+            color:#FFFFFF;
+            text-shadow:0 0 30px rgba(109,191,46,0.4),0 0 60px rgba(85,224,37,0.15);
+        }
+
+        /* ── TABS ── */
+        .tabs-wrap {
+            display:flex; justify-content:center;
+            padding:0 5vw 3rem;
+            position:relative; z-index:2;
+        }
+        .tabs {
+            display:inline-flex;
+            background:rgba(255,255,255,0.04);
+            border:1px solid rgba(109,191,46,0.25);
+            border-radius:100px;
+            padding:4px;
+            gap:4px;
+        }
+        .tab-btn {
+            padding:0.65rem 2.25rem;
+            border:none; border-radius:100px;
+            font-family:'Inter',sans-serif; font-size:0.85rem;
+            font-weight:700; letter-spacing:0.1em; text-transform:uppercase;
+            background:transparent; color:rgba(255,255,255,0.55);
+            cursor:pointer; transition:all 0.28s ease;
+            display:flex; align-items:center; gap:0.5rem;
+        }
+        .tab-btn svg { width:16px; height:16px; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round; }
+        .tab-btn.active {
+            background:var(--elite-green); color:#0A0A0A;
+            box-shadow:0 0 16px rgba(85,224,37,0.4),0 0 36px rgba(85,224,37,0.15);
+        }
+        .tab-btn:not(.active):hover { color:rgba(255,255,255,0.85); }
+
+        /* ── TAB PANELS ── */
+        .tab-panel { display:none; }
+        .tab-panel.active { display:block; }
+
+        /* ── PHOTO GRID ── */
+        .photo-section {
+            padding:0 5vw 5rem;
+            position:relative; z-index:2;
+        }
+        .pg-count {
+            font-size:0.8rem; color:rgba(255,255,255,0.4);
+            letter-spacing:0.1em; margin-bottom:1.5rem;
+            text-align:right;
+        }
+        .photo-grid {
+            display:grid;
+            grid-template-columns:repeat(4,1fr);
+            gap:6px;
+        }
+        @media(max-width:1024px){ .photo-grid{ grid-template-columns:repeat(3,1fr); } }
+        @media(max-width:640px){ .photo-grid{ grid-template-columns:repeat(2,1fr); gap:4px; } }
+        @media(max-width:400px){ .photo-grid{ grid-template-columns:1fr; } }
+
+        .pg-item {
+            position:relative; aspect-ratio:3/2;
+            overflow:hidden; border-radius:6px;
+            background:#111;
+            cursor:pointer;
+            border:1px solid rgba(109,191,46,0.08);
+            transition:border-color 0.25s ease, box-shadow 0.25s ease;
+        }
+        .pg-item:hover { border-color:rgba(85,224,37,0.4); box-shadow:0 0 14px rgba(85,224,37,0.15); }
+        .pg-item img {
+            width:100%; height:100%;
+            object-fit:cover; object-position:center;
+            display:block; transition:transform 0.4s ease;
+        }
+        .pg-item:hover img { transform:scale(1.04); }
+        .pg-overlay {
+            position:absolute; inset:0;
+            background:rgba(0,0,0,0);
+            display:flex; align-items:center; justify-content:center;
+            opacity:0; transition:all 0.25s ease;
+        }
+        .pg-overlay svg {
+            width:28px; height:28px;
+            stroke:rgba(255,255,255,0.95); transform:scale(0.8);
+            transition:transform 0.25s ease;
+        }
+        .pg-item:hover .pg-overlay { opacity:1; background:rgba(0,0,0,0.35); }
+        .pg-item:hover .pg-overlay svg { transform:scale(1); }
+
+        /* ── VIDEO GRID ── */
+        .video-section {
+            padding:0 5vw 5rem;
+            position:relative; z-index:2;
+        }
+        .video-grid {
+            display:grid;
+            grid-template-columns:repeat(3,1fr);
+            gap:1rem;
+        }
+        @media(max-width:900px){ .video-grid{ grid-template-columns:repeat(2,1fr); } }
+        @media(max-width:540px){ .video-grid{ grid-template-columns:1fr; } }
+
+        .vid-item {
+            position:relative; aspect-ratio:9/16;
+            overflow:hidden; border-radius:12px;
+            background:#0d0d0d;
+            border:1px solid rgba(109,191,46,0.2);
+            box-shadow:0 0 0 1px rgba(109,191,46,0.06),0 0 18px rgba(85,224,37,0.06);
+            cursor:pointer; transition:all 0.3s ease;
+        }
+        .vid-item:hover {
+            border-color:rgba(85,224,37,0.5);
+            box-shadow:0 0 0 1px rgba(85,224,37,0.15),0 0 28px rgba(85,224,37,0.2);
+        }
+        .vid-item video {
+            width:100%; height:100%;
+            object-fit:cover; display:block;
+            transition:transform 0.4s ease;
+        }
+        .vid-item:hover video { transform:scale(1.03); }
+        .vid-play-btn {
+            position:absolute; inset:0;
+            display:flex; align-items:center; justify-content:center;
+            background:rgba(0,0,0,0.25);
+            transition:background 0.25s ease;
+        }
+        .vid-play-btn svg {
+            width:52px; height:52px;
+            stroke:rgba(255,255,255,0.9); transition:all 0.25s ease;
+            filter:drop-shadow(0 0 8px rgba(85,224,37,0.5));
+        }
+        .vid-item:hover .vid-play-btn { background:rgba(0,0,0,0.1); }
+        .vid-item:hover .vid-play-btn svg {
+            stroke:var(--elite-green);
+            filter:drop-shadow(0 0 16px rgba(85,224,37,0.8));
+            transform:scale(1.1);
+        }
+        .vid-item.is-playing .vid-play-btn { opacity:0; }
+        .vid-item.is-playing:hover .vid-play-btn { opacity:1; }
+
+        /* ── LIGHTBOX ── */
+        .lightbox {
+            position:fixed; inset:0; z-index:500;
+            background:rgba(0,0,0,0.96);
+            display:flex; align-items:center; justify-content:center;
+            opacity:0; pointer-events:none;
+            transition:opacity 0.3s ease;
+        }
+        .lightbox.open { opacity:1; pointer-events:all; }
+        .lb-img {
+            max-width:92vw; max-height:88vh;
+            object-fit:contain; border-radius:4px;
+            display:block;
+            box-shadow:0 0 0 1px rgba(109,191,46,0.15),0 0 60px rgba(0,0,0,0.8);
+        }
+        .lb-close {
+            position:absolute; top:1.25rem; right:1.25rem;
+            width:44px; height:44px; border-radius:50%;
+            background:rgba(12,12,12,0.9);
+            border:1.5px solid rgba(109,191,46,0.4);
+            color:#fff; display:flex; align-items:center; justify-content:center;
+            cursor:pointer; transition:all 0.25s ease; z-index:10;
+        }
+        .lb-close:hover { border-color:var(--elite-green); box-shadow:0 0 14px rgba(85,224,37,0.4); }
+        .lb-close svg { width:18px; height:18px; stroke:currentColor; fill:none; stroke-width:2.5; stroke-linecap:round; }
+        .lb-nav-btn {
+            position:absolute; top:50%; transform:translateY(-50%);
+            width:48px; height:48px; border-radius:50%;
+            background:rgba(12,12,12,0.85);
+            border:1.5px solid rgba(109,191,46,0.35);
+            color:#fff; display:flex; align-items:center; justify-content:center;
+            cursor:pointer; transition:all 0.25s ease; z-index:10;
+        }
+        .lb-nav-btn:hover { border-color:var(--elite-green); box-shadow:0 0 14px rgba(85,224,37,0.4); color:var(--elite-green); }
+        .lb-nav-btn svg { width:20px; height:20px; stroke:currentColor; fill:none; stroke-width:2.5; stroke-linecap:round; stroke-linejoin:round; }
+        .lb-prev { left:1.25rem; }
+        .lb-next { right:1.25rem; }
+        .lb-counter {
+            position:absolute; bottom:1.25rem; left:50%; transform:translateX(-50%);
+            font-size:0.8rem; letter-spacing:0.1em; color:rgba(255,255,255,0.5);
+            font-family:'Space Mono',monospace;
+        }
+        @media(max-width:640px){
+            .lb-nav-btn{ width:38px; height:38px; }
+            .lb-prev{ left:0.5rem; } .lb-next{ right:0.5rem; }
+        }
+
+        /* ── FOOTER ── */
+        footer {
+            background:var(--elite-black);
+            padding:3rem 5vw 2.5rem;
+            border-top:1px solid rgba(109,191,46,0.15);
+            text-align:center;
+        }
+        .footer-content {
+            max-width:400px; margin:0 auto;
+            display:flex; flex-direction:column; align-items:center; gap:1.5rem;
+        }
+        .footer-logo img { height:90px; width:auto; filter:drop-shadow(0 2px 12px rgba(0,0,0,0.7)); }
+        .social-link {
+            color:var(--accent-green); display:flex; align-items:center; justify-content:center;
+            width:58px; height:58px; border-radius:50%;
+            border:2px solid rgba(109,191,46,0.45);
+            background:rgba(109,191,46,0.06); transition:all 0.3s ease;
+        }
+        .social-link svg { width:28px; height:28px; }
+        .social-link:hover {
+            color:#fff; border-color:var(--elite-green);
+            background:rgba(85,224,37,0.15); box-shadow:0 0 20px rgba(85,224,37,0.5);
+            transform:translateY(-3px) scale(1.06);
+        }
+        .snrg-credit { display:flex; align-items:center; justify-content:center; }
+        .snrg-credit a {
+            display:inline-flex; align-items:center; gap:0.75rem;
+            text-decoration:none; font-family:'Space Mono',monospace;
+            font-size:0.8rem; letter-spacing:0.22em; text-transform:uppercase;
+            color:var(--accent-green); font-weight:700; transition:all 0.3s ease;
+        }
+        .snrg-credit a:hover { color:var(--elite-green); letter-spacing:0.28em; }
+        .snrg-credit a::before,.snrg-credit a::after {
+            content:''; display:inline-block; width:36px; height:1px;
+            background:linear-gradient(90deg,transparent,var(--accent-green)); transition:all 0.3s ease;
+        }
+        .snrg-credit a::after { background:linear-gradient(90deg,var(--accent-green),transparent); }
+        .snrg-credit a:hover::before,.snrg-credit a:hover::after { width:48px; background:linear-gradient(90deg,transparent,var(--elite-green)); }
+        .snrg-credit a:hover::after { background:linear-gradient(90deg,var(--elite-green),transparent); }
+        ::selection { background:var(--accent-green); color:var(--elite-black); }
+
+        /* ── HAMBURGER ── */
+        .hamburger {
+            display:none; flex-direction:column; justify-content:center; align-items:center;
+            gap:5px; width:44px; height:44px; background:none; border:none; cursor:pointer; z-index:200; padding:0;
+        }
+        .ham-line {
+            display:block; width:26px; height:2px; background:#FFF; border-radius:2px;
+            transition:all 0.35s cubic-bezier(0.4,0,0.2,1); transform-origin:center;
+            box-shadow:0 0 6px rgba(255,255,255,0.5);
+        }
+        .hamburger.is-open .ham-line:nth-child(1){ transform:translateY(7px) rotate(45deg); background:#55E025; box-shadow:0 0 10px rgba(85,224,37,0.8); }
+        .hamburger.is-open .ham-line:nth-child(2){ opacity:0; transform:scaleX(0); }
+        .hamburger.is-open .ham-line:nth-child(3){ transform:translateY(-7px) rotate(-45deg); background:#55E025; box-shadow:0 0 10px rgba(85,224,37,0.8); }
+        .mobile-menu {
+            position:fixed; inset:0; z-index:150;
+            display:flex; align-items:center; justify-content:center;
+            pointer-events:none; visibility:hidden;
+        }
+        .mobile-menu-bg { position:absolute; inset:0; background:#060606; opacity:0; transition:opacity 0.4s ease; }
+        .mobile-menu.is-open { pointer-events:all; visibility:visible; }
+        .mobile-menu.is-open .mobile-menu-bg { opacity:0.97; }
+        .mobile-menu-close {
+            position:absolute; top:max(1rem,env(safe-area-inset-top,0px)); right:max(1rem,env(safe-area-inset-right,0px));
+            z-index:3; width:52px; height:52px; display:flex; align-items:center; justify-content:center;
+            border-radius:50%; border:1.5px solid rgba(109,191,46,0.38); background:rgba(8,8,8,0.82);
+            backdrop-filter:blur(12px); color:#FFF; cursor:pointer;
+            opacity:0; transform:translateY(-10px) scale(0.94); transition:all 0.28s ease;
+        }
+        .mobile-menu.is-open .mobile-menu-close{ opacity:1; transform:translateY(0) scale(1); }
+        .mobile-menu-close:hover{ color:#55E025; border-color:rgba(85,224,37,0.7); box-shadow:0 0 20px rgba(85,224,37,0.28); outline:none; }
+        .mobile-menu-close svg{ width:20px; height:20px; stroke:currentColor; stroke-width:2.25; fill:none; stroke-linecap:round; stroke-linejoin:round; }
+        .mobile-menu-inner{
+            position:relative; z-index:1; display:flex; flex-direction:column;
+            align-items:center; justify-content:center; gap:2rem; width:100%; height:100%; padding:2rem;
+        }
+        .mobile-logo img { height:80px; width:auto; opacity:0; transform:translateY(-16px); transition:all 0.35s cubic-bezier(0.4,0,0.2,1) 0.1s; }
+        .mobile-menu.is-open .mobile-logo img { opacity:1; transform:translateY(0); }
+        .mobile-nav-links { list-style:none; display:flex; flex-direction:column; align-items:center; gap:0; }
+        .mobile-nav-links li { opacity:0; transform:translateY(20px); transition:all 0.38s cubic-bezier(0.4,0,0.2,1); }
+        .mobile-menu.is-open .mobile-nav-links li:nth-child(1){ opacity:1; transform:translateY(0); transition-delay:0.15s; }
+        .mobile-menu.is-open .mobile-nav-links li:nth-child(2){ opacity:1; transform:translateY(0); transition-delay:0.22s; }
+        .mobile-menu.is-open .mobile-nav-links li:nth-child(3){ opacity:1; transform:translateY(0); transition-delay:0.29s; }
+        .mobile-menu.is-open .mobile-nav-links li:nth-child(4){ opacity:1; transform:translateY(0); transition-delay:0.36s; }
+        .mobile-link {
+            display:block; font-family:'Playfair Display',serif;
+            font-size:clamp(2.2rem,10vw,3.5rem); font-weight:900;
+            color:#FFF; text-decoration:none; text-transform:uppercase;
+            letter-spacing:0.04em; line-height:1.15; transition:all 0.22s ease;
+            text-align:center; padding:0.15rem 0;
+            text-shadow:0 0 18px rgba(109,191,46,0.45),0 0 36px rgba(85,224,37,0.18);
+        }
+        .mobile-link:hover { letter-spacing:0.06em; }
+        .mobile-menu-footer{ opacity:0; transform:translateY(12px); transition:all 0.35s ease 0.4s; }
+        .mobile-menu.is-open .mobile-menu-footer{ opacity:1; transform:translateY(0); }
+        .mobile-ig{
+            color:#6DBF2E; display:flex; align-items:center; justify-content:center;
+            width:50px; height:50px; border-radius:50%; border:1.5px solid rgba(109,191,46,0.4); transition:all 0.3s ease;
+        }
+        .mobile-ig:hover{ color:#55E025; border-color:#55E025; box-shadow:0 0 18px rgba(85,224,37,0.5); }
+        @media(max-width:768px){ .hamburger{ display:flex; } .nav-links{ display:none; } }
+    </style>
+</head>
+<body>
+    <div class="court-pattern"></div>
+
+    <nav>
+        <div class="logo">
+            <a href="index.html"><img src="born-elite-logo.png" alt="Born Elite" /></a>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html#about">About</a></li>
+            <li><a href="index.html#programs">Programs</a></li>
+            <li><a href="gallery.html" class="active">Gallery</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+        <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+            <span class="ham-line"></span>
+            <span class="ham-line"></span>
+            <span class="ham-line"></span>
+        </button>
+    </nav>
+
+    <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+        <div class="mobile-menu-bg"></div>
+        <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6L18 18"/><path d="M18 6L6 18"/></svg>
+        </button>
+        <div class="mobile-menu-inner">
+            <div class="mobile-logo"><img src="born-elite-logo.png" alt="Born Elite" /></div>
+            <ul class="mobile-nav-links">
+                <li><a href="index.html#about" class="mobile-link">About</a></li>
+                <li><a href="index.html#programs" class="mobile-link">Programs</a></li>
+                <li><a href="gallery.html" class="mobile-link">Gallery</a></li>
+                <li><a href="index.html#contact" class="mobile-link">Contact</a></li>
+            </ul>
+            <div class="mobile-menu-footer">
+                <a href="https://www.instagram.com/bornelitebasketball/" target="_blank" class="mobile-ig">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                        <rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="2"/>
+                        <circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="2"/>
+                        <circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-header">
+        <div class="page-header-label">Born Elite Basketball</div>
+        <h1 class="page-header-title">Gallery</h1>
+    </div>
+
+    <div class="tabs-wrap">
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="photos">
+                <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21,15 16,10 5,21"/></svg>
+                Photos <span style="opacity:0.6;font-weight:400">(54)</span>
+            </button>
+            <button class="tab-btn" data-tab="videos">
+                <svg viewBox="0 0 24 24"><polygon points="23,7 16,12 23,17"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+                Videos <span style="opacity:0.6;font-weight:400">(6)</span>
+            </button>
+        </div>
+    </div>
+
+    <div id="tab-photos" class="tab-panel active">
+        <div class="photo-section">
+            <div class="pg-count">54 photographs</div>
+            <div class="photo-grid">
+                <div class="pg-item" data-index="0">
+                    <img src="7-DSC_8411.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="1">
+                    <img src="8-DSC_8409.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="2">
+                    <img src="9-DSC_8403.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="3">
+                    <img src="10-DSC_8404.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="4">
+                    <img src="11-DSC_8401.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="5">
+                    <img src="12-DSC_8402.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="6">
+                    <img src="13-DSC_8394.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="7">
+                    <img src="14-DSC_8375.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="8">
+                    <img src="15-DSC_8378.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="9">
+                    <img src="16-DSC_8399.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="10">
+                    <img src="17-DSC_8392.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="11">
+                    <img src="18-DSC_8393.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="12">
+                    <img src="19-DSC_8384.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="13">
+                    <img src="20-DSC_8391.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="14">
+                    <img src="21-DSC_8381.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="15">
+                    <img src="22-DSC_8383.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="16">
+                    <img src="23-DSC_8380.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="17">
+                    <img src="24-DSC_8379.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="18">
+                    <img src="25-DSC_8377.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="19">
+                    <img src="26-DSC_8374.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="20">
+                    <img src="27-DSC_8340.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="21">
+                    <img src="28-DSC_8369.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="22">
+                    <img src="29-DSC_8368.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="23">
+                    <img src="30-DSC_8367.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="24">
+                    <img src="31-DSC_8365.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="25">
+                    <img src="32-DSC_8366.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="26">
+                    <img src="33-DSC_8353.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="27">
+                    <img src="34-DSC_8328.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="28">
+                    <img src="35-DSC_8359.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="29">
+                    <img src="36-DSC_8351.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="30">
+                    <img src="37-DSC_8348.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="31">
+                    <img src="38-DSC_8346.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="32">
+                    <img src="39-DSC_8341.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="33">
+                    <img src="40-DSC_8330.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="34">
+                    <img src="41-DSC_8331.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="35">
+                    <img src="42-DSC_8332.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="36">
+                    <img src="43-DSC_8327.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="37">
+                    <img src="44-DSC_8322.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="38">
+                    <img src="45-DSC_8326.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="39">
+                    <img src="46-DSC_8319.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="40">
+                    <img src="47-DSC_8324.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="41">
+                    <img src="48-DSC_8314.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="42">
+                    <img src="49-DSC_8318.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="43">
+                    <img src="50-DSC_8308.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="44">
+                    <img src="51-DSC_8312.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="45">
+                    <img src="52-DSC_8304.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="46">
+                    <img src="53-DSC_8307.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="47">
+                    <img src="54-DSC_8300.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="48">
+                    <img src="55-DSC_8292.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="49">
+                    <img src="56-DSC_8302.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="50">
+                    <img src="57-DSC_8294.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="51">
+                    <img src="58-DSC_8299.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="52">
+                    <img src="59-DSC_8291.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="53">
+                    <img src="60-DSC_8286.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="tab-videos" class="tab-panel">
+        <div class="video-section">
+            <div class="video-grid">
+                <div class="vid-item">
+                    <video preload="metadata" playsinline muted loop>
+                        <source src="1-DSC_8412.mp4" type="video/mp4">
+                    </video>
+                    <div class="vid-play-btn"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.8"/><polygon points="10,8 16,12 10,16" fill="currentColor"/></svg></div>
+                </div>
+                <div class="vid-item">
+                    <video preload="metadata" playsinline muted loop>
+                        <source src="2-DSC_8390.mp4" type="video/mp4">
+                    </video>
+                    <div class="vid-play-btn"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.8"/><polygon points="10,8 16,12 10,16" fill="currentColor"/></svg></div>
+                </div>
+                <div class="vid-item">
+                    <video preload="metadata" playsinline muted loop>
+                        <source src="3-DSC_8389.mp4" type="video/mp4">
+                    </video>
+                    <div class="vid-play-btn"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.8"/><polygon points="10,8 16,12 10,16" fill="currentColor"/></svg></div>
+                </div>
+                <div class="vid-item">
+                    <video preload="metadata" playsinline muted loop>
+                        <source src="4-DSC_8388.mp4" type="video/mp4">
+                    </video>
+                    <div class="vid-play-btn"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.8"/><polygon points="10,8 16,12 10,16" fill="currentColor"/></svg></div>
+                </div>
+                <div class="vid-item">
+                    <video preload="metadata" playsinline muted loop>
+                        <source src="5-DSC_8385.mp4" type="video/mp4">
+                    </video>
+                    <div class="vid-play-btn"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.8"/><polygon points="10,8 16,12 10,16" fill="currentColor"/></svg></div>
+                </div>
+                <div class="vid-item">
+                    <video preload="metadata" playsinline muted loop>
+                        <source src="6-DSC_8197.mp4" type="video/mp4">
+                    </video>
+                    <div class="vid-play-btn"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.8"/><polygon points="10,8 16,12 10,16" fill="currentColor"/></svg></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox" role="dialog" aria-label="Image viewer">
+        <button class="lb-close" id="lbClose" aria-label="Close"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+        <button class="lb-nav-btn lb-prev" id="lbPrev" aria-label="Previous"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+        <img class="lb-img" id="lbImg" src="" alt="" />
+        <button class="lb-nav-btn lb-next" id="lbNext" aria-label="Next"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
+        <div class="lb-counter" id="lbCounter"></div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo"><img src="born-elite-logo.png" alt="Born Elite Basketball" /></div>
+            <a href="https://www.instagram.com/bornelitebasketball/" target="_blank" class="social-link" aria-label="Instagram">
+                <svg viewBox="0 0 24 24" fill="none">
+                    <rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="2"/>
+                    <circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="2"/>
+                    <circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/>
+                </svg>
+            </a>
+            <div class="snrg-credit">
+                <a href="https://snrgweb.com" target="_blank" rel="noopener noreferrer">Built by SNRG Web</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const PHOTOS = ["7-DSC_8411.jpg", "8-DSC_8409.jpg", "9-DSC_8403.jpg", "10-DSC_8404.jpg", "11-DSC_8401.jpg", "12-DSC_8402.jpg", "13-DSC_8394.jpg", "14-DSC_8375.jpg", "15-DSC_8378.jpg", "16-DSC_8399.jpg", "17-DSC_8392.jpg", "18-DSC_8393.jpg", "19-DSC_8384.jpg", "20-DSC_8391.jpg", "21-DSC_8381.jpg", "22-DSC_8383.jpg", "23-DSC_8380.jpg", "24-DSC_8379.jpg", "25-DSC_8377.jpg", "26-DSC_8374.jpg", "27-DSC_8340.jpg", "28-DSC_8369.jpg", "29-DSC_8368.jpg", "30-DSC_8367.jpg", "31-DSC_8365.jpg", "32-DSC_8366.jpg", "33-DSC_8353.jpg", "34-DSC_8328.jpg", "35-DSC_8359.jpg", "36-DSC_8351.jpg", "37-DSC_8348.jpg", "38-DSC_8346.jpg", "39-DSC_8341.jpg", "40-DSC_8330.jpg", "41-DSC_8331.jpg", "42-DSC_8332.jpg", "43-DSC_8327.jpg", "44-DSC_8322.jpg", "45-DSC_8326.jpg", "46-DSC_8319.jpg", "47-DSC_8324.jpg", "48-DSC_8314.jpg", "49-DSC_8318.jpg", "50-DSC_8308.jpg", "51-DSC_8312.jpg", "52-DSC_8304.jpg", "53-DSC_8307.jpg", "54-DSC_8300.jpg", "55-DSC_8292.jpg", "56-DSC_8302.jpg", "57-DSC_8294.jpg", "58-DSC_8299.jpg", "59-DSC_8291.jpg", "60-DSC_8286.jpg"];
+        let lbIndex = 0;
+
+        // ── Tabs ──
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+                btn.classList.add('active');
+                document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+            });
+        });
+
+        // ── Lightbox ──
+        function openLb(idx) {
+            lbIndex = idx;
+            const lb = document.getElementById('lightbox');
+            document.getElementById('lbImg').src = PHOTOS[idx];
+            document.getElementById('lbImg').alt = 'Photo ' + (idx+1);
+            document.getElementById('lbCounter').textContent = (idx+1) + ' / ' + PHOTOS.length;
+            lb.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeLb() {
+            document.getElementById('lightbox').classList.remove('open');
+            document.body.style.overflow = '';
+        }
+        function lbNav(dir) {
+            lbIndex = (lbIndex + dir + PHOTOS.length) % PHOTOS.length;
+            document.getElementById('lbImg').src = PHOTOS[lbIndex];
+            document.getElementById('lbCounter').textContent = (lbIndex+1) + ' / ' + PHOTOS.length;
+        }
+
+        document.querySelectorAll('.pg-item').forEach((item, i) => {
+            item.addEventListener('click', () => openLb(i));
+        });
+        document.getElementById('lbClose').addEventListener('click', closeLb);
+        document.getElementById('lbPrev').addEventListener('click', () => lbNav(-1));
+        document.getElementById('lbNext').addEventListener('click', () => lbNav(1));
+        document.getElementById('lightbox').addEventListener('click', e => { if(e.target === e.currentTarget) closeLb(); });
+        document.addEventListener('keydown', e => {
+            if (!document.getElementById('lightbox').classList.contains('open')) return;
+            if (e.key === 'Escape') closeLb();
+            if (e.key === 'ArrowLeft') lbNav(-1);
+            if (e.key === 'ArrowRight') lbNav(1);
+        });
+
+        // Touch swipe on lightbox
+        let lbStartX = 0;
+        document.getElementById('lbImg').addEventListener('touchstart', e => { lbStartX = e.touches[0].clientX; }, {passive:true});
+        document.getElementById('lbImg').addEventListener('touchend', e => {
+            const dx = e.changedTouches[0].clientX - lbStartX;
+            if (Math.abs(dx) > 40) lbNav(dx < 0 ? 1 : -1);
+        });
+
+        // ── Videos ──
+        document.querySelectorAll('.vid-item').forEach(item => {
+            const video = item.querySelector('video');
+            item.addEventListener('click', () => {
+                if (item.classList.contains('is-playing')) {
+                    video.pause(); item.classList.remove('is-playing');
+                } else {
+                    document.querySelectorAll('.vid-item.is-playing').forEach(v => {
+                        v.querySelector('video').pause(); v.classList.remove('is-playing');
+                    });
+                    video.play(); item.classList.add('is-playing');
+                }
+            });
+            video.addEventListener('ended', () => { item.classList.remove('is-playing'); });
+        });
+
+        // ── Hamburger ──
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileMenuClose = document.getElementById('mobileMenuClose');
+        function openMenu() {
+            hamburger.classList.add('is-open'); mobileMenu.classList.add('is-open');
+            hamburger.setAttribute('aria-expanded','true'); mobileMenu.setAttribute('aria-hidden','false');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeMenu() {
+            hamburger.classList.remove('is-open'); mobileMenu.classList.remove('is-open');
+            hamburger.setAttribute('aria-expanded','false'); mobileMenu.setAttribute('aria-hidden','true');
+            document.body.style.overflow = '';
+        }
+        hamburger.addEventListener('click', () => { hamburger.classList.contains('is-open') ? closeMenu() : openMenu(); });
+        if(mobileMenuClose) mobileMenuClose.addEventListener('click', closeMenu);
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', e => {
+                closeMenu();
+            });
+        });
+        document.addEventListener('keydown', e => { if(e.key==='Escape') closeMenu(); });
+    </script>
+</body>
+</html>
