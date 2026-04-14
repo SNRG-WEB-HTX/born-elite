@@ -315,7 +315,7 @@
 
         /* Section styles */
         section {
-            padding: 4.5rem 5vw;
+            padding: 5.5rem 5vw;
             position: relative;
             z-index: 2;
         }
@@ -460,7 +460,7 @@
 
         .card-image-wrap {
             width: 100%;
-            height: 230px;
+            height: 260px;
             border-radius: 10px;
             margin-bottom: 1rem;
             overflow: hidden;
@@ -1107,7 +1107,7 @@
             }
 
             section {
-                padding: 3rem 5vw;
+                padding: 3.5rem 5vw;
             }
 
             .section-label,
@@ -1176,6 +1176,62 @@
                 gap: 0.875rem;
             }
         }
+
+
+        /* ── Premium scrollbar ── */
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: #0A0A0A; }
+        ::-webkit-scrollbar-thumb { background: rgba(109,191,46,0.5); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--elite-green); }
+
+        /* ── Scroll-triggered fade-rise system ── */
+        @keyframes eliteFadeRise {
+            from { opacity: 0; transform: translateY(52px) scale(0.97); }
+            to   { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        @keyframes eliteFadeLeft {
+            from { opacity: 0; transform: translateX(-40px); }
+            to   { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes eliteFadeRight {
+            from { opacity: 0; transform: translateX(40px); }
+            to   { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes eliteScaleIn {
+            from { opacity: 0; transform: scale(0.88); }
+            to   { opacity: 1; transform: scale(1); }
+        }
+
+        .fr-ready {
+            opacity: 0;
+        }
+        .fr-ready.fr-visible {
+            animation: eliteFadeRise 0.85s cubic-bezier(0.16,1,0.3,1) forwards;
+        }
+        .fr-left.fr-visible  { animation: eliteFadeLeft  0.8s cubic-bezier(0.16,1,0.3,1) forwards; }
+        .fr-right.fr-visible { animation: eliteFadeRight 0.8s cubic-bezier(0.16,1,0.3,1) forwards; }
+        .fr-scale.fr-visible { animation: eliteScaleIn   0.75s cubic-bezier(0.16,1,0.3,1) forwards; }
+
+        .fr-d1  { animation-delay: 0.08s !important; }
+        .fr-d2  { animation-delay: 0.16s !important; }
+        .fr-d3  { animation-delay: 0.24s !important; }
+        .fr-d4  { animation-delay: 0.32s !important; }
+        .fr-d5  { animation-delay: 0.42s !important; }
+        .fr-d6  { animation-delay: 0.52s !important; }
+
+        /* Section divider line */
+        section + section::before {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent-green), transparent);
+            margin: 0 auto 3.5rem;
+            opacity: 0.5;
+        }
+
+        /* Page load entrance - hero override */
+        .hero { overflow: hidden; }
 
         /* Smooth scroll */
         html {
@@ -1502,7 +1558,7 @@
             <div class="flip-card">
                 <div class="flip-card-inner">
                     <div class="flip-card-front">
-                        <div class="card-image-wrap"><img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/28-DSC_8369.jpg" alt="Championship DNA" loading="lazy" /></div>
+                        <div class="card-image-wrap"><img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/122-DSC_8153.jpg" alt="Championship DNA" style="object-position:center 30%;" loading="lazy" style="object-position:center 35%;" /></div>
                         <h3 class="about-card-title">Championship DNA</h3>
                         <p class="about-card-text">
                             Elite training programs designed to develop champions. Our athletes compete at the highest levels 
@@ -1534,9 +1590,6 @@
                                 </div>
                             </div>
                         </div>
-                        <button class="flip-icon" aria-label="Flip card back" onclick="toggleFlip(this)">
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46A7.93 7.93 0 0 0 20 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74A7.93 7.93 0 0 0 4 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z"/></svg>
-                        </button>
                     </div>
                 </div>
             </div>
@@ -1577,9 +1630,6 @@
                                 </div>
                             </div>
                         </div>
-                        <button class="flip-icon" aria-label="Flip card back" onclick="toggleFlip(this)">
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46A7.93 7.93 0 0 0 20 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74A7.93 7.93 0 0 0 4 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z"/></svg>
-                        </button>
                     </div>
                 </div>
             </div>
@@ -1588,7 +1638,7 @@
             <div class="flip-card">
                 <div class="flip-card-inner">
                     <div class="flip-card-front">
-                        <div class="card-image-wrap"><img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/96-DSC_8200.jpg" alt="Elite Development" loading="lazy" /></div>
+                        <div class="card-image-wrap"><img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/28-DSC_8369.jpg" alt="Elite Development" loading="lazy" style="object-position:center 18%;object-fit:cover;" /></div>
                         <h3 class="about-card-title">Elite Development</h3>
                         <p class="about-card-text">
                             Comprehensive player development focusing on skill mastery, basketball IQ, mental toughness, 
@@ -1620,9 +1670,6 @@
                                 </div>
                             </div>
                         </div>
-                        <button class="flip-icon" aria-label="Flip card back" onclick="toggleFlip(this)">
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46A7.93 7.93 0 0 0 20 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74A7.93 7.93 0 0 0 4 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z"/></svg>
-                        </button>
                     </div>
                 </div>
             </div>
@@ -1689,6 +1736,36 @@
                     </div>
                     <div class="carousel-slide">
                         <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/92-DSC_8205.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/12-DSC_8402.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/22-DSC_8383.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/32-DSC_8366.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/52-DSC_8304.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/62-DSC_8290.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/79-DSC_8224.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/87-DSC_8214.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/100-DSC_8194.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/110-DSC_8181.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/122-DSC_8153.jpg" alt="Born Elite Basketball" loading="lazy" />
                     </div>
                     <div class="carousel-slide">
                         <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/116-DSC_8167.jpg" alt="Born Elite Basketball" loading="lazy" />
@@ -1788,24 +1865,66 @@
             card.classList.toggle('is-flipped');
         }
 
-        // Scroll animations
-        const observerOptions = {
-            threshold: 0.2,
-            rootMargin: '0px 0px -100px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
+        // ── Elite immense fade-rise scroll system ──────────────────────
+        const frObs = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    entry.target.classList.add('animate-in');
+                    entry.target.classList.add('animate-in', 'fr-visible');
+                    frObs.unobserve(entry.target);
                 }
             });
-        }, observerOptions);
+        }, { threshold: 0.08, rootMargin: '0px 0px -60px 0px' });
 
-        // Observe all animated elements
-        document.querySelectorAll('.section-label, .section-title, .section-description, .flip-card, .program-card, .gallery-item, .contact-info h2, .contact-item, .contact-form').forEach(el => {
-            observer.observe(el);
+        // Auto-assign stagger delays to grid children
+        document.querySelectorAll('.about-grid, .programs-grid').forEach(grid => {
+            Array.from(grid.children).forEach((child, i) => {
+                child.classList.add('fr-ready');
+                child.classList.add('fr-d' + Math.min(i + 1, 6));
+                frObs.observe(child);
+            });
         });
+
+        // Section headers with directional fades
+        document.querySelectorAll('.section-label').forEach((el, i) => {
+            el.classList.add('fr-ready', 'fr-left');
+            frObs.observe(el);
+        });
+        document.querySelectorAll('.section-title').forEach(el => {
+            el.classList.add('fr-ready', 'fr-d1');
+            frObs.observe(el);
+        });
+        document.querySelectorAll('.section-description').forEach(el => {
+            el.classList.add('fr-ready', 'fr-d2');
+            frObs.observe(el);
+        });
+        document.querySelectorAll('.program-card').forEach((el, i) => {
+            el.classList.add('fr-ready', 'fr-d' + Math.min(i + 1, 6));
+            frObs.observe(el);
+        });
+        document.querySelectorAll('.carousel-wrap').forEach(el => {
+            el.classList.add('fr-ready', 'fr-scale');
+            frObs.observe(el);
+        });
+        document.querySelectorAll('.contact-info h2').forEach(el => {
+            el.classList.add('fr-ready', 'fr-left');
+            frObs.observe(el);
+        });
+        document.querySelectorAll('.contact-item').forEach((el, i) => {
+            el.classList.add('fr-ready', 'fr-d' + Math.min(i + 1, 6));
+            frObs.observe(el);
+        });
+        document.querySelectorAll('.contact-form').forEach(el => {
+            el.classList.add('fr-ready', 'fr-right');
+            frObs.observe(el);
+        });
+
+        // Original observer for legacy animate-in elements
+        const legacyObs = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('animate-in');
+            });
+        }, { threshold: 0.12, rootMargin: '0px 0px -80px 0px' });
+        document.querySelectorAll('.flip-card, .gallery-item').forEach(el => legacyObs.observe(el));
 
         // Smooth scroll for navigation
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
