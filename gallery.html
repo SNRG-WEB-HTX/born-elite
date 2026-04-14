@@ -365,6 +365,67 @@
             animation: pgFallback 0.4s ease forwards;
         }
 
+
+        /* ── VIDEO MODAL ─────────────────────────────────────── */
+        .vid-modal {
+            position: fixed; inset: 0; z-index: 600;
+            background: rgba(0,0,0,0.97);
+            display: flex; align-items: center; justify-content: center;
+            opacity: 0; pointer-events: none;
+            transition: opacity 0.3s cubic-bezier(0.4,0,0.2,1);
+        }
+        .vid-modal.open { opacity: 1; pointer-events: all; }
+        .vid-modal-inner {
+            position: relative;
+            width: min(90vw, 960px);
+            max-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            border-radius: 16px;
+            overflow: hidden;
+            background: #000;
+            box-shadow:
+                0 0 0 1px rgba(109,191,46,0.3),
+                0 0 60px rgba(85,224,37,0.15),
+                0 30px 80px rgba(0,0,0,0.8);
+        }
+        .vid-modal-inner video {
+            width: 100%; height: 100%;
+            max-height: 80vh;
+            object-fit: contain;
+            display: block; background: #000;
+        }
+        .vid-modal-close {
+            position: absolute; top: 0.9rem; right: 0.9rem;
+            width: 42px; height: 42px; border-radius: 50%;
+            background: rgba(10,10,10,0.92);
+            border: 1.5px solid rgba(109,191,46,0.5);
+            color: #fff; display: flex; align-items: center; justify-content: center;
+            cursor: pointer; transition: all 0.25s ease; z-index: 10;
+        }
+        .vid-modal-close:hover {
+            border-color: var(--elite-green);
+            box-shadow: 0 0 16px rgba(85,224,37,0.5);
+            transform: scale(1.08);
+        }
+        .vid-modal-close svg { width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2.5;stroke-linecap:round; }
+        .vid-modal-title {
+            position: absolute; bottom: 0; left: 0; right: 0;
+            padding: 0.75rem 1.25rem;
+            background: linear-gradient(transparent, rgba(0,0,0,0.85));
+            font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase;
+            color: rgba(255,255,255,0.5); font-family: 'Space Mono', monospace;
+        }
+        /* Mobile: true fullscreen */
+        @media(max-width:768px) {
+            .vid-modal { align-items: stretch; justify-content: stretch; }
+            .vid-modal-inner {
+                width:100%; max-height:100%; border-radius:0; height:100dvh;
+            }
+            .vid-modal-inner video { max-height:none; height:100%; }
+            .vid-modal-close { top:1rem; right:1rem; width:46px; height:46px; }
+        }
+
         ::selection { background:var(--accent-green); color:var(--elite-black); }
 
         /* ── HAMBURGER ── */
@@ -988,42 +1049,54 @@
         <div class="video-section">
             <div class="video-grid">
                 <div class="vid-item">
-                    <video preload="auto" playsinline muted loop>
+                    <video preload="metadata" playsinline muted>
                         <source src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/1-DSC_8412.mp4" type="video/mp4">
                     </video>
                     <div class="vid-play-btn"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.8"/><polygon points="10,8 16,12 10,16" fill="currentColor"/></svg></div>
                 </div>
                 <div class="vid-item">
-                    <video preload="auto" playsinline muted loop>
+                    <video preload="metadata" playsinline muted>
                         <source src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/2-DSC_8390.mp4" type="video/mp4">
                     </video>
                     <div class="vid-play-btn"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.8"/><polygon points="10,8 16,12 10,16" fill="currentColor"/></svg></div>
                 </div>
                 <div class="vid-item">
-                    <video preload="auto" playsinline muted loop>
+                    <video preload="metadata" playsinline muted>
                         <source src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/3-DSC_8389.mp4" type="video/mp4">
                     </video>
                     <div class="vid-play-btn"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.8"/><polygon points="10,8 16,12 10,16" fill="currentColor"/></svg></div>
                 </div>
                 <div class="vid-item">
-                    <video preload="auto" playsinline muted loop>
+                    <video preload="metadata" playsinline muted>
                         <source src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/4-DSC_8388.mp4" type="video/mp4">
                     </video>
                     <div class="vid-play-btn"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.8"/><polygon points="10,8 16,12 10,16" fill="currentColor"/></svg></div>
                 </div>
                 <div class="vid-item">
-                    <video preload="auto" playsinline muted loop>
+                    <video preload="metadata" playsinline muted>
                         <source src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/5-DSC_8385.mp4" type="video/mp4">
                     </video>
                     <div class="vid-play-btn"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.8"/><polygon points="10,8 16,12 10,16" fill="currentColor"/></svg></div>
                 </div>
                 <div class="vid-item">
-                    <video preload="auto" playsinline muted loop>
+                    <video preload="metadata" playsinline muted>
                         <source src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/6-DSC_8197.mp4" type="video/mp4">
                     </video>
                     <div class="vid-play-btn"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.8"/><polygon points="10,8 16,12 10,16" fill="currentColor"/></svg></div>
                 </div>
             </div>
+        </div>
+    </div>
+
+
+    <!-- Video Modal -->
+    <div class="vid-modal" id="vidModal" role="dialog" aria-label="Video player">
+        <div class="vid-modal-inner">
+            <video id="vidModalVideo" controls playsinline controlsList="nodownload" preload="none"></video>
+            <div class="vid-modal-title" id="vidModalTitle"></div>
+            <button class="vid-modal-close" id="vidModalClose" aria-label="Close video">
+                <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
         </div>
     </div>
 
@@ -1109,33 +1182,112 @@
             if (Math.abs(dx) > 40) lbNav(dx < 0 ? 1 : -1);
         });
 
-        // ── Videos ──
-        // Force poster frame on mobile - seek to first frame after metadata loads
-        document.querySelectorAll('.vid-item video').forEach(vid => {
-            function seekThumb() {
-                if (vid.readyState >= 1) {
-                    try { vid.currentTime = 0.1; } catch(e) {}
+        // ═══════════════════════════════════════════════════════════
+        // VIDEO SYSTEM — thumbnails + modal popup with audio
+        // ═══════════════════════════════════════════════════════════
+        const R2_VID = "https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev";
+        const VIDEO_SRCS = [
+            "1-DSC_8412.mp4","2-DSC_8390.mp4","3-DSC_8389.mp4",
+            "4-DSC_8388.mp4","5-DSC_8385.mp4","6-DSC_8197.mp4"
+        ];
+        const VIDEO_LABELS = ["Drill Session","Court Work","Training Clips","Game Day","The Grind","Born Elite Highlights"];
+
+        // Canvas poster extraction — cross-browser first-frame capture
+        function extractPoster(video) {
+            try {
+                const c = document.createElement('canvas');
+                c.width  = video.videoWidth  || 360;
+                c.height = video.videoHeight || 450;
+                c.getContext('2d').drawImage(video, 0, 0, c.width, c.height);
+                const url = c.toDataURL('image/jpeg', 0.85);
+                if (url && url.length > 500) video.setAttribute('poster', url);
+            } catch(e) {}
+        }
+
+        // IntersectionObserver-driven thumbnail load
+        const vidItems = document.querySelectorAll('.vid-item');
+        const vidThumbObs = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+                const item  = entry.target;
+                const video = item.querySelector('video');
+                if (!video || video.dataset.loaded) return;
+                video.dataset.loaded = '1';
+
+                function doSeek() {
+                    try { video.currentTime = 0.5; } catch(e) {}
                 }
-            }
-            vid.addEventListener('loadedmetadata', seekThumb, {once:true});
-            vid.addEventListener('loadeddata', seekThumb, {once:true});
-            if (vid.readyState >= 1) seekThumb();
+                function onSeeked() { extractPoster(video); }
+
+                if (video.readyState >= 2) {
+                    doSeek();
+                } else {
+                    video.addEventListener('loadeddata',     doSeek, {once:true});
+                    video.addEventListener('loadedmetadata', doSeek, {once:true});
+                }
+                video.addEventListener('seeked', onSeeked, {once:true});
+                video.load();
+                vidThumbObs.unobserve(item);
+            });
+        }, {threshold: 0.05});
+
+        function initVidThumbs() {
+            vidItems.forEach(item => {
+                const video = item.querySelector('video');
+                if (!video || video.dataset.loaded) return;
+                vidThumbObs.observe(item);
+            });
+        }
+
+        // Start on video tab click
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                if (btn.dataset.tab === 'videos') setTimeout(initVidThumbs, 80);
+            });
         });
 
-        document.querySelectorAll('.vid-item').forEach(item => {
-            const video = item.querySelector('video');
-            item.addEventListener('click', () => {
-                if (item.classList.contains('is-playing')) {
-                    video.pause(); item.classList.remove('is-playing');
-                } else {
-                    document.querySelectorAll('.vid-item.is-playing').forEach(v => {
-                        v.querySelector('video').pause(); v.classList.remove('is-playing');
-                    });
-                    video.play(); item.classList.add('is-playing');
-                }
-            });
-            video.addEventListener('ended', () => { item.classList.remove('is-playing'); });
+        // Also init if videos tab already active on load
+        if (document.getElementById('tab-videos').classList.contains('active')) {
+            setTimeout(initVidThumbs, 120);
+        }
+
+        // ── Video Modal (popup with audio) ────────────────────────────────
+        const vidModal      = document.getElementById('vidModal');
+        const vidModalVideo = document.getElementById('vidModalVideo');
+        const vidModalClose = document.getElementById('vidModalClose');
+        const vidModalTitle = document.getElementById('vidModalTitle');
+
+        function openVidModal(src, label) {
+            vidModalVideo.src   = src;
+            vidModalVideo.muted = false;
+            vidModalTitle.textContent = label || '';
+            vidModal.classList.add('open');
+            document.body.style.overflow = 'hidden';
+            setTimeout(() => { vidModalVideo.play().catch(() => {}); }, 180);
+        }
+        function closeVidModal() {
+            vidModalVideo.pause();
+            vidModalVideo.src = '';
+            vidModal.classList.remove('open');
+            document.body.style.overflow = '';
+        }
+        vidModalClose.addEventListener('click', closeVidModal);
+        vidModal.addEventListener('click', e => { if (e.target === vidModal) closeVidModal(); });
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape' && vidModal.classList.contains('open')) closeVidModal();
         });
+        // Swipe down to close on mobile
+        let vmTY = 0;
+        vidModal.addEventListener('touchstart', e => { vmTY = e.touches[0].clientY; }, {passive:true});
+        vidModal.addEventListener('touchend', e => {
+            if (e.changedTouches[0].clientY - vmTY > 80) closeVidModal();
+        });
+
+        // Wire clicks → modal
+        vidItems.forEach((item, i) => {
+            item.addEventListener('click', () => openVidModal(R2_VID + '/' + VIDEO_SRCS[i], VIDEO_LABELS[i]));
+        });
+
 
         // ── Hamburger ──
         const hamburger = document.getElementById('hamburger');
