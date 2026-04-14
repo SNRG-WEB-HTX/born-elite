@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Born Elite | Gallery</title>
     <meta name="description" content="Born Elite Basketball — Photos and videos from the court.">
-    <link rel="icon" type="image/png" sizes="192x192" href="born-elite-logo.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="born-elite-logo.png">
-    <link rel="shortcut icon" type="image/png" href="born-elite-logo.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/born-elite-logo.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/born-elite-logo.png">
+    <link rel="shortcut icon" type="image/png" href="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/born-elite-logo.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -182,20 +182,28 @@
         }
         .video-grid {
             display:grid;
-            grid-template-columns:repeat(3,1fr);
-            gap:1rem;
+            grid-template-columns:repeat(4,minmax(0,1fr));
+            gap:0.9rem;
+            max-width:1400px;
+            margin:0 auto;
+            align-items:start;
         }
-        @media(max-width:900px){ .video-grid{ grid-template-columns:repeat(2,1fr); } }
-        @media(max-width:540px){ .video-grid{ grid-template-columns:1fr; } }
+        @media(max-width:1200px){ .video-grid{ grid-template-columns:repeat(3,minmax(0,1fr)); } }
+        @media(max-width:900px){ .video-grid{ grid-template-columns:repeat(2,minmax(0,1fr)); gap:0.8rem; } }
+        @media(max-width:540px){ .video-grid{ grid-template-columns:1fr; max-width:420px; gap:0.75rem; } }
 
         .vid-item {
-            position:relative; aspect-ratio:9/16;
-            overflow:hidden; border-radius:12px;
+            position:relative;
+            aspect-ratio:4/5;
+            max-height:min(68vh,620px);
+            overflow:hidden; border-radius:14px;
             background:#0d0d0d;
             border:1px solid rgba(109,191,46,0.2);
             box-shadow:0 0 0 1px rgba(109,191,46,0.06),0 0 18px rgba(85,224,37,0.06);
             cursor:pointer; transition:all 0.3s ease;
         }
+        @media(max-width:900px){ .vid-item{ aspect-ratio:9/13; max-height:min(62vh,560px); } }
+        @media(max-width:540px){ .vid-item{ aspect-ratio:10/13; max-height:min(58vh,500px); } }
         .vid-item:hover {
             border-color:rgba(85,224,37,0.5);
             box-shadow:0 0 0 1px rgba(85,224,37,0.15),0 0 28px rgba(85,224,37,0.2);
@@ -213,7 +221,7 @@
             transition:background 0.25s ease;
         }
         .vid-play-btn svg {
-            width:52px; height:52px;
+            width:46px; height:46px;
             stroke:rgba(255,255,255,0.9); transition:all 0.25s ease;
             filter:drop-shadow(0 0 8px rgba(85,224,37,0.5));
         }
@@ -221,7 +229,7 @@
         .vid-item:hover .vid-play-btn svg {
             stroke:var(--elite-green);
             filter:drop-shadow(0 0 16px rgba(85,224,37,0.8));
-            transform:scale(1.1);
+            transform:scale(1.06);
         }
         .vid-item.is-playing .vid-play-btn { opacity:0; }
         .vid-item.is-playing:hover .vid-play-btn { opacity:1; }
@@ -381,7 +389,7 @@
 
     <nav>
         <div class="logo">
-            <a href="index.html"><img src="born-elite-logo.png" alt="Born Elite" /></a>
+            <a href="index.html"><img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/born-elite-logo.png" alt="Born Elite" /></a>
         </div>
         <ul class="nav-links">
             <li><a href="index.html#about">About</a></li>
@@ -402,7 +410,7 @@
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6L18 18"/><path d="M18 6L6 18"/></svg>
         </button>
         <div class="mobile-menu-inner">
-            <div class="mobile-logo"><img src="born-elite-logo.png" alt="Born Elite" /></div>
+            <div class="mobile-logo"><img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/born-elite-logo.png" alt="Born Elite" /></div>
             <ul class="mobile-nav-links">
                 <li><a href="index.html#about" class="mobile-link">About</a></li>
                 <li><a href="index.html#programs" class="mobile-link">Programs</a></li>
@@ -430,7 +438,7 @@
         <div class="tabs">
             <button class="tab-btn active" data-tab="photos">
                 <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21,15 16,10 5,21"/></svg>
-                Photos <span style="opacity:0.6;font-weight:400">(54)</span>
+                Photos <span style="opacity:0.6;font-weight:400">(121)</span>
             </button>
             <button class="tab-btn" data-tab="videos">
                 <svg viewBox="0 0 24 24"><polygon points="23,7 16,12 23,17"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
@@ -441,222 +449,490 @@
 
     <div id="tab-photos" class="tab-panel active">
         <div class="photo-section">
-            <div class="pg-count">54 photographs</div>
+            <div class="pg-count">121 photographs</div>
             <div class="photo-grid">
                 <div class="pg-item" data-index="0">
-                    <img src="7-DSC_8411.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/7-DSC_8411.jpg" alt="Born Elite Basketball" loading="lazy" />
                     <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
                 </div>
                 <div class="pg-item" data-index="1">
-                    <img src="8-DSC_8409.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/8-DSC_8409.jpg" alt="Born Elite Basketball" loading="lazy" />
                     <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
                 </div>
                 <div class="pg-item" data-index="2">
-                    <img src="9-DSC_8403.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/9-DSC_8403.jpg" alt="Born Elite Basketball" loading="lazy" />
                     <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
                 </div>
                 <div class="pg-item" data-index="3">
-                    <img src="10-DSC_8404.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/10-DSC_8404.jpg" alt="Born Elite Basketball" loading="lazy" />
                     <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
                 </div>
                 <div class="pg-item" data-index="4">
-                    <img src="11-DSC_8401.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/11-DSC_8401.jpg" alt="Born Elite Basketball" loading="lazy" />
                     <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
                 </div>
                 <div class="pg-item" data-index="5">
-                    <img src="12-DSC_8402.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/12-DSC_8402.jpg" alt="Born Elite Basketball" loading="lazy" />
                     <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
                 </div>
                 <div class="pg-item" data-index="6">
-                    <img src="13-DSC_8394.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/13-DSC_8394.jpg" alt="Born Elite Basketball" loading="lazy" />
                     <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
                 </div>
                 <div class="pg-item" data-index="7">
-                    <img src="14-DSC_8375.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/14-DSC_8375.jpg" alt="Born Elite Basketball" loading="lazy" />
                     <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
                 </div>
                 <div class="pg-item" data-index="8">
-                    <img src="15-DSC_8378.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/15-DSC_8378.jpg" alt="Born Elite Basketball" loading="lazy" />
                     <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
                 </div>
                 <div class="pg-item" data-index="9">
-                    <img src="16-DSC_8399.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/16-DSC_8399.jpg" alt="Born Elite Basketball" loading="lazy" />
                     <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
                 </div>
                 <div class="pg-item" data-index="10">
-                    <img src="17-DSC_8392.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/17-DSC_8392.jpg" alt="Born Elite Basketball" loading="lazy" />
                     <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
                 </div>
                 <div class="pg-item" data-index="11">
-                    <img src="18-DSC_8393.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/18-DSC_8393.jpg" alt="Born Elite Basketball" loading="lazy" />
                     <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
                 </div>
                 <div class="pg-item" data-index="12">
-                    <img src="19-DSC_8384.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/19-DSC_8384.jpg" alt="Born Elite Basketball" loading="lazy" />
                     <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
                 </div>
                 <div class="pg-item" data-index="13">
-                    <img src="20-DSC_8391.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/20-DSC_8391.jpg" alt="Born Elite Basketball" loading="lazy" />
                     <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
                 </div>
                 <div class="pg-item" data-index="14">
-                    <img src="21-DSC_8381.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/21-DSC_8381.jpg" alt="Born Elite Basketball" loading="lazy" />
                     <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
                 </div>
                 <div class="pg-item" data-index="15">
-                    <img src="22-DSC_8383.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/22-DSC_8383.jpg" alt="Born Elite Basketball" loading="lazy" />
                     <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
                 </div>
                 <div class="pg-item" data-index="16">
-                    <img src="23-DSC_8380.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/23-DSC_8380.jpg" alt="Born Elite Basketball" loading="lazy" />
                     <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
                 </div>
                 <div class="pg-item" data-index="17">
-                    <img src="24-DSC_8379.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/24-DSC_8379.jpg" alt="Born Elite Basketball" loading="lazy" />
                     <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
                 </div>
                 <div class="pg-item" data-index="18">
-                    <img src="25-DSC_8377.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/25-DSC_8377.jpg" alt="Born Elite Basketball" loading="lazy" />
                     <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
                 </div>
                 <div class="pg-item" data-index="19">
-                    <img src="26-DSC_8374.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/26-DSC_8374.jpg" alt="Born Elite Basketball" loading="lazy" />
                     <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
                 </div>
                 <div class="pg-item" data-index="20">
-                    <img src="27-DSC_8340.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/27-DSC_8340.jpg" alt="Born Elite Basketball" loading="lazy" />
                     <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
                 </div>
                 <div class="pg-item" data-index="21">
-                    <img src="28-DSC_8369.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/28-DSC_8369.jpg" alt="Born Elite Basketball" loading="lazy" />
                     <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
                 </div>
                 <div class="pg-item" data-index="22">
-                    <img src="29-DSC_8368.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/29-DSC_8368.jpg" alt="Born Elite Basketball" loading="lazy" />
                     <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
                 </div>
                 <div class="pg-item" data-index="23">
-                    <img src="30-DSC_8367.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/30-DSC_8367.jpg" alt="Born Elite Basketball" loading="lazy" />
                     <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
                 </div>
                 <div class="pg-item" data-index="24">
-                    <img src="31-DSC_8365.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/31-DSC_8365.jpg" alt="Born Elite Basketball" loading="lazy" />
                     <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
                 </div>
                 <div class="pg-item" data-index="25">
-                    <img src="32-DSC_8366.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/32-DSC_8366.jpg" alt="Born Elite Basketball" loading="lazy" />
                     <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
                 </div>
                 <div class="pg-item" data-index="26">
-                    <img src="33-DSC_8353.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/33-DSC_8353.jpg" alt="Born Elite Basketball" loading="lazy" />
                     <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
                 </div>
                 <div class="pg-item" data-index="27">
-                    <img src="34-DSC_8328.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/34-DSC_8328.jpg" alt="Born Elite Basketball" loading="lazy" />
                     <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
                 </div>
                 <div class="pg-item" data-index="28">
-                    <img src="35-DSC_8359.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/35-DSC_8359.jpg" alt="Born Elite Basketball" loading="lazy" />
                     <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
                 </div>
                 <div class="pg-item" data-index="29">
-                    <img src="36-DSC_8351.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/36-DSC_8351.jpg" alt="Born Elite Basketball" loading="lazy" />
                     <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
                 </div>
                 <div class="pg-item" data-index="30">
-                    <img src="37-DSC_8348.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/37-DSC_8348.jpg" alt="Born Elite Basketball" loading="lazy" />
                     <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
                 </div>
                 <div class="pg-item" data-index="31">
-                    <img src="38-DSC_8346.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/38-DSC_8346.jpg" alt="Born Elite Basketball" loading="lazy" />
                     <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
                 </div>
                 <div class="pg-item" data-index="32">
-                    <img src="39-DSC_8341.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/39-DSC_8341.jpg" alt="Born Elite Basketball" loading="lazy" />
                     <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
                 </div>
                 <div class="pg-item" data-index="33">
-                    <img src="40-DSC_8330.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/40-DSC_8330.jpg" alt="Born Elite Basketball" loading="lazy" />
                     <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
                 </div>
                 <div class="pg-item" data-index="34">
-                    <img src="41-DSC_8331.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/41-DSC_8331.jpg" alt="Born Elite Basketball" loading="lazy" />
                     <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
                 </div>
                 <div class="pg-item" data-index="35">
-                    <img src="42-DSC_8332.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/42-DSC_8332.jpg" alt="Born Elite Basketball" loading="lazy" />
                     <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
                 </div>
                 <div class="pg-item" data-index="36">
-                    <img src="43-DSC_8327.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/43-DSC_8327.jpg" alt="Born Elite Basketball" loading="lazy" />
                     <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
                 </div>
                 <div class="pg-item" data-index="37">
-                    <img src="44-DSC_8322.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/44-DSC_8322.jpg" alt="Born Elite Basketball" loading="lazy" />
                     <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
                 </div>
                 <div class="pg-item" data-index="38">
-                    <img src="45-DSC_8326.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/45-DSC_8326.jpg" alt="Born Elite Basketball" loading="lazy" />
                     <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
                 </div>
                 <div class="pg-item" data-index="39">
-                    <img src="46-DSC_8319.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/46-DSC_8319.jpg" alt="Born Elite Basketball" loading="lazy" />
                     <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
                 </div>
                 <div class="pg-item" data-index="40">
-                    <img src="47-DSC_8324.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/47-DSC_8324.jpg" alt="Born Elite Basketball" loading="lazy" />
                     <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
                 </div>
                 <div class="pg-item" data-index="41">
-                    <img src="48-DSC_8314.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/48-DSC_8314.jpg" alt="Born Elite Basketball" loading="lazy" />
                     <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
                 </div>
                 <div class="pg-item" data-index="42">
-                    <img src="49-DSC_8318.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/49-DSC_8318.jpg" alt="Born Elite Basketball" loading="lazy" />
                     <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
                 </div>
                 <div class="pg-item" data-index="43">
-                    <img src="50-DSC_8308.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/50-DSC_8308.jpg" alt="Born Elite Basketball" loading="lazy" />
                     <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
                 </div>
                 <div class="pg-item" data-index="44">
-                    <img src="51-DSC_8312.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/51-DSC_8312.jpg" alt="Born Elite Basketball" loading="lazy" />
                     <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
                 </div>
                 <div class="pg-item" data-index="45">
-                    <img src="52-DSC_8304.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/52-DSC_8304.jpg" alt="Born Elite Basketball" loading="lazy" />
                     <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
                 </div>
                 <div class="pg-item" data-index="46">
-                    <img src="53-DSC_8307.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/53-DSC_8307.jpg" alt="Born Elite Basketball" loading="lazy" />
                     <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
                 </div>
                 <div class="pg-item" data-index="47">
-                    <img src="54-DSC_8300.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/54-DSC_8300.jpg" alt="Born Elite Basketball" loading="lazy" />
                     <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
                 </div>
                 <div class="pg-item" data-index="48">
-                    <img src="55-DSC_8292.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/55-DSC_8292.jpg" alt="Born Elite Basketball" loading="lazy" />
                     <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
                 </div>
                 <div class="pg-item" data-index="49">
-                    <img src="56-DSC_8302.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/56-DSC_8302.jpg" alt="Born Elite Basketball" loading="lazy" />
                     <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
                 </div>
                 <div class="pg-item" data-index="50">
-                    <img src="57-DSC_8294.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/57-DSC_8294.jpg" alt="Born Elite Basketball" loading="lazy" />
                     <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
                 </div>
                 <div class="pg-item" data-index="51">
-                    <img src="58-DSC_8299.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/58-DSC_8299.jpg" alt="Born Elite Basketball" loading="lazy" />
                     <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
                 </div>
                 <div class="pg-item" data-index="52">
-                    <img src="59-DSC_8291.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/59-DSC_8291.jpg" alt="Born Elite Basketball" loading="lazy" />
                     <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
                 </div>
                 <div class="pg-item" data-index="53">
-                    <img src="60-DSC_8286.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/60-DSC_8286.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="54">
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/61-DSC_8288.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="55">
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/62-DSC_8290.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="56">
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/63-DSC_8262.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="57">
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/64-DSC_8255.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="58">
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/65-DSC_8259.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="59">
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/66-DSC_8240.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="60">
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/67-DSC_8241.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="61">
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/68-DSC_8242.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="62">
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/69-DSC_8237.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="63">
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/70-DSC_8234.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="64">
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/71-DSC_8236.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="65">
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/72-DSC_8233.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="66">
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/73-DSC_8235.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="67">
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/74-DSC_8232.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="68">
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/75-DSC_8220.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="69">
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/76-DSC_8231.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="70">
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/77-DSC_8230.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="71">
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/78-DSC_8217.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="72">
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/79-DSC_8224.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="73">
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/80-DSC_8225.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="74">
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/81-DSC_8222.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="75">
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/82-DSC_8223.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="76">
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/83-DSC_8218.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="77">
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/84-DSC_8210.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="78">
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/85-DSC_8209.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="79">
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/86-DSC_8215.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="80">
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/87-DSC_8214.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="81">
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/88-DSC_8212.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="82">
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/89-DSC_8199.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="83">
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/90-DSC_8211.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="84">
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/91-DSC_8206.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="85">
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/92-DSC_8205.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="86">
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/93-DSC_8203.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="87">
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/94-DSC_8204.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="88">
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/95-DSC_8202.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="89">
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/96-DSC_8200.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="90">
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/97-DSC_8201.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="91">
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/98-DSC_8196.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="92">
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/99-DSC_8193.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="93">
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/100-DSC_8194.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="94">
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/101-DSC_8192.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="95">
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/102-DSC_8190.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="96">
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/103-DSC_8184.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="97">
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/104-DSC_8188.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="98">
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/105-DSC_8183.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="99">
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/106-DSC_8189.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="100">
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/107-DSC_8173.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="101">
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/108-DSC_8187.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="102">
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/109-DSC_8185.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="103">
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/110-DSC_8181.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="104">
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/111-DSC_8177.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="105">
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/112-DSC_8170.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="106">
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/113-DSC_8174.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="107">
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/114-DSC_8176.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="108">
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/115-DSC_8169.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="109">
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/116-DSC_8167.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="110">
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/117-DSC_8165.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="111">
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/118-DSC_8164.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="112">
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/119-DSC_8162.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="113">
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/120-DSC_8160.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="114">
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/121-DSC_8159.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="115">
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/122-DSC_8153.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="116">
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/123-DSC_8152.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="117">
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/124-DSC_8151.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="118">
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/125-DSC_8150.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="119">
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/126-DSC_8149.jpg" alt="Born Elite Basketball" loading="lazy" />
+                    <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </div>
+                <div class="pg-item" data-index="120">
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/127-DSC_8146.jpg" alt="Born Elite Basketball" loading="lazy" />
                     <div class="pg-overlay"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
                 </div>
             </div>
@@ -668,37 +944,37 @@
             <div class="video-grid">
                 <div class="vid-item">
                     <video preload="metadata" playsinline muted loop>
-                        <source src="1-DSC_8412.mp4" type="video/mp4">
+                        <source src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/1-DSC_8412.mp4" type="video/mp4">
                     </video>
                     <div class="vid-play-btn"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.8"/><polygon points="10,8 16,12 10,16" fill="currentColor"/></svg></div>
                 </div>
                 <div class="vid-item">
                     <video preload="metadata" playsinline muted loop>
-                        <source src="2-DSC_8390.mp4" type="video/mp4">
+                        <source src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/2-DSC_8390.mp4" type="video/mp4">
                     </video>
                     <div class="vid-play-btn"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.8"/><polygon points="10,8 16,12 10,16" fill="currentColor"/></svg></div>
                 </div>
                 <div class="vid-item">
                     <video preload="metadata" playsinline muted loop>
-                        <source src="3-DSC_8389.mp4" type="video/mp4">
+                        <source src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/3-DSC_8389.mp4" type="video/mp4">
                     </video>
                     <div class="vid-play-btn"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.8"/><polygon points="10,8 16,12 10,16" fill="currentColor"/></svg></div>
                 </div>
                 <div class="vid-item">
                     <video preload="metadata" playsinline muted loop>
-                        <source src="4-DSC_8388.mp4" type="video/mp4">
+                        <source src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/4-DSC_8388.mp4" type="video/mp4">
                     </video>
                     <div class="vid-play-btn"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.8"/><polygon points="10,8 16,12 10,16" fill="currentColor"/></svg></div>
                 </div>
                 <div class="vid-item">
                     <video preload="metadata" playsinline muted loop>
-                        <source src="5-DSC_8385.mp4" type="video/mp4">
+                        <source src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/5-DSC_8385.mp4" type="video/mp4">
                     </video>
                     <div class="vid-play-btn"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.8"/><polygon points="10,8 16,12 10,16" fill="currentColor"/></svg></div>
                 </div>
                 <div class="vid-item">
                     <video preload="metadata" playsinline muted loop>
-                        <source src="6-DSC_8197.mp4" type="video/mp4">
+                        <source src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/6-DSC_8197.mp4" type="video/mp4">
                     </video>
                     <div class="vid-play-btn"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.8"/><polygon points="10,8 16,12 10,16" fill="currentColor"/></svg></div>
                 </div>
@@ -717,7 +993,7 @@
 
     <footer>
         <div class="footer-content">
-            <div class="footer-logo"><img src="born-elite-logo.png" alt="Born Elite Basketball" /></div>
+            <div class="footer-logo"><img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/born-elite-logo.png" alt="Born Elite Basketball" /></div>
             <a href="https://www.instagram.com/bornelitebasketball/" target="_blank" class="social-link" aria-label="Instagram">
                 <svg viewBox="0 0 24 24" fill="none">
                     <rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="2"/>
@@ -732,7 +1008,8 @@
     </footer>
 
     <script>
-        const PHOTOS = ["7-DSC_8411.jpg", "8-DSC_8409.jpg", "9-DSC_8403.jpg", "10-DSC_8404.jpg", "11-DSC_8401.jpg", "12-DSC_8402.jpg", "13-DSC_8394.jpg", "14-DSC_8375.jpg", "15-DSC_8378.jpg", "16-DSC_8399.jpg", "17-DSC_8392.jpg", "18-DSC_8393.jpg", "19-DSC_8384.jpg", "20-DSC_8391.jpg", "21-DSC_8381.jpg", "22-DSC_8383.jpg", "23-DSC_8380.jpg", "24-DSC_8379.jpg", "25-DSC_8377.jpg", "26-DSC_8374.jpg", "27-DSC_8340.jpg", "28-DSC_8369.jpg", "29-DSC_8368.jpg", "30-DSC_8367.jpg", "31-DSC_8365.jpg", "32-DSC_8366.jpg", "33-DSC_8353.jpg", "34-DSC_8328.jpg", "35-DSC_8359.jpg", "36-DSC_8351.jpg", "37-DSC_8348.jpg", "38-DSC_8346.jpg", "39-DSC_8341.jpg", "40-DSC_8330.jpg", "41-DSC_8331.jpg", "42-DSC_8332.jpg", "43-DSC_8327.jpg", "44-DSC_8322.jpg", "45-DSC_8326.jpg", "46-DSC_8319.jpg", "47-DSC_8324.jpg", "48-DSC_8314.jpg", "49-DSC_8318.jpg", "50-DSC_8308.jpg", "51-DSC_8312.jpg", "52-DSC_8304.jpg", "53-DSC_8307.jpg", "54-DSC_8300.jpg", "55-DSC_8292.jpg", "56-DSC_8302.jpg", "57-DSC_8294.jpg", "58-DSC_8299.jpg", "59-DSC_8291.jpg", "60-DSC_8286.jpg"];
+        const R2_BASE = "https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev";
+        const PHOTOS = ["7-DSC_8411.jpg", "8-DSC_8409.jpg", "9-DSC_8403.jpg", "10-DSC_8404.jpg", "11-DSC_8401.jpg", "12-DSC_8402.jpg", "13-DSC_8394.jpg", "14-DSC_8375.jpg", "15-DSC_8378.jpg", "16-DSC_8399.jpg", "17-DSC_8392.jpg", "18-DSC_8393.jpg", "19-DSC_8384.jpg", "20-DSC_8391.jpg", "21-DSC_8381.jpg", "22-DSC_8383.jpg", "23-DSC_8380.jpg", "24-DSC_8379.jpg", "25-DSC_8377.jpg", "26-DSC_8374.jpg", "27-DSC_8340.jpg", "28-DSC_8369.jpg", "29-DSC_8368.jpg", "30-DSC_8367.jpg", "31-DSC_8365.jpg", "32-DSC_8366.jpg", "33-DSC_8353.jpg", "34-DSC_8328.jpg", "35-DSC_8359.jpg", "36-DSC_8351.jpg", "37-DSC_8348.jpg", "38-DSC_8346.jpg", "39-DSC_8341.jpg", "40-DSC_8330.jpg", "41-DSC_8331.jpg", "42-DSC_8332.jpg", "43-DSC_8327.jpg", "44-DSC_8322.jpg", "45-DSC_8326.jpg", "46-DSC_8319.jpg", "47-DSC_8324.jpg", "48-DSC_8314.jpg", "49-DSC_8318.jpg", "50-DSC_8308.jpg", "51-DSC_8312.jpg", "52-DSC_8304.jpg", "53-DSC_8307.jpg", "54-DSC_8300.jpg", "55-DSC_8292.jpg", "56-DSC_8302.jpg", "57-DSC_8294.jpg", "58-DSC_8299.jpg", "59-DSC_8291.jpg", "60-DSC_8286.jpg"].map(file => `${R2_BASE}/${file}`);
         let lbIndex = 0;
 
         // ── Tabs ──
@@ -821,7 +1098,12 @@
         if(mobileMenuClose) mobileMenuClose.addEventListener('click', closeMenu);
         document.querySelectorAll('.mobile-link').forEach(link => {
             link.addEventListener('click', e => {
+                const href = link.getAttribute('href') || '';
+                e.preventDefault();
                 closeMenu();
+                setTimeout(() => {
+                    window.location.href = href;
+                }, 220);
             });
         });
         document.addEventListener('keydown', e => { if(e.key==='Escape') closeMenu(); });
