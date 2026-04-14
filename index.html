@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Born Elite | Houston AAU Excellence</title>
     <meta name="description" content="Born Elite — Houston's premier AAU basketball program. Developing champions on and off the court since 2023.">
-    <link rel="icon" type="image/png" sizes="192x192" href="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/born-elite-logo.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/born-elite-logo.png">
-    <link rel="shortcut icon" type="image/png" href="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/born-elite-logo.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="born-elite-logo.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="born-elite-logo.png">
+    <link rel="shortcut icon" type="image/png" href="born-elite-logo.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -472,9 +472,13 @@
         .card-image-wrap img {
             width: 100%;
             height: 100%;
-            object-fit: contain;
-            object-position: center center;
+            object-fit: cover;
+            object-position: center;
             display: block;
+            transition: transform 0.45s ease;
+        }
+        .flip-card-front:hover .card-image-wrap img {
+            transform: scale(1.035);
         }
 
         .about-card-title {
@@ -1420,7 +1424,7 @@
     <nav>
         <div class="logo">
             <a href="index.html" aria-label="Born Elite home">
-                <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/born-elite-logo.png" alt="Born Elite Basketball" />
+                <img src="born-elite-logo.png" alt="Born Elite Basketball" />
             </a>
         </div>
         <ul class="nav-links">
@@ -1447,7 +1451,7 @@
         </button>
         <div class="mobile-menu-inner">
             <div class="mobile-logo">
-                <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/born-elite-logo.png" alt="Born Elite Basketball" />
+                <img src="born-elite-logo.png" alt="Born Elite Basketball" />
             </div>
             <ul class="mobile-nav-links">
                 <li><a href="#about" class="mobile-link">About</a></li>
@@ -1498,7 +1502,7 @@
             <div class="flip-card">
                 <div class="flip-card-inner">
                     <div class="flip-card-front">
-                        <div class="card-image-wrap"><img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/born-elite-07.webp" alt="Championship DNA" loading="lazy" /></div>
+                        <div class="card-image-wrap"><img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/28-DSC_8369.jpg" alt="Championship DNA" loading="lazy" /></div>
                         <h3 class="about-card-title">Championship DNA</h3>
                         <p class="about-card-text">
                             Elite training programs designed to develop champions. Our athletes compete at the highest levels 
@@ -1541,7 +1545,7 @@
             <div class="flip-card">
                 <div class="flip-card-inner">
                     <div class="flip-card-front">
-                        <div class="card-image-wrap"><img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/born-elite-08.webp" alt="Houston Pride" loading="lazy" /></div>
+                        <div class="card-image-wrap"><img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/18-DSC_8393.jpg" alt="Houston Pride" loading="lazy" /></div>
                         <h3 class="about-card-title">Houston Pride</h3>
                         <p class="about-card-text">
                             Representing H-Town with excellence. We embody the grit, determination, and resilience that 
@@ -1584,7 +1588,7 @@
             <div class="flip-card">
                 <div class="flip-card-inner">
                     <div class="flip-card-front">
-                        <div class="card-image-wrap"><img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/born-elite-01.webp" alt="Elite Development" loading="lazy" /></div>
+                        <div class="card-image-wrap"><img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/96-DSC_8200.jpg" alt="Elite Development" loading="lazy" /></div>
                         <h3 class="about-card-title">Elite Development</h3>
                         <p class="about-card-text">
                             Comprehensive player development focusing on skill mastery, basketball IQ, mental toughness, 
@@ -1675,19 +1679,19 @@
             <div class="carousel-track-outer" id="carouselOuter">
                 <div class="carousel-track" id="carouselTrack">
                     <div class="carousel-slide">
-                        <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/born-elite-02.webp" alt="Born Elite Basketball" loading="lazy" />
+                        <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/26-DSC_8374.jpg" alt="Born Elite Basketball" loading="lazy" />
                     </div>
                     <div class="carousel-slide">
-                        <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/born-elite-03.webp" alt="Born Elite Basketball" loading="lazy" />
+                        <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/41-DSC_8331.jpg" alt="Born Elite Basketball" loading="lazy" />
                     </div>
                     <div class="carousel-slide">
-                        <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/born-elite-04.webp" alt="Born Elite Basketball" loading="lazy" />
+                        <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/67-DSC_8241.jpg" alt="Born Elite Basketball" loading="lazy" />
                     </div>
                     <div class="carousel-slide">
-                        <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/born-elite-05.webp" alt="Born Elite Basketball" loading="lazy" />
+                        <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/92-DSC_8205.jpg" alt="Born Elite Basketball" loading="lazy" />
                     </div>
                     <div class="carousel-slide">
-                        <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/born-elite-06.webp" alt="Born Elite Basketball" loading="lazy" />
+                        <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/116-DSC_8167.jpg" alt="Born Elite Basketball" loading="lazy" />
                     </div>
                 </div>
             </div>
@@ -1762,7 +1766,7 @@
     <footer>
         <div class="footer-content">
             <div class="footer-logo">
-                <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/born-elite-logo.png" alt="Born Elite Basketball" />
+                <img src="born-elite-logo.png" alt="Born Elite Basketball" />
             </div>
             <a href="https://www.instagram.com/bornelitebasketball/" target="_blank" class="social-link" aria-label="Instagram">
                 <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
