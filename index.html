@@ -1515,6 +1515,53 @@
             .hamburger { display: flex; }
         }
 
+
+
+        /* Mobile anti-flicker: disable scroll-triggered rise/fade compositor churn */
+        @media (max-width: 768px) {
+            .fr-ready,
+            .fr-ready.fr-visible,
+            .fr-left.fr-visible,
+            .fr-right.fr-visible,
+            .fr-scale.fr-visible,
+            .animate-in,
+            .section-label,
+            .section-title,
+            .section-description,
+            .flip-card,
+            .program-card,
+            .carousel-slide,
+            .contact-info h2,
+            .contact-item,
+            .contact-form {
+                opacity: 1 !important;
+                transform: none !important;
+                animation: none !important;
+                transition: none !important;
+                will-change: auto !important;
+            }
+
+            .hero-tagline,
+            .hero-motto,
+            .hero-cta,
+            .hero-title span {
+                will-change: auto;
+                backface-visibility: hidden;
+                -webkit-backface-visibility: hidden;
+            }
+
+            .hero-bg,
+            nav,
+            .mobile-menu,
+            .mobile-menu-bg,
+            .mobile-menu-close,
+            .carousel-track,
+            .flip-card-inner {
+                backface-visibility: hidden;
+                -webkit-backface-visibility: hidden;
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -1912,7 +1959,7 @@
         </div>
     </footer>
 
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
         // Toggle flip on click
         function toggleFlip(btn) {
             const card = btn.closest('.flip-card');
@@ -1920,65 +1967,76 @@
         }
 
         // ── Elite immense fade-rise scroll system ──────────────────────
-        const frObs = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('animate-in', 'fr-visible');
-                    frObs.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.08, rootMargin: '0px 0px -60px 0px' });
+        const isMobileViewport = window.matchMedia('(max-width: 768px)').matches;
 
-        // Auto-assign stagger delays to grid children
-        document.querySelectorAll('.about-grid, .programs-grid').forEach(grid => {
-            Array.from(grid.children).forEach((child, i) => {
-                child.classList.add('fr-ready');
-                child.classList.add('fr-d' + Math.min(i + 1, 6));
-                frObs.observe(child);
-            });
-        });
+        if (!isMobileViewport) {
+            const frObs = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate-in', 'fr-visible');
+                        frObs.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.08, rootMargin: '0px 0px -60px 0px' });
 
-        // Section headers with directional fades
-        document.querySelectorAll('.section-label').forEach((el, i) => {
-            el.classList.add('fr-ready', 'fr-left');
-            frObs.observe(el);
-        });
-        document.querySelectorAll('.section-title').forEach(el => {
-            el.classList.add('fr-ready', 'fr-d1');
-            frObs.observe(el);
-        });
-        document.querySelectorAll('.section-description').forEach(el => {
-            el.classList.add('fr-ready', 'fr-d2');
-            frObs.observe(el);
-        });
-        document.querySelectorAll('.program-card').forEach((el, i) => {
-            el.classList.add('fr-ready', 'fr-d' + Math.min(i + 1, 6));
-            frObs.observe(el);
-        });
-        document.querySelectorAll('.carousel-wrap').forEach(el => {
-            el.classList.add('fr-ready', 'fr-scale');
-            frObs.observe(el);
-        });
-        document.querySelectorAll('.contact-info h2').forEach(el => {
-            el.classList.add('fr-ready', 'fr-left');
-            frObs.observe(el);
-        });
-        document.querySelectorAll('.contact-item').forEach((el, i) => {
-            el.classList.add('fr-ready', 'fr-d' + Math.min(i + 1, 6));
-            frObs.observe(el);
-        });
-        document.querySelectorAll('.contact-form').forEach(el => {
-            el.classList.add('fr-ready', 'fr-right');
-            frObs.observe(el);
-        });
+            // Auto-assign stagger delays to grid children
+            document.querySelectorAll('.about-grid, .programs-grid').forEach(grid => {
+                Array.from(grid.children).forEach((child, i) => {
+                    child.classList.add('fr-ready');
+                    child.classList.add('fr-d' + Math.min(i + 1, 6));
+                    frObs.observe(child);
+                });
+            });
+
+            // Section headers with directional fades
+            document.querySelectorAll('.section-label').forEach((el, i) => {
+                el.classList.add('fr-ready', 'fr-left');
+                frObs.observe(el);
+            });
+            document.querySelectorAll('.section-title').forEach(el => {
+                el.classList.add('fr-ready', 'fr-d1');
+                frObs.observe(el);
+            });
+            document.querySelectorAll('.section-description').forEach(el => {
+                el.classList.add('fr-ready', 'fr-d2');
+                frObs.observe(el);
+            });
+            document.querySelectorAll('.program-card').forEach((el, i) => {
+                el.classList.add('fr-ready', 'fr-d' + Math.min(i + 1, 6));
+                frObs.observe(el);
+            });
+            document.querySelectorAll('.carousel-wrap').forEach(el => {
+                el.classList.add('fr-ready', 'fr-scale');
+                frObs.observe(el);
+            });
+            document.querySelectorAll('.contact-info h2').forEach(el => {
+                el.classList.add('fr-ready', 'fr-left');
+                frObs.observe(el);
+            });
+            document.querySelectorAll('.contact-item').forEach((el, i) => {
+                el.classList.add('fr-ready', 'fr-d' + Math.min(i + 1, 6));
+                frObs.observe(el);
+            });
+            document.querySelectorAll('.contact-form').forEach(el => {
+                el.classList.add('fr-ready', 'fr-right');
+                frObs.observe(el);
+            });
+        } else {
+            document.querySelectorAll('.section-label, .section-title, .section-description, .flip-card, .program-card, .carousel-wrap, .carousel-slide, .contact-info h2, .contact-item, .contact-form').forEach(el => {
+                el.classList.remove('fr-ready', 'fr-left', 'fr-right', 'fr-scale', 'fr-d1', 'fr-d2', 'fr-d3', 'fr-d4', 'fr-d5', 'fr-d6');
+                el.classList.add('animate-in', 'fr-visible');
+            });
+        }
 
         // Original observer for legacy animate-in elements
-        const legacyObs = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) entry.target.classList.add('animate-in');
-            });
-        }, { threshold: 0.12, rootMargin: '0px 0px -80px 0px' });
-        document.querySelectorAll('.flip-card, .gallery-item').forEach(el => legacyObs.observe(el));
+        if (!isMobileViewport) {
+            const legacyObs = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) entry.target.classList.add('animate-in');
+                });
+            }, { threshold: 0.12, rootMargin: '0px 0px -80px 0px' });
+            document.querySelectorAll('.flip-card, .gallery-item').forEach(el => legacyObs.observe(el));
+        }
 
         // Smooth scroll for navigation
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -2052,10 +2110,14 @@
             });
 
             // Animate slides in view
-            const carouselObs = new IntersectionObserver(entries => {
-                entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('animate-in'); });
-            }, { threshold: 0.1 });
-            slides.forEach(s => carouselObs.observe(s));
+            if (!isMobileViewport) {
+                const carouselObs = new IntersectionObserver(entries => {
+                    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('animate-in'); });
+                }, { threshold: 0.1 });
+                slides.forEach(s => carouselObs.observe(s));
+            } else {
+                slides.forEach(s => s.classList.add('animate-in'));
+            }
 
             // Init
             buildDots();
