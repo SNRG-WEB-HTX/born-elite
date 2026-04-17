@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Born Elite | Houston AAU Excellence</title>
-    <meta name="description" content="Born Elite — Houston's premier AAU basketball program. Developing champions on and off the court since 2023.">
+    <title>Born Elite Basketball | Houston Inner City Youth Program</title>
+    <meta name="description" content="Born Elite — Houston inner city youth basketball built on life mentorship, accountability, and hard work. Founded by Coach Bruce Miller. Building kids, teams, and futures.">
     <link rel="icon" type="image/png" sizes="192x192" href="born-elite-logo.png">
     <link rel="apple-touch-icon" sizes="180x180" href="born-elite-logo.png">
     <link rel="shortcut icon" type="image/png" href="born-elite-logo.png">
@@ -365,28 +365,27 @@
             transition: opacity 0.7s ease, transform 0.7s ease;
         }
 
-        /* About Section - Flippable Cards */
-        .about {
-            background: var(--elite-black);
-        }
+        /* ── About Section — Flip Cards ───────────────────────────────── */
+        .about { background: var(--elite-black); }
 
         .about-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 3rem;
-            margin-top: 4rem;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3.5rem;
         }
+        @media (max-width: 1024px) { .about-grid { grid-template-columns: repeat(3,1fr); gap: 1.25rem; } }
+        @media (max-width: 768px)  { .about-grid { grid-template-columns: 1fr; gap: 1.75rem; } }
 
         .flip-card {
             perspective: 1200px;
-            height: 560px;
+            /* Height auto — card sizes itself by content, no overflow */
+            min-height: 520px;
             opacity: 0;
             transform: translateY(30px);
-            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1),
-                        transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: opacity 0.8s cubic-bezier(0.4,0,0.2,1), transform 0.8s cubic-bezier(0.4,0,0.2,1);
             will-change: transform, opacity;
         }
-
         .flip-card:nth-child(1) { transition-delay: 0.2s; }
         .flip-card:nth-child(2) { transition-delay: 0.4s; }
         .flip-card:nth-child(3) { transition-delay: 0.6s; }
@@ -395,184 +394,172 @@
             position: relative;
             width: 100%;
             height: 100%;
-            transition: transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
+            min-height: inherit;
+            transition: transform 0.7s cubic-bezier(0.4,0.2,0.2,1);
             transform-style: preserve-3d;
-            will-change: transform;
             -webkit-transform-style: preserve-3d;
         }
+        .flip-card.is-flipped .flip-card-inner { transform: rotateY(180deg); }
 
-        .flip-card.is-flipped .flip-card-inner {
-            transform: rotateY(180deg);
-        }
-
-        /* Click-to-flip icon */
-        .flip-icon {
-            position: absolute;
-            bottom: 1.5rem;
-            right: 1.5rem;
-            width: 38px;
-            height: 38px;
-            border-radius: 50%;
-            background: rgba(109, 191, 46, 0.1);
-            border: 1.5px solid rgba(109, 191, 46, 0.45);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            z-index: 10;
-        }
-
-        .flip-icon:hover {
-            background: rgba(109, 191, 46, 0.22);
-            border-color: var(--accent-green);
-            transform: scale(1.1);
-        }
-
-        .flip-icon svg {
-            width: 18px;
-            height: 18px;
-            fill: var(--accent-green);
-            transition: transform 0.4s ease;
-        }
-
-        .flip-card.is-flipped .flip-icon svg {
-            transform: scaleX(-1);
-        }
-
+        /* ── Card faces ── */
         .flip-card-front,
         .flip-card-back {
             position: absolute;
             width: 100%;
-            height: 100%;
+            min-height: 100%;
             backface-visibility: hidden;
             -webkit-backface-visibility: hidden;
-            background: rgba(12, 12, 12, 0.92);
-            border: 1px solid rgba(109, 191, 46, 0.45);
+            background: rgba(12,12,12,0.92);
+            border: 1px solid rgba(109,191,46,0.45);
             border-radius: 16px;
-            padding: 1.4rem;
+            padding: 1.25rem 1.25rem 1rem;
             display: flex;
             flex-direction: column;
-            box-shadow:
-                0 0 0 1px rgba(109, 191, 46, 0.15),
-                0 0 18px rgba(85, 224, 37, 0.15),
-                0 0 40px rgba(85, 224, 37, 0.06);
+            box-shadow: 0 0 0 1px rgba(109,191,46,0.15), 0 0 18px rgba(85,224,37,0.12);
         }
-
         .flip-card-back {
             transform: rotateY(180deg);
-            background: rgba(10, 10, 10, 0.96);
-            border-color: rgba(85, 224, 37, 0.5);
-            box-shadow:
-                0 0 0 1px rgba(85, 224, 37, 0.2),
-                0 0 22px rgba(85, 224, 37, 0.2),
-                0 0 50px rgba(85, 224, 37, 0.08);
+            background: rgba(10,10,10,0.96);
+            border-color: rgba(85,224,37,0.5);
+            box-shadow: 0 0 0 1px rgba(85,224,37,0.2), 0 0 22px rgba(85,224,37,0.18);
+            padding: 1.5rem 1.25rem 1rem; /* more breathing room top */
         }
 
+        /* ── Card image ── */
         .card-image-wrap {
             width: 100%;
-            height: 260px;
+            height: 220px;
             border-radius: 10px;
-            margin-bottom: 1rem;
+            margin-bottom: 0.9rem;
             overflow: hidden;
-            position: relative;
             flex-shrink: 0;
             background: #050505;
         }
-
+        @media (max-width: 768px) { .card-image-wrap { height: 200px; } }
         .card-image-wrap img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center;
+            width: 100%; height: 100%;
+            object-fit: cover; object-position: center;
             display: block;
-            transition: transform 0.45s ease;
+            filter: brightness(1.18) contrast(1.06) saturate(1.06);
+            transition: transform 0.45s ease, filter 0.45s ease;
         }
         .flip-card-front:hover .card-image-wrap img {
             transform: scale(1.035);
+            filter: brightness(1.25) contrast(1.08) saturate(1.08);
         }
 
+        /* ── Card text ── */
         .about-card-title {
             font-family: 'Playfair Display', serif;
-            font-size: 1.75rem;
+            font-size: clamp(1.3rem, 2.2vw, 1.6rem);
             font-weight: 700;
-            margin-bottom: 1rem;
+            margin-bottom: 1.1rem;
             color: #FFFFFF;
-            text-shadow:
-                0 0 30px rgba(109, 191, 46, 0.55),
-                0 0 60px rgba(85, 224, 37, 0.25),
-                2px 2px 0 rgba(109, 191, 46, 0.15),
-                -1px -1px 0 rgba(85, 224, 37, 0.1);
+            line-height: 1.2;
+            text-shadow: 0 0 24px rgba(109,191,46,0.5), 2px 2px 0 rgba(109,191,46,0.12);
         }
-
+        /* Back card title gets a separating line */
+        .flip-card-back .about-card-title {
+            margin-bottom: 1.25rem;
+            padding-bottom: 0.85rem;
+            border-bottom: 1px solid rgba(85,224,37,0.25);
+        }
         .about-card-text {
-            font-size: 1rem;
-            line-height: 1.7;
-            color: rgba(255, 255, 255, 0.7);
+            font-size: clamp(0.85rem, 1.4vw, 0.95rem);
+            line-height: 1.65;
+            color: rgba(255,255,255,0.72);
             flex-grow: 1;
+            padding-right: 0; /* no right padding needed — icon is in flow */
         }
 
-        /* Back of card details */
-        .card-back-details {
+        /* ── FLIP ICON — in flow, never overlaps text ── */
+        .card-front-footer {
             display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-            flex-grow: 1;
+            align-items: center;
+            justify-content: flex-end;
+            margin-top: 0.85rem;
+            flex-shrink: 0;
         }
-
-        .card-back-item {
-            padding-bottom: 1rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .card-back-label {
-            font-size: 0.75rem;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: var(--accent-green);
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-
-        .card-back-value {
-            font-size: 1rem;
-            color: rgba(255, 255, 255, 0.9);
-            line-height: 1.6;
-        }
-
-
-        /* Flip-back button on card backs — desktop only */
-        .flip-back-btn {
-            position: absolute;
-            bottom: 1.5rem;
-            right: 1.5rem;
+        .flip-icon {
             width: 38px;
             height: 38px;
+            min-width: 38px;
             border-radius: 50%;
-            background: rgba(85, 224, 37, 0.08);
-            border: 1.5px solid rgba(85, 224, 37, 0.5);
+            background: rgba(109,191,46,0.1);
+            border: 1.5px solid rgba(109,191,46,0.48);
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            transition: all 0.3s ease;
-            z-index: 10;
+            transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+            flex-shrink: 0;
         }
-        .flip-back-btn:hover {
-            background: rgba(85, 224, 37, 0.18);
+        .flip-icon:hover, .flip-icon:focus {
+            background: rgba(109,191,46,0.22);
+            border-color: var(--accent-green);
+            transform: scale(1.12);
+            outline: none;
+        }
+        .flip-icon svg { width: 18px; height: 18px; fill: var(--accent-green); pointer-events: none; }
+
+        /* ── Back of card ── */
+        .card-back-details {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            flex-grow: 1;
+            overflow: hidden;
+        }
+        .card-back-item {
+            padding-bottom: 0.9rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .card-back-item:last-child { border-bottom: none; padding-bottom: 0; }
+        .card-back-label {
+            font-size: 0.68rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--accent-green);
+            font-weight: 700;
+            margin-bottom: 0.45rem;
+        }
+        .card-back-value {
+            font-size: clamp(0.82rem, 1.3vw, 0.92rem);
+            color: rgba(255,255,255,0.88);
+            line-height: 1.6;
+        }
+
+        /* ── Flip-back btn — in flow at bottom of back card ── */
+        .card-back-footer {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            margin-top: 0.85rem;
+            flex-shrink: 0;
+        }
+        .flip-back-btn {
+            width: 38px; height: 38px; min-width: 38px;
+            border-radius: 50%;
+            background: rgba(85,224,37,0.07);
+            border: 1.5px solid rgba(85,224,37,0.5);
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer;
+            transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+        }
+        .flip-back-btn:hover, .flip-back-btn:focus {
+            background: rgba(85,224,37,0.18);
             border-color: var(--elite-green);
-            transform: scale(1.1);
-            box-shadow: 0 0 14px rgba(85,224,37,0.35);
+            transform: scale(1.12);
+            box-shadow: 0 0 12px rgba(85,224,37,0.4);
+            outline: none;
         }
-        .flip-back-btn svg {
-            width: 18px;
-            height: 18px;
-            fill: var(--elite-green);
-        }
-        /* Hide on mobile — whole card is tappable */
-        @media (max-width: 768px) {
-            .flip-back-btn { display: none; }
-        }
+        .flip-back-btn svg { width: 18px; height: 18px; fill: var(--elite-green); pointer-events: none; }
+        /* Mobile: tap card back anywhere to flip back */
+        @media (max-width: 768px) { .flip-back-btn { display: none; } }
 
         /* Programs Section */
         .programs {
@@ -1450,6 +1437,9 @@
         .mobile-menu.is-open .mobile-nav-links li:nth-child(2) { opacity:1; transform:translateY(0); transition-delay:0.22s; }
         .mobile-menu.is-open .mobile-nav-links li:nth-child(3) { opacity:1; transform:translateY(0); transition-delay:0.29s; }
         .mobile-menu.is-open .mobile-nav-links li:nth-child(4) { opacity:1; transform:translateY(0); transition-delay:0.36s; }
+        .mobile-menu.is-open .mobile-nav-links li:nth-child(3) { opacity:1; transform:translateY(0); transition-delay:0.29s; }
+        .mobile-menu.is-open .mobile-nav-links li:nth-child(4) { opacity:1; transform:translateY(0); transition-delay:0.36s; }
+        .mobile-menu.is-open .mobile-nav-links li:nth-child(5) { opacity:1; transform:translateY(0); transition-delay:0.43s; }
 
         .mobile-link {
             display: block;
@@ -1576,9 +1566,9 @@
             </a>
         </div>
         <ul class="nav-links">
-            <li><a href="#about">About</a></li>
             <li><a href="#programs">Programs</a></li>
             <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="about.html">About</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
         <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
@@ -1602,9 +1592,9 @@
                 <img src="born-elite-logo.png" alt="Born Elite Basketball" />
             </div>
             <ul class="mobile-nav-links">
-                <li><a href="#about" class="mobile-link">About</a></li>
                 <li><a href="#programs" class="mobile-link">Programs</a></li>
                 <li><a href="gallery.html" class="mobile-link">Gallery</a></li>
+                <li><a href="about.html" class="mobile-link">About</a></li>
                 <li><a href="#contact" class="mobile-link">Contact</a></li>
             </ul>
             <div class="mobile-menu-footer">
@@ -1623,13 +1613,13 @@
     <section class="hero">
         <div class="hero-bg"></div>
         <div class="hero-content">
-            <div class="hero-tagline">Houston AAU Basketball</div>
+            <div class="hero-tagline">Houston Inner City Youth Basketball</div>
             <h1 class="hero-title">
                 <span>Born</span> <span>Elite</span>
             </h1>
-            <p class="hero-motto">"We weren't sworn in it, we were born in it"</p>
+            <p class="hero-motto">"We weren't sworn in it, we were born in it."</p>
             <div class="hero-cta">
-                <a href="#contact" class="btn btn-primary">Join the Elite</a>
+                <a href="#contact" class="btn btn-primary">Get Your Athlete In</a>
                 <a href="#programs" class="btn btn-secondary">View Programs</a>
             </div>
 
@@ -1639,180 +1629,145 @@
     <!-- About Section - Flippable Cards -->
     <section id="about" class="about">
         <div class="section-label">Our Foundation</div>
-        <h2 class="section-title">Built Different</h2>
+        <h2 class="section-title">Built Different.</h2>
         <p class="section-description">
-            Born Elite Basketball isn't just a program—it's a culture. We develop athletes who dominate on the court 
-            and excel in life. Houston-based excellence meets championship-caliber training.
+            Inner City Houston. Young athletes who deserve a real shot. Hard Work. Family Atmosphere. Real Accountability.
         </p>
         
         <div class="about-grid">
-            <!-- Card 1 - Championship DNA -->
             <div class="flip-card">
                 <div class="flip-card-inner">
                     <div class="flip-card-front">
-                        <div class="card-image-wrap"><img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/122-DSC_8153.jpg" alt="Championship DNA" style="object-position:center 30%;" loading="lazy" style="object-position:center 35%;" /></div>
+                        <div class="card-image-wrap"><img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/122-DSC_8153.jpg" alt="Championship DNA" loading="lazy" style="object-position:center 30%;filter:brightness(1.45) contrast(1.1) saturate(1.12);" /></div>
                         <h3 class="about-card-title">Championship DNA</h3>
-                        <p class="about-card-text">
-                            Elite training programs designed to develop champions. Our athletes compete at the highest levels 
-                            and consistently secure college scholarships.
-                        </p>
-                        <button class="flip-icon" aria-label="Flip card" onclick="toggleFlip(this)">
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46A7.93 7.93 0 0 0 20 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74A7.93 7.93 0 0 0 4 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z"/></svg>
-                        </button>
+                        <p class="about-card-text">Coach Bruce Miller built Born Elite on a simple truth: what you build in a kid shows up everywhere — on the court, in a classroom, in life.</p>
+                        <div class="card-front-footer">
+                            <button class="flip-icon" aria-label="Flip card for more info" onclick="toggleFlip(this)"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46A7.93 7.93 0 0 0 20 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74A7.93 7.93 0 0 0 4 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z"/></svg></button>
+                        </div>
                     </div>
                     <div class="flip-card-back">
                         <h3 class="about-card-title">Championship DNA</h3>
                         <div class="card-back-details">
                             <div class="card-back-item">
-                                <div class="card-back-label">Training Philosophy</div>
-                                <div class="card-back-value">
-                                    Championship mentality built through rigorous training, competitive exposure, and mental fortitude development.
-                                </div>
+                                <div class="card-back-label">The Coach Miller Standard</div>
+                                <div class="card-back-value">Coach Bruce Miller is an operations manager in the galvanized metal industry — a field built on precision, durability, and zero defects. He brings that same standard to every Born Elite practice.</div>
                             </div>
                             <div class="card-back-item">
-                                <div class="card-back-label">Success Rate</div>
-                                <div class="card-back-value">
-                                    95% of our athletes earn college roster spots with 80% receiving scholarship opportunities.
-                                </div>
+                                <div class="card-back-label">Full Circle</div>
+                                <div class="card-back-value">Several Born Elite alumni are now employed through Coach Miller's industry connections. The game doesn't end at the final buzzer — it opens doors.</div>
                             </div>
                             <div class="card-back-item">
-                                <div class="card-back-label">Elite Coaching</div>
-                                <div class="card-back-value">
-                                    Former D1 and professional players bring championship experience to every session.
-                        <button class="flip-back-btn" aria-label="Flip card back" onclick="toggleFlip(this)">
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 20v3l-4-4 4-4v3c3.31 0 6-2.69 6-6 0-1.01-.25-1.97-.7-2.8l1.46 1.46A7.93 7.93 0 0 1 20 12c0 4.42-3.58 8-8 8zm.5-16.5V1L8 5l4.5 4.5V7c2.76 0 5 2.24 5 5 0 .65-.13 1.26-.36 1.82l1.48 1.48A6.97 6.97 0 0 0 19.5 12c0-3.86-3.14-7-7-7z"/></svg>
-                        </button>
-                                </div>
+                                <div class="card-back-label">Built to Last</div>
+                                <div class="card-back-value">Galvanized steel doesn't rust. Neither do the values we install in our athletes — built to hold up under pressure, in every room they walk into for life.</div>
                             </div>
+                        </div>
+                        <div class="card-back-footer">
+                            <button class="flip-back-btn" aria-label="Flip back" onclick="toggleFlip(this)"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 20v3l-4-4 4-4v3c3.31 0 6-2.69 6-6 0-1.01-.25-1.97-.7-2.8l1.46 1.46A7.93 7.93 0 0 1 20 12c0 4.42-3.58 8-8 8zm.5-16.5V1L8 5l4.5 4.5V7c2.76 0 5 2.24 5 5 0 .65-.13 1.26-.36 1.82l1.48 1.48A6.97 6.97 0 0 0 19.5 12c0-3.86-3.14-7-7-7z"/></svg></button>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Card 2 - Houston Pride -->
             <div class="flip-card">
                 <div class="flip-card-inner">
                     <div class="flip-card-front">
-                        <div class="card-image-wrap"><img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/18-DSC_8393.jpg" alt="Houston Pride" loading="lazy" /></div>
+                        <div class="card-image-wrap"><img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/18-DSC_8393.jpg" alt="Houston Pride" loading="lazy" style="filter:brightness(1.42) contrast(1.09) saturate(1.12);" /></div>
                         <h3 class="about-card-title">Houston Pride</h3>
-                        <p class="about-card-text">
-                            Representing H-Town with excellence. We embody the grit, determination, and resilience that 
-                            defines Houston basketball culture.
-                        </p>
-                        <button class="flip-icon" aria-label="Flip card" onclick="toggleFlip(this)">
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46A7.93 7.93 0 0 0 20 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74A7.93 7.93 0 0 0 4 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z"/></svg>
-                        </button>
+                        <p class="about-card-text">Born in inner city Houston. Your zip code doesn't determine your ceiling. Born Elite is H-Town's program for the kids who grind when no one's watching.</p>
+                        <div class="card-front-footer">
+                            <button class="flip-icon" aria-label="Flip card for more info" onclick="toggleFlip(this)"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46A7.93 7.93 0 0 0 20 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74A7.93 7.93 0 0 0 4 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z"/></svg></button>
+                        </div>
                     </div>
                     <div class="flip-card-back">
                         <h3 class="about-card-title">Houston Pride</h3>
                         <div class="card-back-details">
                             <div class="card-back-item">
-                                <div class="card-back-label">Local Legacy</div>
-                                <div class="card-back-value">
-                                    Deep roots in Houston's basketball community with connections to top high school and college programs.
-                                </div>
+                                <div class="card-back-label">Born in H-Town</div>
+                                <div class="card-back-value">This program didn't come from a franchise playbook — it came from Houston streets, Houston courts, and a Houston man who understood what inner city youth actually need.</div>
                             </div>
                             <div class="card-back-item">
-                                <div class="card-back-label">H-Town Culture</div>
-                                <div class="card-back-value">
-                                    We embrace Houston's work ethic, resilience, and no-quit attitude in everything we do.
-                                </div>
+                                <div class="card-back-label">No Pay-To-Play</div>
+                                <div class="card-back-value">Born Elite is not a machine you feed money into. It's a family — and Coach Miller evaluates every athlete on heart and hunger, not just what their parents can spend.</div>
                             </div>
                             <div class="card-back-item">
-                                <div class="card-back-label">Community Impact</div>
-                                <div class="card-back-value">
-                                    Active partnerships with local schools and community centers to give back to Houston.
-                        <button class="flip-back-btn" aria-label="Flip card back" onclick="toggleFlip(this)">
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 20v3l-4-4 4-4v3c3.31 0 6-2.69 6-6 0-1.01-.25-1.97-.7-2.8l1.46 1.46A7.93 7.93 0 0 1 20 12c0 4.42-3.58 8-8 8zm.5-16.5V1L8 5l4.5 4.5V7c2.76 0 5 2.24 5 5 0 .65-.13 1.26-.36 1.82l1.48 1.48A6.97 6.97 0 0 0 19.5 12c0-3.86-3.14-7-7-7z"/></svg>
-                        </button>
-                                </div>
+                                <div class="card-back-label">High School Pipeline</div>
+                                <div class="card-back-value">Our Houston connections put athletes in front of high school coaches, trainers, and scouts who matter in this city. We put players where they can be seen.</div>
                             </div>
+                        </div>
+                        <div class="card-back-footer">
+                            <button class="flip-back-btn" aria-label="Flip back" onclick="toggleFlip(this)"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 20v3l-4-4 4-4v3c3.31 0 6-2.69 6-6 0-1.01-.25-1.97-.7-2.8l1.46 1.46A7.93 7.93 0 0 1 20 12c0 4.42-3.58 8-8 8zm.5-16.5V1L8 5l4.5 4.5V7c2.76 0 5 2.24 5 5 0 .65-.13 1.26-.36 1.82l1.48 1.48A6.97 6.97 0 0 0 19.5 12c0-3.86-3.14-7-7-7z"/></svg></button>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Card 3 - Elite Development -->
             <div class="flip-card">
                 <div class="flip-card-inner">
                     <div class="flip-card-front">
-                        <div class="card-image-wrap"><img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/28-DSC_8369.jpg" alt="Elite Development" loading="lazy" style="object-position:center 18%;object-fit:cover;" /></div>
-                        <h3 class="about-card-title">Elite Development</h3>
-                        <p class="about-card-text">
-                            Comprehensive player development focusing on skill mastery, basketball IQ, mental toughness, 
-                            and leadership both on and off the court.
-                        </p>
-                        <button class="flip-icon" aria-label="Flip card" onclick="toggleFlip(this)">
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46A7.93 7.93 0 0 0 20 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74A7.93 7.93 0 0 0 4 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z"/></svg>
-                        </button>
-                    </div>
-                    <div class="flip-card-back">
-                        <h3 class="about-card-title">Elite Development</h3>
-                        <div class="card-back-details">
-                            <div class="card-back-item">
-                                <div class="card-back-label">Skill Progression</div>
-                                <div class="card-back-value">
-                                    Individualized development plans with measurable milestones and continuous assessment.
-                                </div>
-                            </div>
-                            <div class="card-back-item">
-                                <div class="card-back-label">Basketball IQ</div>
-                                <div class="card-back-value">
-                                    Film study, situational awareness training, and tactical understanding of the game.
-                                </div>
-                            </div>
-                            <div class="card-back-item">
-                                <div class="card-back-label">Life Skills</div>
-                                <div class="card-back-value">
-                                    Leadership development, academic support, and character building beyond basketball.
-                        <button class="flip-back-btn" aria-label="Flip card back" onclick="toggleFlip(this)">
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 20v3l-4-4 4-4v3c3.31 0 6-2.69 6-6 0-1.01-.25-1.97-.7-2.8l1.46 1.46A7.93 7.93 0 0 1 20 12c0 4.42-3.58 8-8 8zm.5-16.5V1L8 5l4.5 4.5V7c2.76 0 5 2.24 5 5 0 .65-.13 1.26-.36 1.82l1.48 1.48A6.97 6.97 0 0 0 19.5 12c0-3.86-3.14-7-7-7z"/></svg>
-                        </button>
-                                </div>
-                            </div>
+                        <div class="card-image-wrap"><img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/28-DSC_8369.jpg" alt="Life Mentorship" loading="lazy" style="object-position:center 18%;" /></div>
+                        <h3 class="about-card-title">Life Mentorship</h3>
+                        <p class="about-card-text">Confidence. Accountability. Work ethic. These aren't buzzwords — they're what gets built every day in the gym, in practice, and in real conversations with Coach Miller.</p>
+                        <div class="card-front-footer">
+                            <button class="flip-icon" aria-label="Flip card for more info" onclick="toggleFlip(this)"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46A7.93 7.93 0 0 0 20 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74A7.93 7.93 0 0 0 4 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z"/></svg></button>
                         </div>
                     </div>
-                </div>
-            </div>
+                    <div class="flip-card-back">
+                        <h3 class="about-card-title">Life Mentorship</h3>
+                        <div class="card-back-details">
+                            <div class="card-back-item">
+                                <div class="card-back-label">The Conversation Nobody Has</div>
+                                <div class="card-back-value">Coach Miller talks to his athletes about the stuff other coaches skip — identity, self-worth, pressure, failure. That conversation is the practice that matters most.</div>
+                            </div>
+                            <div class="card-back-item">
+                                <div class="card-back-label">Lead Yourself First</div>
+                                <div class="card-back-value">You can't lead a team if you can't lead yourself. Every drill, every session, every correction at Born Elite is building the kind of young man who can handle both.</div>
+                            </div>
+                            <div class="card-back-item">
+                                <div class="card-back-label">Pressure Makes Players</div>
+                                <div class="card-back-value">We put athletes in uncomfortable situations on purpose — because resilience isn't taught in a comfort zone. What you build under pressure is what you keep for life.</div>
+                            </div>
+                        </div>
+                        <div class="card-back-footer">
+                            <button class="flip-back-btn" aria-label="Flip back" onclick="toggleFlip(this)"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 20v3l-4-4 4-4v3c3.31 0 6-2.69 6-6 0-1.01-.25-1.97-.7-2.8l1.46 1.46A7.93 7.93 0 0 1 20 12c0 4.42-3.58 8-8 8zm.5-16.5V1L8 5l4.5 4.5V7c2.76 0 5 2.24 5 5 0 .65-.13 1.26-.36 1.82l1.48 1.48A6.97 6.97 0 0 0 19.5 12c0-3.86-3.14-7-7-7z"/></svg></button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+</div>
     </section>
 
     <!-- Programs Section -->
     <section id="programs" class="programs">
         <div class="section-label">What We Offer</div>
-        <h2 class="section-title">Elite Programs</h2>
+        <h2 class="section-title">Programs That Produce</h2>
         <p class="section-description">
-            From fundamentals to advanced competition, our programs are designed to elevate every aspect of your game.
+            From fundamentals to advanced competition, every Born Elite program runs on the same foundation — hard work, family atmosphere, and mentorship that goes deeper than basketball.
         </p>
 
         <div class="programs-grid">
             <div class="program-card">
-                <h3 class="program-title">AAU Teams</h3>
+                <h3 class="program-title">AAU Competition</h3>
                 <p class="program-description">
-                    Competitive travel teams that compete in elite tournaments nationwide. Exposure to college scouts 
-                    and high-level competition.
+                    Competitive travel teams taking inner city Houston athletes to elite tournaments and college exposure events — giving players a platform their talent deserves.
                 </p>
                 <ul class="program-features">
-                    <li>National tournament participation</li>
-                    <li>College exposure events</li>
-                    <li>Professional coaching staff</li>
-                    <li>Year-round development</li>
+                    <li>Regional &amp; national tournament play</li>
+                    <li>College scout exposure events</li>
+                    <li>Coach Miller-led coaching staff</li>
+                    <li>Year-round competitive development</li>
                 </ul>
             </div>
             <div class="program-card">
-                <h3 class="program-title">Skills Training</h3>
+                <h3 class="program-title">Life &amp; Skill Development</h3>
                 <p class="program-description">
-                    Intensive skill development sessions focusing on individual improvement and mastery of basketball 
-                    fundamentals.
+                    Elite skill work paired with the mentorship and accountability that turns talented kids into confident young men — on the floor and in the real world.
                 </p>
                 <ul class="program-features">
-                    <li>Position-specific training</li>
-                    <li>Advanced ball-handling</li>
-                    <li>Shooting mechanics</li>
-                    <li>Defensive techniques</li>
+                    <li>Position-specific skill mastery</li>
+                    <li>Confidence &amp; accountability coaching</li>
+                    <li>Life mentorship from Coach Miller</li>
+                    <li>Alumni career network access</li>
                 </ul>
             </div>
         </div>
@@ -1820,7 +1775,7 @@
 
     <!-- Gallery Section -->
     <section id="gallery" class="gallery">
-        <div class="section-label">Our Journey</div>
+        <div class="section-label">The Work in Action</div>
         <h2 class="section-title">Moments of Excellence</h2>
         
         <div class="carousel-wrap">
@@ -1839,13 +1794,13 @@
                         <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/92-DSC_8205.jpg" alt="Born Elite Basketball" loading="lazy" />
                     </div>
                     <div class="carousel-slide">
-                        <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/12-DSC_8402.jpg" alt="Born Elite Basketball" loading="lazy" />
+                        <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/45-DSC_8326.jpg" alt="Born Elite Basketball" loading="lazy" />
                     </div>
                     <div class="carousel-slide">
-                        <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/22-DSC_8383.jpg" alt="Born Elite Basketball" loading="lazy" />
+                        <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/57-DSC_8294.jpg" alt="Born Elite Basketball" loading="lazy" />
                     </div>
                     <div class="carousel-slide">
-                        <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/32-DSC_8366.jpg" alt="Born Elite Basketball" loading="lazy" />
+                        <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/74-DSC_8232.jpg" alt="Born Elite Basketball" loading="lazy" />
                     </div>
                     <div class="carousel-slide">
                         <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/52-DSC_8304.jpg" alt="Born Elite Basketball" loading="lazy" />
@@ -1854,16 +1809,16 @@
                         <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/62-DSC_8290.jpg" alt="Born Elite Basketball" loading="lazy" />
                     </div>
                     <div class="carousel-slide">
-                        <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/79-DSC_8224.jpg" alt="Born Elite Basketball" loading="lazy" />
+                        <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/98-DSC_8196.jpg" alt="Born Elite Basketball" loading="lazy" />
                     </div>
                     <div class="carousel-slide">
-                        <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/87-DSC_8214.jpg" alt="Born Elite Basketball" loading="lazy" />
+                        <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/109-DSC_8185.jpg" alt="Born Elite Basketball" loading="lazy" />
                     </div>
                     <div class="carousel-slide">
-                        <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/100-DSC_8194.jpg" alt="Born Elite Basketball" loading="lazy" />
+                        <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/119-DSC_8162.jpg" alt="Born Elite Basketball" loading="lazy" />
                     </div>
                     <div class="carousel-slide">
-                        <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/110-DSC_8181.jpg" alt="Born Elite Basketball" loading="lazy" />
+                        <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/91-DSC_8206.jpg" alt="Born Elite Basketball" loading="lazy" />
                     </div>
                     <div class="carousel-slide">
                         <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/122-DSC_8153.jpg" alt="Born Elite Basketball" loading="lazy" />
@@ -1889,7 +1844,7 @@
     <section id="contact" class="contact">
         <div class="contact-container">
             <div class="contact-info">
-                <h2>Let's Build Champions Together</h2>
+                <h2>Let's Build Your Athlete's Future</h2>
                 <div class="contact-details">
                     <div class="contact-item">
                         <div class="contact-icon">
@@ -1944,7 +1899,7 @@
     <footer>
         <div class="footer-content">
             <div class="footer-logo">
-                <img src="born-elite-logo.png" alt="Born Elite Basketball" />
+                <a href="index.html" aria-label="Born Elite home"><img src="born-elite-logo.png" alt="Born Elite Basketball" /></a>
             </div>
             <a href="https://www.instagram.com/bornelitebasketball/" target="_blank" class="social-link" aria-label="Instagram">
                 <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1960,11 +1915,32 @@
     </footer>
 
     <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-        // Toggle flip on click
+        // Toggle flip on click (button) or tap (mobile card front)
         function toggleFlip(btn) {
             const card = btn.closest('.flip-card');
             card.classList.toggle('is-flipped');
         }
+
+        // Mobile: tap anywhere on card front to flip
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.flip-card-front').forEach(function(front) {
+                front.addEventListener('click', function(e) {
+                    // Only if not clicking a button directly
+                    if (e.target.closest('.flip-icon')) return;
+                    if (window.innerWidth <= 768) {
+                        front.closest('.flip-card').classList.add('is-flipped');
+                    }
+                });
+            });
+            document.querySelectorAll('.flip-card-back').forEach(function(back) {
+                back.addEventListener('click', function(e) {
+                    if (e.target.closest('.flip-back-btn')) return;
+                    if (window.innerWidth <= 768) {
+                        back.closest('.flip-card').classList.remove('is-flipped');
+                    }
+                });
+            });
+        });
 
         // ── Elite immense fade-rise scroll system ──────────────────────
         const isMobileViewport = window.matchMedia('(max-width: 768px)').matches;
