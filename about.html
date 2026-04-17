@@ -21,7 +21,8 @@
             --glass-border: rgba(255,255,255,0.15);
         }
         *{ margin:0; padding:0; box-sizing:border-box; }
-        html { overflow-x:hidden; -webkit-overflow-scrolling:touch; scroll-behavior:smooth; }
+        html { overflow-x:hidden; -webkit-overflow-scrolling:touch; scroll-behavior:smooth; max-width:100%; }
+        html, body { overflow-x:hidden !important; max-width:100%; }
         body {
             font-family:'Inter',sans-serif;
             background:var(--elite-black);
@@ -102,9 +103,9 @@
            MISSION CAROUSEL — neon fizzle card system
            ═══════════════════════════════════════════════ */
         .mission-section {
-            padding:8rem 5vw 6rem; position:relative; z-index:2;
+            padding:9rem 5vw 6rem; position:relative; z-index:2;
         }
-        @media(max-width:768px){ .mission-section{ padding:7rem 5vw 4rem; } }
+        @media(max-width:768px){ .mission-section{ padding:7.5rem 5vw 4rem; } }
         .mission-section-label {
             font-size:0.875rem; letter-spacing:0.2em; text-transform:uppercase;
             color:var(--accent-green); font-weight:600; margin-bottom:0.5rem; text-align:center;
@@ -118,11 +119,15 @@
         /* ── Carousel container ── */
         .mc-wrap {
             position:relative; max-width:900px; margin:0 auto;
+            overflow:hidden; /* prevent horizontal bleed from scale animations */
         }
         .mc-track {
             position:relative; height:420px;
+            overflow:hidden;
         }
-        @media(max-width:768px){ .mc-track{ height:auto; min-height:360px; } }
+        /* Mobile: give track a real height so absolute cards don't escape */
+        @media(max-width:768px){ .mc-track{ height:auto; min-height:520px; } }
+        @media(max-width:480px){ .mc-track{ min-height:560px; } }
 
         /* ── Mission card ── */
         .mc-card {
@@ -138,8 +143,16 @@
                 0 0 60px rgba(85,224,37,0.05);
             opacity:0; pointer-events:none;
             transition:none; /* transitions handled by JS classes */
+            /* Prevent any card from causing horizontal overflow */
+            max-width:100%;
+            overflow:hidden;
         }
-        @media(max-width:768px){ .mc-card{ padding:2rem 1.5rem; } }
+        @media(max-width:768px){
+            .mc-card{
+                padding:1.75rem 1.25rem 1.5rem;
+                border-radius:16px;
+            }
+        }
         .mc-card.is-active {
             opacity:1; pointer-events:all;
         }
@@ -152,15 +165,27 @@
             animation:fizzleOut 0.5s ease forwards;
         }
         @keyframes fizzleIn {
-            0%   { opacity:0; transform:scale(0.95) translateY(12px); filter:brightness(2.5) saturate(3); box-shadow:0 0 0 1px rgba(85,224,37,0.5), 0 0 40px rgba(85,224,37,0.5), 0 0 80px rgba(85,224,37,0.25); }
-            35%  { opacity:1; transform:scale(1.01) translateY(-2px); filter:brightness(1.6) saturate(1.8); box-shadow:0 0 0 1px rgba(85,224,37,0.35), 0 0 25px rgba(85,224,37,0.3); }
-            70%  { transform:scale(0.998) translateY(1px); filter:brightness(1.15) saturate(1.2); }
-            100% { opacity:1; transform:scale(1) translateY(0); filter:brightness(1) saturate(1); box-shadow:0 0 0 1px rgba(109,191,46,0.12), 0 0 30px rgba(85,224,37,0.12); }
+            0%   { opacity:0; transform:scale(0.96) translateY(10px); filter:brightness(2.2) saturate(2.5); box-shadow:0 0 0 1px rgba(85,224,37,0.5), 0 0 32px rgba(85,224,37,0.45); }
+            35%  { opacity:1; transform:scale(1.005) translateY(-1px); filter:brightness(1.5) saturate(1.6); box-shadow:0 0 0 1px rgba(85,224,37,0.3), 0 0 20px rgba(85,224,37,0.25); }
+            70%  { transform:scale(0.999) translateY(0px); filter:brightness(1.1) saturate(1.1); }
+            100% { opacity:1; transform:scale(1) translateY(0); filter:brightness(1) saturate(1); box-shadow:0 0 0 1px rgba(109,191,46,0.12), 0 0 24px rgba(85,224,37,0.1); }
         }
         @keyframes fizzleOut {
             0%   { opacity:1; transform:scale(1); filter:brightness(1); }
-            25%  { opacity:0.8; transform:scale(1.02); filter:brightness(1.8) saturate(2.5); box-shadow:0 0 0 2px rgba(85,224,37,0.6), 0 0 50px rgba(85,224,37,0.4); }
-            100% { opacity:0; transform:scale(0.94) translateY(-8px); filter:brightness(3) saturate(0.5); box-shadow:0 0 60px rgba(85,224,37,0.6); }
+            25%  { opacity:0.7; transform:scale(1.008); filter:brightness(1.6) saturate(2); box-shadow:0 0 0 1px rgba(85,224,37,0.5), 0 0 30px rgba(85,224,37,0.35); }
+            100% { opacity:0; transform:scale(0.96) translateY(-6px); filter:brightness(2.5) saturate(0.4); }
+        }
+        /* Mobile: no scale transforms that bleed outside container */
+        @media(max-width:768px){
+            @keyframes fizzleIn {
+                0%   { opacity:0; transform:translateY(8px); filter:brightness(1.8); }
+                50%  { opacity:1; transform:translateY(-1px); filter:brightness(1.2); }
+                100% { opacity:1; transform:translateY(0); filter:brightness(1); }
+            }
+            @keyframes fizzleOut {
+                0%   { opacity:1; transform:translateY(0); }
+                100% { opacity:0; transform:translateY(-6px); filter:brightness(1.5); }
+            }
         }
 
         /* Card content */
@@ -285,9 +310,12 @@
         .snrg-credit a::after { background:linear-gradient(90deg,var(--accent-green),transparent); }
 
         @media(max-width:768px){
-            .mc-track { height:auto; min-height:400px; }
-            .mc-card { position:relative; inset:auto; }
-            .mc-card:not(.is-active) { display:none; }
+            /* Cards stay absolute — no display:none reflow, no height collapse */
+            .mc-card:not(.is-active) {
+                opacity:0 !important;
+                pointer-events:none !important;
+                /* Do NOT use display:none — it collapses the track height */
+            }
         }
     </style>
 </head>
