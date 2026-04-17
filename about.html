@@ -194,16 +194,21 @@ nav {
   opacity:0; animation: fadeUp .7s cubic-bezier(.16,1,.3,1) .6s forwards;
 }
 .pill {
-  display: inline-flex; align-items:center; gap:.5rem;
+  display: inline-flex; align-items:center; gap:.55rem;
   font-family:var(--mono); font-size:.6rem; letter-spacing:.16em; text-transform:uppercase;
-  padding: .45rem 1rem;
-  border: 1px solid var(--g-line);
+  padding: .5rem 1rem;
+  border: 1px solid rgba(255,255,255,.9);
   border-radius: 100px;
-  color: rgba(85,224,37,.7);
-  background: var(--g-dim);
+  color: #000;
+  background: linear-gradient(180deg, rgba(85,224,37,.92) 0%, rgba(63,168,24,.96) 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.14),
+    0 0 0 1px rgba(85,224,37,.08),
+    0 10px 24px rgba(85,224,37,.14);
   white-space: nowrap;
+  text-shadow: none;
 }
-.pill-dot { width:5px; height:5px; border-radius:50%; background:var(--g); flex-shrink:0; }
+.pill-dot { width:5px; height:5px; border-radius:50%; background:#fff; flex-shrink:0; box-shadow:none; }
 
 /* RIGHT — tall accordion panels */
 .hero-r {
@@ -296,10 +301,15 @@ nav {
 .ticker-wrap {
   position: relative; z-index:2;
   overflow: hidden;
-  border-top: 1px solid var(--g-line);
-  border-bottom: 1px solid var(--g-line);
-  padding: .9rem 0;
-  background: rgba(85,224,37,.025);
+  border-top: 1px solid rgba(255,255,255,.92);
+  border-bottom: 1px solid rgba(255,255,255,.92);
+  padding: .92rem 0;
+  background:
+    linear-gradient(180deg, rgba(85,224,37,.96) 0%, rgba(63,168,24,.98) 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.08),
+    inset 0 -1px 0 rgba(0,0,0,.18),
+    0 0 28px rgba(85,224,37,.08);
 }
 .ticker-track {
   display: flex; gap:0;
@@ -309,9 +319,10 @@ nav {
 .ticker-item {
   display: flex; align-items:center; gap:2rem; padding:0 2rem;
   font-family:var(--mono); font-size:.62rem; letter-spacing:.22em; text-transform:uppercase;
-  color: rgba(85,224,37,.5); white-space:nowrap;
+  color: #000; white-space:nowrap;
+  text-shadow: none;
 }
-.ticker-sep { color:rgba(85,224,37,.25); font-size:.5rem; }
+.ticker-sep { color:rgba(0,0,0,.62); font-size:.5rem; }
 @keyframes ticker {
   from { transform:translateX(0); }
   to   { transform:translateX(-50%); }
@@ -347,9 +358,7 @@ nav {
 }
 .values-h2 em { font-style:italic; color:var(--g); }
 .values-count {
-  font-family:var(--serif); font-size:clamp(5rem,10vw,8rem);
-  font-weight:600; line-height:1; color:rgba(85,224,37,.08);
-  letter-spacing:-.04em; flex-shrink:0;
+  display:none;
 }
 
 /* The values themselves — asymmetric rows */
@@ -599,7 +608,7 @@ footer {
   <div class="values-header sr">
     <div>
       <div class="values-label">What Guides Every Rep, Every Day</div>
-      <h2 class="values-h2">Built on<br><em>These Six</em></h2>
+      <h2 class="values-h2">Born Elite<br><em>Principles</em></h2>
     </div>
     <div class="values-count" aria-hidden="true">6</div>
   </div>
