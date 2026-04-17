@@ -562,18 +562,6 @@
             outline: none;
         }
         .flip-back-btn svg { width: 18px; height: 18px; fill: var(--elite-green); pointer-events: none; }
-        /* Mobile: show flip-back-btn — make it bigger for touch */
-        @media (max-width: 768px) {
-            .flip-back-btn {
-                display: flex !important;
-                width: 48px;
-                height: 48px;
-                min-width: 48px;
-                border-width: 2px;
-                background: rgba(85,224,37,0.1);
-            }
-            .flip-back-btn svg { width: 22px; height: 22px; }
-        }
 
         /* Programs Section */
         .programs {
@@ -1173,33 +1161,146 @@
                 grid-template-columns: 1fr;
             }
 
-            .about-grid {
-                grid-template-columns: 1fr;
-            }
+            .about-grid { grid-template-columns: 1fr; }
+
+
+        }
+
+
+        /* ═══════════════════════════════════════════════════════════════
+           MOBILE FLIP CARDS — content-height fade architecture
+           Disables 3D rotation on mobile. Both faces go back into normal
+           document flow (position:relative) so card height is driven by
+           content — never clipped, never fixed, never overflows.
+           Flip uses a clean fade-up animation instead of rotateY.
+           ═══════════════════════════════════════════════════════════════ */
+        @media (max-width: 768px) {
+
+            /* Kill 3D perspective — not needed for fade approach */
             .flip-card {
+                perspective: none;
                 height: auto;
-                min-height: 560px;
+                min-height: 0;
             }
+            .flip-card-inner {
+                transform-style: flat;
+                -webkit-transform-style: flat;
+                transition: none;
+                height: auto;
+                min-height: 0;
+                position: relative;
+            }
+            /* Disable the 3D rotation entirely on mobile */
+            .flip-card.is-flipped .flip-card-inner {
+                transform: none !important;
+            }
+
+            /* Both faces back in normal flow — height = content */
             .flip-card-front,
             .flip-card-back {
-                min-height: 560px;
-                padding: 1.5rem 1.25rem 1.25rem;
+                position: relative;
+                width: 100%;
+                height: auto;
+                min-height: 0;
+                backface-visibility: visible;
+                -webkit-backface-visibility: visible;
             }
+
+            /* Back face: hidden by default, no rotateY */
             .flip-card-back {
-                padding: 1.75rem 1.25rem 1.5rem;
-                justify-content: center;
+                transform: none;
+                display: none;
+                padding: 2rem 1.5rem 1.75rem;
+                background: rgba(10,10,10,0.97);
+                border-color: rgba(85,224,37,0.55);
+                box-shadow: 0 0 0 1px rgba(85,224,37,0.22), 0 0 24px rgba(85,224,37,0.2);
             }
-            .card-back-details { gap: 1.1rem; }
-            .card-back-item { text-align: center; padding-bottom: 1rem; }
-            .card-back-label { font-size: 0.7rem; }
-            .card-back-value { font-size: 1rem; }
-            .card-back-footer { margin-top: 1.5rem; }
+
+            /* Show back when flipped — fade + rise */
+            .flip-card.is-flipped .flip-card-front {
+                display: none;
+            }
+            .flip-card.is-flipped .flip-card-back {
+                display: flex;
+                animation: mobileCardIn 0.38s cubic-bezier(0.16,1,0.3,1) forwards;
+            }
+            @keyframes mobileCardIn {
+                from { opacity: 0; transform: translateY(10px) scale(0.98); }
+                to   { opacity: 1; transform: translateY(0)  scale(1); }
+            }
+
+            /* ── BACK CARD LAYOUT — centered, spacious ── */
             .flip-card-back .about-card-title {
-                font-size: 1.5rem;
+                font-size: 1.6rem;
                 text-align: center;
+                margin-bottom: 1.4rem;
+                padding-bottom: 1rem;
+                border-bottom: 1px solid rgba(85,224,37,0.3);
+            }
+            .card-back-details {
+                gap: 0;
+                flex-grow: 0;
+            }
+            .card-back-item {
+                text-align: center;
+                padding: 1rem 0;
+                border-bottom: 1px solid rgba(255,255,255,0.08);
+            }
+            .card-back-item:last-child { border-bottom: none; }
+            .card-back-label {
+                font-size: 0.68rem;
+                letter-spacing: 0.18em;
+                margin-bottom: 0.5rem;
+                color: var(--elite-green);
+            }
+            .card-back-value {
+                font-size: 0.97rem;
+                line-height: 1.65;
+                color: rgba(255,255,255,0.9);
             }
 
+            /* ── FLIP-BACK BUTTON — centered, large touch target ── */
+            .flip-back-btn {
+                display: flex !important;
+                width: 52px;
+                height: 52px;
+                min-width: 52px;
+                margin: 1.5rem auto 0;
+                border-width: 2px;
+                border-color: rgba(85,224,37,0.6);
+                background: rgba(85,224,37,0.1);
+                box-shadow: 0 0 14px rgba(85,224,37,0.25);
+            }
+            .flip-back-btn svg { width: 22px; height: 22px; }
+            .card-back-footer {
+                justify-content: center;
+                margin-top: 0;
+            }
 
+            /* ── FLIP-FORWARD ICON on front — larger touch target ── */
+            .flip-icon {
+                width: 48px;
+                height: 48px;
+                min-width: 48px;
+                border-width: 2px;
+            }
+            .flip-icon svg { width: 20px; height: 20px; }
+            .card-front-footer { margin-top: 1rem; }
+
+            /* ── FRONT CARD ── */
+            .flip-card-front {
+                padding: 1.25rem 1.25rem 1.25rem;
+            }
+            .card-image-wrap { height: 190px; margin-bottom: 0.9rem; }
+            .about-card-title { font-size: 1.4rem; margin-bottom: 0.75rem; }
+            .about-card-text { font-size: 0.95rem; }
+        }
+
+        /* Very small phones */
+        @media (max-width: 380px) {
+            .flip-card-back .about-card-title { font-size: 1.4rem; }
+            .card-back-value { font-size: 0.9rem; }
+            .card-image-wrap { height: 170px; }
         }
 
         /* Tablet and laptop optimization */
