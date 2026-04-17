@@ -365,7 +365,12 @@
             transition: opacity 0.7s ease, transform 0.7s ease;
         }
 
-        /* ── About Section — Flip Cards ───────────────────────────────── */
+        /* ══════════════════════════════════════════════════════════════
+           FLIP CARDS — scaleX fold architecture
+           No position:absolute. Both faces in normal document flow.
+           Card height = content. Click anywhere to flip.
+           Works identically on all device sizes. Zero drop.
+           ══════════════════════════════════════════════════════════════ */
         .about { background: var(--elite-black); }
 
         .about-grid {
@@ -374,105 +379,269 @@
             gap: 2rem;
             margin-top: 3.5rem;
         }
-        @media (max-width: 1024px) { .about-grid { grid-template-columns: repeat(3,1fr); gap: 1.25rem; } }
-        @media (max-width: 768px)  { .about-grid { grid-template-columns: 1fr; gap: 1.75rem; } }
+        @media (max-width: 1100px) { .about-grid { gap: 1.5rem; } }
+        @media (max-width: 768px)  { .about-grid { grid-template-columns: 1fr; gap: 1.5rem; } }
 
+        /* Wrapper — no fixed height, no perspective needed */
         .flip-card {
-            perspective: 1200px;
-            /* Height auto — card sizes itself by content, no overflow */
-            min-height: 520px;
             opacity: 0;
             transform: translateY(30px);
-            transition: opacity 0.8s cubic-bezier(0.4,0,0.2,1), transform 0.8s cubic-bezier(0.4,0,0.2,1);
-            will-change: transform, opacity;
+            transition: opacity 0.8s cubic-bezier(0.4,0,0.2,1),
+                        transform 0.8s cubic-bezier(0.4,0,0.2,1);
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
         }
         .flip-card:nth-child(1) { transition-delay: 0.2s; }
         .flip-card:nth-child(2) { transition-delay: 0.4s; }
         .flip-card:nth-child(3) { transition-delay: 0.6s; }
 
-        .flip-card-inner {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            min-height: inherit;
-            transition: transform 0.7s cubic-bezier(0.4,0.2,0.2,1);
-            transform-style: preserve-3d;
-            -webkit-transform-style: preserve-3d;
-        }
-        .flip-card.is-flipped .flip-card-inner { transform: rotateY(180deg); }
+        /* Inner — just a block, no transforms */
+        .flip-card-inner { position: relative; }
 
-        /* ── Card faces ── */
+        /* ── FACES — both in normal flow, one hidden at a time ── */
         .flip-card-front,
         .flip-card-back {
-            position: absolute;
-            width: 100%;
-            min-height: 100%;
-            backface-visibility: hidden;
-            -webkit-backface-visibility: hidden;
-            background: rgba(12,12,12,0.92);
-            border: 1px solid rgba(109,191,46,0.45);
             border-radius: 16px;
-            padding: 1.25rem 1.25rem 1rem;
+            padding: 2rem 1.75rem 1.5rem;
             display: flex;
             flex-direction: column;
-            box-shadow: 0 0 0 1px rgba(109,191,46,0.15), 0 0 18px rgba(85,224,37,0.12);
-        }
-        .flip-card-back {
-            transform: rotateY(180deg);
-            background: rgba(10,10,10,0.96);
-            border-color: rgba(85,224,37,0.5);
-            box-shadow: 0 0 0 1px rgba(85,224,37,0.2), 0 0 22px rgba(85,224,37,0.18);
-            padding: 1.75rem 1.5rem 1.25rem;
-            justify-content: center; /* vertically center content when card is tall */
+            user-select: none;
+            /* scaleX fold animation */
+            transform-origin: center;
+            transition: transform 0.18s ease-in, opacity 0.18s ease-in;
         }
 
-        /* ── Card image ── */
-        .card-image-wrap {
-            width: 100%;
-            height: 220px;
-            border-radius: 10px;
-            margin-bottom: 0.9rem;
+        /* Front — visible, styled */
+        .flip-card-front {
+            background: rgba(10,10,10,0.97);
+            border: 1px solid rgba(109,191,46,0.4);
+            box-shadow: 0 0 0 1px rgba(109,191,46,0.1),
+                        0 0 20px rgba(85,224,37,0.1);
+            position: relative;
             overflow: hidden;
-            flex-shrink: 0;
-            background: #050505;
-        }
-        @media (max-width: 768px) { .card-image-wrap { height: 200px; } }
-        .card-image-wrap img {
-            width: 100%; height: 100%;
-            object-fit: cover; object-position: center;
-            display: block;
-            filter: brightness(1.18) contrast(1.06) saturate(1.06);
-            transition: transform 0.45s ease, filter 0.45s ease;
-        }
-        .flip-card-front:hover .card-image-wrap img {
-            transform: scale(1.035);
-            filter: brightness(1.25) contrast(1.08) saturate(1.08);
+            /* scaleX in state */
+            transform: scaleX(1);
+            opacity: 1;
         }
 
-        /* ── Card text ── */
+        /* Back — hidden by default, behind front */
+        .flip-card-back {
+            display: none; /* swap, not overlap */
+            background: rgba(8,8,8,0.98);
+            border: 1px solid rgba(85,224,37,0.5);
+            box-shadow: 0 0 0 1px rgba(85,224,37,0.18),
+                        0 0 28px rgba(85,224,37,0.18);
+            transform: scaleX(1);
+            opacity: 1;
+        }
+
+        /* Flipping OUT → scaleX to 0 */
+        .flip-card-front.folding-out,
+        .flip-card-back.folding-out {
+            transform: scaleX(0);
+            opacity: 0;
+            transition: transform 0.18s ease-in, opacity 0.12s ease-in;
+        }
+        /* Folding IN from scaleX(0) → 1 */
+        .flip-card-front.folding-in,
+        .flip-card-back.folding-in {
+            transform: scaleX(1);
+            opacity: 1;
+            transition: transform 0.22s cubic-bezier(0.34,1.56,0.64,1),
+                        opacity 0.18s ease-out;
+        }
+
+        /* Per-card atmospheric gradient on front */
+        .flip-card:nth-child(1) .flip-card-front {
+            background:
+                radial-gradient(ellipse at 15% 20%, rgba(85,224,37,0.09) 0%, transparent 55%),
+                radial-gradient(ellipse at 90% 80%, rgba(85,224,37,0.05) 0%, transparent 45%),
+                rgba(10,10,10,0.97);
+        }
+        .flip-card:nth-child(2) .flip-card-front {
+            background:
+                radial-gradient(ellipse at 85% 15%, rgba(85,224,37,0.10) 0%, transparent 50%),
+                radial-gradient(ellipse at 10% 85%, rgba(85,224,37,0.05) 0%, transparent 45%),
+                rgba(10,10,10,0.97);
+        }
+        .flip-card:nth-child(3) .flip-card-front {
+            background:
+                radial-gradient(ellipse at 50% 0%, rgba(85,224,37,0.10) 0%, transparent 55%),
+                radial-gradient(ellipse at 50% 100%, rgba(85,224,37,0.04) 0%, transparent 45%),
+                rgba(10,10,10,0.97);
+        }
+
+        /* Top edge accent line */
+        .flip-card-front::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            background: linear-gradient(90deg,
+                rgba(85,224,37,0.85) 0%,
+                rgba(85,224,37,0.25) 60%,
+                transparent 100%);
+            border-radius: 16px 16px 0 0;
+        }
+        .flip-card:nth-child(2) .flip-card-front::before {
+            background: linear-gradient(90deg,
+                transparent 0%,
+                rgba(85,224,37,0.25) 30%,
+                rgba(85,224,37,0.85) 60%,
+                rgba(85,224,37,0.25) 100%);
+        }
+        .flip-card:nth-child(3) .flip-card-front::before {
+            background: linear-gradient(90deg,
+                transparent 0%,
+                rgba(85,224,37,0.2) 40%,
+                rgba(85,224,37,0.85) 100%);
+        }
+
+        /* Hover glow on front */
+        .flip-card:not(.is-flipped):hover .flip-card-front {
+            box-shadow: 0 0 0 1px rgba(85,224,37,0.28),
+                        0 0 28px rgba(85,224,37,0.16),
+                        0 0 60px rgba(85,224,37,0.06);
+            border-color: rgba(85,224,37,0.55);
+        }
+
+        /* ── FRONT CONTENT ── */
+        .card-kicker {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.58rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: rgba(85,224,37,0.55);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.65rem;
+        }
+        .card-kicker::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, rgba(85,224,37,0.3), transparent);
+        }
+        .card-front-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.85rem, 3.2vw, 2.5rem);
+            font-weight: 900;
+            line-height: 1.05;
+            color: #FFFFFF;
+            letter-spacing: -0.01em;
+            margin-bottom: 1.35rem;
+            text-shadow: 0 0 40px rgba(85,224,37,0.28),
+                         0 0 80px rgba(85,224,37,0.1);
+        }
+        .card-front-body {
+            font-size: clamp(0.9rem, 1.5vw, 1.02rem);
+            line-height: 1.75;
+            color: rgba(255,255,255,0.62);
+            flex-grow: 1;
+        }
+
+        /* Flip hint row — "Tap to flip" label + icon */
+        .card-front-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255,255,255,0.07);
+            flex-shrink: 0;
+        }
+        .card-flip-hint {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.55rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: rgba(85,224,37,0.4);
+        }
+        .flip-icon {
+            width: 36px; height: 36px; min-width: 36px;
+            border-radius: 50%;
+            background: rgba(109,191,46,0.1);
+            border: 1.5px solid rgba(109,191,46,0.4);
+            display: flex; align-items: center; justify-content: center;
+            transition: background 0.25s, border-color 0.25s, transform 0.25s;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+            flex-shrink: 0;
+            pointer-events: none; /* card click handles it */
+        }
+        .flip-card:not(.is-flipped):hover .flip-icon {
+            background: rgba(109,191,46,0.22);
+            border-color: var(--accent-green);
+        }
+        .flip-icon svg { width: 16px; height: 16px; fill: var(--accent-green); }
+
+        /* ── BACK CONTENT ── */
         .about-card-title {
             font-family: 'Playfair Display', serif;
-            font-size: clamp(1.3rem, 2.2vw, 1.6rem);
+            font-size: clamp(1.35rem, 2.5vw, 1.65rem);
             font-weight: 700;
-            margin-bottom: 1.1rem;
+            margin-bottom: 1.25rem;
+            padding-bottom: 0.9rem;
+            border-bottom: 1px solid rgba(85,224,37,0.2);
+            text-align: center;
             color: #FFFFFF;
             line-height: 1.2;
-            text-shadow: 0 0 24px rgba(109,191,46,0.5), 2px 2px 0 rgba(109,191,46,0.12);
+            text-shadow: 0 0 24px rgba(109,191,46,0.45);
         }
-        /* Back card title — bigger, centered, clear separator */
-        .flip-card-back .about-card-title {
-            font-size: clamp(1.4rem, 3vw, 1.7rem);
-            margin-bottom: 1.25rem;
-            padding-bottom: 0.85rem;
-            border-bottom: 1px solid rgba(85,224,37,0.25);
+        .card-back-details {
+            display: flex; flex-direction: column;
+            gap: 0; flex-grow: 1;
+        }
+        .card-back-item {
+            padding: 0.9rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
             text-align: center;
         }
-        .about-card-text {
-            font-size: clamp(0.85rem, 1.4vw, 0.95rem);
-            line-height: 1.65;
-            color: rgba(255,255,255,0.72);
-            flex-grow: 1;
-            padding-right: 0; /* no right padding needed — icon is in flow */
+        .card-back-item:last-child { border-bottom: none; padding-bottom: 0; }
+        .card-back-label {
+            font-size: clamp(0.62rem, 1.2vw, 0.68rem);
+            letter-spacing: 0.16em; text-transform: uppercase;
+            color: var(--accent-green); font-weight: 700;
+            margin-bottom: 0.4rem;
+        }
+        .card-back-value {
+            font-size: clamp(0.88rem, 1.5vw, 0.95rem);
+            color: rgba(255,255,255,0.88); line-height: 1.6;
+        }
+
+        /* Back footer — centered flip-back btn */
+        .card-back-footer {
+            display: flex; align-items: center;
+            justify-content: center;
+            padding-top: 1.25rem;
+            margin-top: 0.5rem;
+            border-top: 1px solid rgba(255,255,255,0.07);
+            flex-shrink: 0;
+        }
+        .flip-back-btn {
+            width: 40px; height: 40px; min-width: 40px;
+            border-radius: 50%;
+            background: rgba(85,224,37,0.08);
+            border: 1.5px solid rgba(85,224,37,0.45);
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer;
+            transition: background 0.25s, border-color 0.25s, transform 0.25s;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+            pointer-events: none; /* card click handles it */
+        }
+        .flip-back-btn svg { width: 18px; height: 18px; fill: var(--elite-green); }
+
+        /* is-flipped state — show back, hide front */
+        .flip-card.is-flipped .flip-card-front { display: none; }
+        .flip-card.is-flipped .flip-card-back  { display: flex; }
+
+        /* Hover on back */
+        .flip-card.is-flipped:hover .flip-card-back {
+            border-color: rgba(85,224,37,0.7);
+            box-shadow: 0 0 0 1px rgba(85,224,37,0.28),
+                        0 0 32px rgba(85,224,37,0.2);
         }
 
         /* ── FLIP ICON — in flow, never overlaps text ── */
@@ -1167,143 +1336,14 @@
         }
 
 
-        /* ═══════════════════════════════════════════════════════════════
-           MOBILE FLIP CARDS — content-height fade architecture
-           Disables 3D rotation on mobile. Both faces go back into normal
-           document flow (position:relative) so card height is driven by
-           content — never clipped, never fixed, never overflows.
-           Flip uses a clean fade-up animation instead of rotateY.
-           ═══════════════════════════════════════════════════════════════ */
-        @media (max-width: 768px) {
-
-            /* Kill 3D perspective — not needed for fade approach */
-            .flip-card {
-                perspective: none;
-                height: auto;
-                min-height: 0;
-            }
-            .flip-card-inner {
-                transform-style: flat;
-                -webkit-transform-style: flat;
-                transition: none;
-                height: auto;
-                min-height: 0;
-                position: relative;
-            }
-            /* Disable the 3D rotation entirely on mobile */
-            .flip-card.is-flipped .flip-card-inner {
-                transform: none !important;
-            }
-
-            /* Both faces back in normal flow — height = content */
-            .flip-card-front,
-            .flip-card-back {
-                position: relative;
-                width: 100%;
-                height: auto;
-                min-height: 0;
-                backface-visibility: visible;
-                -webkit-backface-visibility: visible;
-            }
-
-            /* Back face: hidden by default, no rotateY */
-            .flip-card-back {
-                transform: none;
-                display: none;
-                padding: 2rem 1.5rem 1.75rem;
-                background: rgba(10,10,10,0.97);
-                border-color: rgba(85,224,37,0.55);
-                box-shadow: 0 0 0 1px rgba(85,224,37,0.22), 0 0 24px rgba(85,224,37,0.2);
-            }
-
-            /* Show back when flipped — fade + rise */
-            .flip-card.is-flipped .flip-card-front {
-                display: none;
-            }
-            .flip-card.is-flipped .flip-card-back {
-                display: flex;
-                animation: mobileCardIn 0.38s cubic-bezier(0.16,1,0.3,1) forwards;
-            }
-            @keyframes mobileCardIn {
-                from { opacity: 0; transform: translateY(10px) scale(0.98); }
-                to   { opacity: 1; transform: translateY(0)  scale(1); }
-            }
-
-            /* ── BACK CARD LAYOUT — centered, spacious ── */
-            .flip-card-back .about-card-title {
-                font-size: 1.6rem;
-                text-align: center;
-                margin-bottom: 1.4rem;
-                padding-bottom: 1rem;
-                border-bottom: 1px solid rgba(85,224,37,0.3);
-            }
-            .card-back-details {
-                gap: 0;
-                flex-grow: 0;
-            }
-            .card-back-item {
-                text-align: center;
-                padding: 1rem 0;
-                border-bottom: 1px solid rgba(255,255,255,0.08);
-            }
-            .card-back-item:last-child { border-bottom: none; }
-            .card-back-label {
-                font-size: 0.68rem;
-                letter-spacing: 0.18em;
-                margin-bottom: 0.5rem;
-                color: var(--elite-green);
-            }
-            .card-back-value {
-                font-size: 0.97rem;
-                line-height: 1.65;
-                color: rgba(255,255,255,0.9);
-            }
-
-            /* ── FLIP-BACK BUTTON — centered, large touch target ── */
-            .flip-back-btn {
-                display: flex !important;
-                width: 52px;
-                height: 52px;
-                min-width: 52px;
-                margin: 1.5rem auto 0;
-                border-width: 2px;
-                border-color: rgba(85,224,37,0.6);
-                background: rgba(85,224,37,0.1);
-                box-shadow: 0 0 14px rgba(85,224,37,0.25);
-            }
-            .flip-back-btn svg { width: 22px; height: 22px; }
-            .card-back-footer {
-                justify-content: center;
-                margin-top: 0;
-            }
-
-            /* ── FLIP-FORWARD ICON on front — larger touch target ── */
-            .flip-icon {
-                width: 48px;
-                height: 48px;
-                min-width: 48px;
-                border-width: 2px;
-            }
-            .flip-icon svg { width: 20px; height: 20px; }
-            .card-front-footer { margin-top: 1rem; }
-
-            /* ── FRONT CARD ── */
-            .flip-card-front {
-                padding: 1.25rem 1.25rem 1.25rem;
-            }
-            .card-image-wrap { height: 190px; margin-bottom: 0.9rem; }
-            .about-card-title { font-size: 1.4rem; margin-bottom: 0.75rem; }
-            .about-card-text { font-size: 0.95rem; }
-        }
-
         /* Very small phones */
         @media (max-width: 380px) {
-            .flip-card-back .about-card-title { font-size: 1.4rem; }
-            .card-back-value { font-size: 0.9rem; }
-            .card-image-wrap { height: 170px; }
+            .about-card-title { font-size: 1.2rem; }
+            .card-back-value { font-size: 0.88rem; }
+            .card-front-title { font-size: 1.65rem; }
         }
 
-        /* Tablet and laptop optimization */
+                /* Tablet and laptop optimization */
         @media (min-width: 769px) and (max-width: 1200px) {
             .hero {
                 padding: 8.2rem 5vw 7rem;
@@ -1771,11 +1811,12 @@
             <div class="flip-card">
                 <div class="flip-card-inner">
                     <div class="flip-card-front">
-                        <div class="card-image-wrap"><img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/122-DSC_8153.jpg" alt="Championship DNA" loading="lazy" style="object-position:center 30%;filter:brightness(1.45) contrast(1.1) saturate(1.12);" /></div>
-                        <h3 class="about-card-title">Championship DNA</h3>
-                        <p class="about-card-text">Coach Bruce Miller built Born Elite on a simple truth: what you build in a kid shows up everywhere — on the court, in a classroom, in life.</p>
+                        <div class="card-kicker">Our Foundation</div>
+                        <h3 class="card-front-title">Championship<br>DNA</h3>
+                        <p class="card-front-body">Coach Bruce Miller built Born Elite on a simple truth: what you build in a kid shows up everywhere — on the court, in a classroom, in life.</p>
                         <div class="card-front-footer">
-                            <button class="flip-icon" aria-label="Flip card for more info" onclick="toggleFlip(this)"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46A7.93 7.93 0 0 0 20 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74A7.93 7.93 0 0 0 4 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z"/></svg></button>
+                            <span class="card-flip-hint">Tap to flip</span>
+                            <button class="flip-icon" aria-label="Flip card" tabindex="-1"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46A7.93 7.93 0 0 0 20 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74A7.93 7.93 0 0 0 4 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z"/></svg></button>
                         </div>
                     </div>
                     <div class="flip-card-back">
@@ -1795,7 +1836,7 @@
                             </div>
                         </div>
                         <div class="card-back-footer">
-                            <button class="flip-back-btn" aria-label="Flip back" onclick="toggleFlip(this)"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 20v3l-4-4 4-4v3c3.31 0 6-2.69 6-6 0-1.01-.25-1.97-.7-2.8l1.46 1.46A7.93 7.93 0 0 1 20 12c0 4.42-3.58 8-8 8zm.5-16.5V1L8 5l4.5 4.5V7c2.76 0 5 2.24 5 5 0 .65-.13 1.26-.36 1.82l1.48 1.48A6.97 6.97 0 0 0 19.5 12c0-3.86-3.14-7-7-7z"/></svg></button>
+                            <button class="flip-back-btn" aria-label="Flip back" tabindex="-1"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 20v3l-4-4 4-4v3c3.31 0 6-2.69 6-6 0-1.01-.25-1.97-.7-2.8l1.46 1.46A7.93 7.93 0 0 1 20 12c0 4.42-3.58 8-8 8zm.5-16.5V1L8 5l4.5 4.5V7c2.76 0 5 2.24 5 5 0 .65-.13 1.26-.36 1.82l1.48 1.48A6.97 6.97 0 0 0 19.5 12c0-3.86-3.14-7-7-7z"/></svg></button>
                         </div>
                     </div>
                 </div>
@@ -1804,11 +1845,12 @@
             <div class="flip-card">
                 <div class="flip-card-inner">
                     <div class="flip-card-front">
-                        <div class="card-image-wrap"><img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/18-DSC_8393.jpg" alt="Houston Pride" loading="lazy" style="filter:brightness(1.42) contrast(1.09) saturate(1.12);" /></div>
-                        <h3 class="about-card-title">Houston Pride</h3>
-                        <p class="about-card-text">Your zip code doesn't determine your ceiling. Born Elite is H-Town's program for the kids who grind when no one's watching.</p>
+                        <div class="card-kicker">H-Town Roots</div>
+                        <h3 class="card-front-title">Houston<br>Pride</h3>
+                        <p class="card-front-body">Your zip code doesn't determine your ceiling. Born Elite is H-Town's program for the kids who grind when no one's watching.</p>
                         <div class="card-front-footer">
-                            <button class="flip-icon" aria-label="Flip card for more info" onclick="toggleFlip(this)"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46A7.93 7.93 0 0 0 20 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74A7.93 7.93 0 0 0 4 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z"/></svg></button>
+                            <span class="card-flip-hint">Tap to flip</span>
+                            <button class="flip-icon" aria-label="Flip card" tabindex="-1"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46A7.93 7.93 0 0 0 20 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74A7.93 7.93 0 0 0 4 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z"/></svg></button>
                         </div>
                     </div>
                     <div class="flip-card-back">
@@ -1828,7 +1870,7 @@
                             </div>
                         </div>
                         <div class="card-back-footer">
-                            <button class="flip-back-btn" aria-label="Flip back" onclick="toggleFlip(this)"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 20v3l-4-4 4-4v3c3.31 0 6-2.69 6-6 0-1.01-.25-1.97-.7-2.8l1.46 1.46A7.93 7.93 0 0 1 20 12c0 4.42-3.58 8-8 8zm.5-16.5V1L8 5l4.5 4.5V7c2.76 0 5 2.24 5 5 0 .65-.13 1.26-.36 1.82l1.48 1.48A6.97 6.97 0 0 0 19.5 12c0-3.86-3.14-7-7-7z"/></svg></button>
+                            <button class="flip-back-btn" aria-label="Flip back" tabindex="-1"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 20v3l-4-4 4-4v3c3.31 0 6-2.69 6-6 0-1.01-.25-1.97-.7-2.8l1.46 1.46A7.93 7.93 0 0 1 20 12c0 4.42-3.58 8-8 8zm.5-16.5V1L8 5l4.5 4.5V7c2.76 0 5 2.24 5 5 0 .65-.13 1.26-.36 1.82l1.48 1.48A6.97 6.97 0 0 0 19.5 12c0-3.86-3.14-7-7-7z"/></svg></button>
                         </div>
                     </div>
                 </div>
@@ -1837,11 +1879,12 @@
             <div class="flip-card">
                 <div class="flip-card-inner">
                     <div class="flip-card-front">
-                        <div class="card-image-wrap"><img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/28-DSC_8369.jpg" alt="Life Mentorship" loading="lazy" style="object-position:center 18%;" /></div>
-                        <h3 class="about-card-title">Life Mentorship</h3>
-                        <p class="about-card-text">Confidence. Accountability. Work ethic. These aren't buzzwords — they're what gets built every day in the gym, in practice, and in real conversations with Coach Miller.</p>
+                        <div class="card-kicker">Life Beyond the Game</div>
+                        <h3 class="card-front-title">Life<br>Mentorship</h3>
+                        <p class="card-front-body">Confidence. Accountability. Work ethic. These aren't buzzwords — they're what gets built every day in the gym, in practice, and in real conversations with Coach Miller.</p>
                         <div class="card-front-footer">
-                            <button class="flip-icon" aria-label="Flip card for more info" onclick="toggleFlip(this)"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46A7.93 7.93 0 0 0 20 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74A7.93 7.93 0 0 0 4 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z"/></svg></button>
+                            <span class="card-flip-hint">Tap to flip</span>
+                            <button class="flip-icon" aria-label="Flip card" tabindex="-1"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46A7.93 7.93 0 0 0 20 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74A7.93 7.93 0 0 0 4 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z"/></svg></button>
                         </div>
                     </div>
                     <div class="flip-card-back">
@@ -1861,7 +1904,7 @@
                             </div>
                         </div>
                         <div class="card-back-footer">
-                            <button class="flip-back-btn" aria-label="Flip back" onclick="toggleFlip(this)"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 20v3l-4-4 4-4v3c3.31 0 6-2.69 6-6 0-1.01-.25-1.97-.7-2.8l1.46 1.46A7.93 7.93 0 0 1 20 12c0 4.42-3.58 8-8 8zm.5-16.5V1L8 5l4.5 4.5V7c2.76 0 5 2.24 5 5 0 .65-.13 1.26-.36 1.82l1.48 1.48A6.97 6.97 0 0 0 19.5 12c0-3.86-3.14-7-7-7z"/></svg></button>
+                            <button class="flip-back-btn" aria-label="Flip back" tabindex="-1"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 20v3l-4-4 4-4v3c3.31 0 6-2.69 6-6 0-1.01-.25-1.97-.7-2.8l1.46 1.46A7.93 7.93 0 0 1 20 12c0 4.42-3.58 8-8 8zm.5-16.5V1L8 5l4.5 4.5V7c2.76 0 5 2.24 5 5 0 .65-.13 1.26-.36 1.82l1.48 1.48A6.97 6.97 0 0 0 19.5 12c0-3.86-3.14-7-7-7z"/></svg></button>
                         </div>
                     </div>
                 </div>
@@ -2048,32 +2091,60 @@
     </footer>
 
     <script>
-        // Toggle flip on click (button) or tap (mobile card front)
-        function toggleFlip(btn) {
-            const card = btn.closest('.flip-card');
-            card.classList.toggle('is-flipped');
-        }
+        // ── Flip cards — scaleX fold, click anywhere ─────────────────
+        (function() {
+            function doFlip(card) {
+                const isFlipped = card.classList.contains('is-flipped');
+                const outFace = isFlipped
+                    ? card.querySelector('.flip-card-back')
+                    : card.querySelector('.flip-card-front');
 
-        // Mobile: tap anywhere on card front to flip
-        document.addEventListener('DOMContentLoaded', function() {
-            document.querySelectorAll('.flip-card-front').forEach(function(front) {
-                front.addEventListener('click', function(e) {
-                    // Only if not clicking a button directly
-                    if (e.target.closest('.flip-icon')) return;
-                    if (window.innerWidth <= 768) {
-                        front.closest('.flip-card').classList.add('is-flipped');
-                    }
+                // Fold OUT the visible face
+                outFace.classList.add('folding-out');
+
+                setTimeout(function() {
+                    // Swap which face is showing
+                    card.classList.toggle('is-flipped');
+                    outFace.classList.remove('folding-out');
+
+                    // Fold IN the new face from scaleX(0)
+                    const inFace = card.classList.contains('is-flipped')
+                        ? card.querySelector('.flip-card-back')
+                        : card.querySelector('.flip-card-front');
+
+                    // Start at scaleX(0) then spring to 1
+                    inFace.style.transform = 'scaleX(0)';
+                    inFace.style.opacity = '0';
+                    inFace.style.transition = 'none';
+
+                    requestAnimationFrame(function() {
+                        requestAnimationFrame(function() {
+                            inFace.style.transform = '';
+                            inFace.style.opacity = '';
+                            inFace.style.transition = '';
+                            inFace.classList.add('folding-in');
+                            setTimeout(function() {
+                                inFace.classList.remove('folding-in');
+                            }, 320);
+                        });
+                    });
+                }, 180); // wait for fold-out to complete
+            }
+
+            // Wire up click on every flip-card
+            document.querySelectorAll('.flip-card').forEach(function(card) {
+                card.addEventListener('click', function(e) {
+                    // Don't flip if clicking a real link
+                    if (e.target.closest('a')) return;
+                    doFlip(card);
                 });
             });
-            document.querySelectorAll('.flip-card-back').forEach(function(back) {
-                back.addEventListener('click', function(e) {
-                    if (e.target.closest('.flip-back-btn')) return;
-                    if (window.innerWidth <= 768) {
-                        back.closest('.flip-card').classList.remove('is-flipped');
-                    }
-                });
-            });
-        });
+
+            // Keep toggleFlip for any inline onclick= attributes
+            window.toggleFlip = function(el) {
+                doFlip(el.closest('.flip-card'));
+            };
+        })();
 
         // ── Elite immense fade-rise scroll system ──────────────────────
         const isMobileViewport = window.matchMedia('(max-width: 768px)').matches;
