@@ -629,6 +629,125 @@ nav{
   }
 }
 
+
+/* ── Leadership CTA refinement ───────────────────────────── */
+.nav-links a,
+.mlink{
+  text-rendering: optimizeLegibility;
+}
+.acc-text{
+  color: rgba(255,255,255,.88);
+}
+.acc-cta{
+  display:inline-flex;
+  align-items:center;
+  gap:.55rem;
+  margin-top:1.1rem;
+  font-family:var(--mono);
+  font-size:.68rem;
+  font-weight:700;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--g);
+  padding:.9rem 1.15rem;
+  border:1px solid rgba(85,224,37,.28);
+  border-radius:999px;
+  background:rgba(85,224,37,.06);
+  transition:all .25s ease;
+}
+.acc-cta:hover{
+  color:#fff;
+  background:rgba(85,224,37,.14);
+  border-color:rgba(85,224,37,.55);
+  box-shadow:0 0 18px rgba(85,224,37,.18);
+  transform:translateY(-1px);
+}
+.acc-cta span{
+  font-size:.9em;
+}
+@media(max-width:768px){
+  .acc-cta{
+    width:100%;
+    justify-content:center;
+    font-size:.66rem;
+    letter-spacing:.15em;
+  }
+}
+
+
+/* ── SNRG final title readability fix ───────────────────────────── */
+.nav-links a,
+.mobile-link,
+.mlink,
+.section-label,
+.page-header-label,
+.acc-label,
+.acc-num,
+.value-num,
+.story-kicker,
+.profile-role,
+.profile-tag,
+.pill,
+.eyebrow {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+.section-label,
+.page-header-label,
+.acc-label,
+.acc-num,
+.value-num,
+.story-kicker,
+.profile-role,
+.eyebrow,
+.pill {
+  color: #72F040 !important;
+  text-shadow:
+    0 1px 3px rgba(0,0,0,0.92),
+    0 0 10px rgba(0,0,0,0.72);
+}
+
+.section-title,
+.value-title,
+.profile-name,
+.hero-title em,
+.hero-title span,
+.acc-label,
+.v-name {
+  text-shadow:
+    0 2px 8px rgba(0,0,0,0.88),
+    0 0 18px rgba(0,0,0,0.48);
+}
+
+@media (max-width: 768px){
+  .section-label,
+  .page-header-label,
+  .acc-label,
+  .acc-num,
+  .value-num,
+  .story-kicker,
+  .profile-role,
+  .eyebrow,
+  .pill {
+    color: #7CF24B !important;
+    text-shadow:
+      0 1px 4px rgba(0,0,0,0.95),
+      0 0 12px rgba(0,0,0,0.78);
+  }
+}
+
+
+
+/* ── About CTA polish ─────────────────────────────────────────── */
+.acc-cta{
+  text-shadow:none !important;
+  color:#7CF24B !important;
+}
+.acc-cta:hover{
+  color:#fff !important;
+}
+
 </style>
 </head>
 <body>
@@ -643,6 +762,7 @@ nav{
     <li><a href="index.html#programs">Programs</a></li>
     <li><a href="gallery.html">Gallery</a></li>
     <li><a href="about.html" class="active">About</a></li>
+    <li><a href="leadership.html">Leadership</a></li>
     <li><a href="index.html#contact">Contact</a></li>
   </ul>
   <button class="hamburger" id="ham" aria-label="Menu" aria-expanded="false">
@@ -661,6 +781,7 @@ nav{
       <li><a href="index.html#programs" class="mlink">Programs</a></li>
       <li><a href="gallery.html" class="mlink">Gallery</a></li>
       <li><a href="about.html" class="mlink">About</a></li>
+      <li><a href="leadership.html" class="mlink">Leadership</a></li>
       <li><a href="index.html#contact" class="mlink">Contact</a></li>
     </ul>
     <a href="https://www.instagram.com/bornelitebasketball/" target="_blank" class="mmenu-ig">
@@ -736,19 +857,20 @@ nav{
       </div>
 
       <div class="acc-item" data-idx="3">
-        <div class="acc-bar"></div>
-        <div class="acc-head">
-          <div class="acc-meta">
-            <span class="acc-num">04</span>
-            <span class="acc-label">Coach Bruce Miller</span>
-          </div>
-          <div class="acc-arrow"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
-        </div>
-        <div class="acc-body">
-          <p class="acc-text">Coach Bruce Miller built Born Elite on the same principles that built his professional career: precision, accountability, and zero excuses. He took those lessons — discipline, hard work, showing up every day — and channeled them into a program designed to change the trajectory of young lives in Houston. This isn't a side project. This is a calling.</p>
-          <div class="acc-badge">Coach Bruce Miller · Founder</div>
-        </div>
-      </div>
+  <div class="acc-bar"></div>
+  <div class="acc-head">
+    <div class="acc-meta">
+      <span class="acc-num">04</span>
+      <span class="acc-label">Coach Bruce Miller</span>
+    </div>
+    <div class="acc-arrow"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+  </div>
+  <div class="acc-body">
+    <p class="acc-text">Coach Miller is a native of Pontiac, Michigan, raised by his single mother and shaped by the realities of poverty early in life. Sports became the turning point that gave him structure, discipline, and a positive outlet — and those same lessons now drive his commitment to mentoring young men in Houston with consistency, accountability, and long-term vision. Born Elite is how he gives others the same chance to rise above their circumstances and lead with character.</p>
+    <div class="acc-badge">Coach Bruce Miller · Founder</div>
+    <a class="acc-cta" href="leadership.html">Read Coach Miller’s Full Story <span aria-hidden="true">→</span></a>
+  </div>
+</div>
 
     </div>
   </div>
