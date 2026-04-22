@@ -586,6 +586,98 @@
             }
         }
 
+
+/* ── Leadership nav + stability polish ───────────────────── */
+.nav-links a,
+.mobile-link{
+  text-rendering: optimizeLegibility;
+}
+.court-pattern{
+  transform:translateZ(0);
+}
+@media(max-width:768px){
+  .court-pattern{ display:none; }
+  nav{
+    backdrop-filter:none;
+    -webkit-backdrop-filter:none;
+  }
+  .pg-item img,
+  .vid-item video{
+    transform:translateZ(0);
+    backface-visibility:hidden;
+  }
+}
+
+
+/* ── SNRG final title readability fix ───────────────────────────── */
+.nav-links a,
+.mobile-link,
+.mlink,
+.section-label,
+.page-header-label,
+.acc-label,
+.acc-num,
+.value-num,
+.story-kicker,
+.profile-role,
+.profile-tag,
+.pill,
+.eyebrow {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+.section-label,
+.page-header-label,
+.acc-label,
+.acc-num,
+.value-num,
+.story-kicker,
+.profile-role,
+.eyebrow,
+.pill {
+  color: #72F040 !important;
+  text-shadow:
+    0 1px 3px rgba(0,0,0,0.92),
+    0 0 10px rgba(0,0,0,0.72);
+}
+
+.section-title,
+.value-title,
+.profile-name,
+.hero-title em,
+.hero-title span,
+.acc-label,
+.v-name {
+  text-shadow:
+    0 2px 8px rgba(0,0,0,0.88),
+    0 0 18px rgba(0,0,0,0.48);
+}
+
+@media (max-width: 768px){
+  .section-label,
+  .page-header-label,
+  .acc-label,
+  .acc-num,
+  .value-num,
+  .story-kicker,
+  .profile-role,
+  .eyebrow,
+  .pill {
+    color: #7CF24B !important;
+    text-shadow:
+      0 1px 4px rgba(0,0,0,0.95),
+      0 0 12px rgba(0,0,0,0.78);
+  }
+}
+
+
+
+/* ── Gallery tab readability ──────────────────────────────────── */
+.tab-btn{
+  text-shadow: 0 1px 3px rgba(0,0,0,0.72);
+}
+
 </style>
 </head>
 <body>
@@ -599,6 +691,7 @@
             <li><a href="index.html#programs">Programs</a></li>
             <li><a href="gallery.html" class="active">Gallery</a></li>
             <li><a href="about.html">About</a></li>
+            <li><a href="leadership.html">Leadership</a></li>
             <li><a href="index.html#contact">Contact</a></li>
         </ul>
         <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
@@ -620,6 +713,7 @@
                 <li><a href="index.html#programs" class="mobile-link">Programs</a></li>
                 <li><a href="gallery.html" class="mobile-link">Gallery</a></li>
                 <li><a href="about.html" class="mobile-link">About</a></li>
+                <li><a href="leadership.html" class="mobile-link">Leadership</a></li>
                 <li><a href="index.html#contact" class="mobile-link">Contact</a></li>
             </ul>
             <div class="mobile-menu-footer">
