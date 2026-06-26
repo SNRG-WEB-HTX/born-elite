@@ -11,6 +11,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev" crossorigin>
+    <link rel="dns-prefetch" href="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev">
     <style>
         :root {
             --elite-black: #0A0A0A;
@@ -826,146 +828,143 @@
             background: var(--elite-black);
         }
 
-        /* ── Carousel ─────────────────────────────────────── */
-        .carousel-wrap {
+        /* ── Moments of Excellence ── */
+        .moe-wrap {
             position: relative;
-            margin-top: 2rem;
-            overflow: hidden;
+            margin-top: 2.5rem;
+            padding: 0 5vw;
         }
 
-        .carousel-track-outer {
-            overflow: hidden;
-            border-radius: 14px;
-        }
-
-        .carousel-track {
+        /* Scrollable strip */
+        .moe-strip {
             display: flex;
-            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            will-change: transform;
+            gap: 16px;
+            overflow-x: scroll;
+            overflow-y: hidden;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            padding: 6px 0 24px;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            outline: none;
         }
+        .moe-strip::-webkit-scrollbar { display: none; }
 
-        .carousel-slide {
-            flex: 0 0 100%;
-            width: 100%;
-            aspect-ratio: 16/9;
+        /* Card */
+        .moe-card {
+            flex: 0 0 78vw;
+            max-width: 360px;
+            aspect-ratio: 4/3;
+            scroll-snap-align: center;
+            scroll-snap-stop: always;
             position: relative;
             overflow: hidden;
-            border-radius: 14px;
-            border: 1px solid rgba(109, 191, 46, 0.3);
-            box-shadow:
-                0 0 0 1px rgba(109, 191, 46, 0.1),
-                0 0 20px rgba(85, 224, 37, 0.12);
+            border-radius: 16px;
+            border: 1px solid rgba(109,191,46,0.25);
+            box-shadow: 0 4px 28px rgba(0,0,0,0.5), 0 0 16px rgba(85,224,37,0.07);
+            background: #0c0c0c;
+            flex-shrink: 0;
+            transition: border-color .3s ease, box-shadow .3s ease;
         }
-
-        @media (min-width: 769px) {
-            .carousel-slide {
-                flex: 0 0 calc(33.333% - 0.67rem);
-                margin-right: 1rem;
-                aspect-ratio: 4/3;
-            }
-            .carousel-slide:last-child { margin-right: 0; }
+        .moe-card:hover {
+            border-color: rgba(85,224,37,0.45);
+            box-shadow: 0 8px 36px rgba(0,0,0,0.6), 0 0 28px rgba(85,224,37,0.14);
         }
-
-        .carousel-slide img {
-            width: 100%;
-            height: 100%;
+        .moe-card img {
+            width: 100%; height: 100%;
             object-fit: cover;
-            object-position: center;
+            object-position: center 20%;
             display: block;
-            transition: transform 0.5s ease;
+            filter: brightness(1.18) contrast(1.07) saturate(1.04);
+            transition: transform .55s cubic-bezier(.25,.46,.45,.94);
+            will-change: transform;
+            pointer-events: none;
+            user-select: none;
+            -webkit-user-drag: none;
         }
-
-        .carousel-slide:hover img {
-            transform: scale(1.04);
-        }
-
-        .carousel-slide::after {
+        .moe-card.be-portrait img { object-position: top center; }
+        .moe-card.landscape-bottom img { object-position: center 70%; }
+        .moe-card:hover img { transform: scale(1.04); }
+        .moe-card::after {
             content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(to bottom, transparent 55%, rgba(0,0,0,0.5) 100%);
-            opacity: 0;
-            transition: opacity 0.3s ease;
+            position: absolute; inset: 0;
+            background: linear-gradient(to bottom, transparent 55%, rgba(0,0,0,.28) 100%);
+            pointer-events: none;
         }
 
-        .carousel-slide:hover::after { opacity: 1; }
+        /* Desktop — 3 cards visible */
+        @media (min-width: 800px) {
+            .moe-card {
+                flex: 0 0 calc(33.333% - 11px);
+                max-width: none;
+            }
+        }
 
-        .carousel-controls {
+        /* Controls row: arrows + dots */
+        .moe-controls {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 1.25rem;
-            margin-top: 1.25rem;
+            gap: 16px;
+            margin-top: 4px;
         }
 
-        .carousel-btn {
-            width: 42px;
-            height: 42px;
+        /* Arrow buttons */
+        .moe-arrow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
             border-radius: 50%;
-            background: rgba(12, 12, 12, 0.9);
-            border: 1.5px solid rgba(109, 191, 46, 0.5);
+            background: rgba(10,10,10,0.92);
+            border: 1.5px solid rgba(109,191,46,0.45);
             color: #6DBF2E;
+            cursor: pointer;
+            transition: background .22s ease, border-color .22s ease,
+                        box-shadow .22s ease, transform .18s ease;
+            flex-shrink: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .moe-arrow:hover {
+            background: rgba(85,224,37,0.1);
+            border-color: #55E025;
+            box-shadow: 0 0 16px rgba(85,224,37,0.4);
+            transform: scale(1.08);
+        }
+        .moe-arrow:active { transform: scale(0.95); }
+        .moe-arrow svg {
+            width: 20px; height: 20px;
+            stroke: currentColor; fill: none;
+            stroke-width: 2.5;
+            stroke-linecap: round; stroke-linejoin: round;
+        }
+        .moe-arrow.disabled {
+            opacity: 0.28;
+            pointer-events: none;
+        }
+
+        /* Dots */
+        .moe-dots {
             display: flex;
             align-items: center;
-            justify-content: center;
+            gap: 6px;
+        }
+        .moe-dot {
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            border: none; padding: 0;
             cursor: pointer;
-            transition: all 0.25s ease;
+            transition: all .28s ease;
             flex-shrink: 0;
         }
-
-        .carousel-btn:hover {
-            background: rgba(85, 224, 37, 0.12);
-            border-color: var(--elite-green);
-            box-shadow: 0 0 14px rgba(85, 224, 37, 0.4);
-            color: var(--elite-green);
+        .moe-dot.active {
+            background: #55E025;
+            box-shadow: 0 0 8px rgba(85,224,37,0.7);
+            width: 22px;
+            border-radius: 3px;
         }
-
-        .carousel-btn svg {
-            width: 18px;
-            height: 18px;
-            stroke: currentColor;
-            fill: none;
-            stroke-width: 2.5;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-        }
-
-        .carousel-dots {
-            display: flex;
-            gap: 0.5rem;
-            align-items: center;
-        }
-
-        .carousel-dot {
-            width: 7px;
-            height: 7px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.2);
-            border: none;
-            cursor: pointer;
-            transition: all 0.25s ease;
-            padding: 0;
-        }
-
-        .carousel-dot.active {
-            background: var(--elite-green);
-            box-shadow: 0 0 8px rgba(85, 224, 37, 0.7);
-            width: 20px;
-            border-radius: 4px;
-        }
-
-        /* On desktop show 3 slides at once, dots show per-slide */
-        @media (min-width: 769px) {
-            .carousel-track-outer { overflow: visible; }
-            .carousel-track { gap: 1rem; }
-        }
-
-        /* Legacy gallery-item still needs animate-in support */
-        .carousel-slide {
-            opacity: 0;
-            transition: opacity 0.6s ease, transform 0.5s cubic-bezier(0.4,0,0.2,1), box-shadow 0.3s ease;
-        }
-        .carousel-slide.animate-in { opacity: 1; }
 
         /* Contact Section */
         .contact {
@@ -1860,39 +1859,7 @@
     }
 
 
-    /* ── SNRG refinement: Moments of Excellence lighting ───────────────── */
-    .carousel-track-outer{
-        border-radius: 16px;
-    }
-    .carousel-slide{
-        background: #0b0b0b;
-        border-color: rgba(109, 191, 46, 0.34);
-        box-shadow:
-            0 0 0 1px rgba(109, 191, 46, 0.11),
-            0 0 22px rgba(85, 224, 37, 0.10);
-    }
-    .carousel-slide img{
-        filter: brightness(1.12) contrast(1.06) saturate(1.03);
-    }
-    .carousel-slide::after{
-        background: linear-gradient(to bottom, rgba(0,0,0,0.03) 0%, rgba(0,0,0,0.18) 68%, rgba(0,0,0,0.36) 100%);
-        opacity: 1;
-    }
-    .carousel-slide:hover img{
-        transform: scale(1.035);
-        filter: brightness(1.16) contrast(1.07) saturate(1.04);
-    }
-    .carousel-slide:hover::after{
-        opacity: 1;
-    }
-    @media (max-width:768px){
-        .carousel-slide img{
-            filter: brightness(1.14) contrast(1.05) saturate(1.03);
-        }
-        .carousel-slide::after{
-            background: linear-gradient(to bottom, rgba(0,0,0,0.02) 0%, rgba(0,0,0,0.14) 64%, rgba(0,0,0,0.30) 100%);
-        }
-    }
+
 
 
     /* ── SNRG final refinement: equal front card heights + brighter Moments of Excellence ── */
@@ -1928,41 +1895,7 @@
         }
     }
 
-    .carousel-slide{
-        background: #0c0c0c;
-        overflow: hidden;
-    }
-    .carousel-slide img{
-        filter: brightness(1.22) contrast(1.08) saturate(1.05);
-    }
-    .carousel-slide::after{
-        background: linear-gradient(
-            to bottom,
-            rgba(0,0,0,0.00) 0%,
-            rgba(0,0,0,0.05) 54%,
-            rgba(0,0,0,0.15) 78%,
-            rgba(0,0,0,0.24) 100%
-        );
-        opacity: 1;
-    }
-    .carousel-slide:hover img{
-        transform: scale(1.035);
-        filter: brightness(1.26) contrast(1.08) saturate(1.06);
-    }
-    @media (max-width:768px){
-        .carousel-slide img{
-            filter: brightness(1.24) contrast(1.07) saturate(1.05);
-        }
-        .carousel-slide::after{
-            background: linear-gradient(
-                to bottom,
-                rgba(0,0,0,0.00) 0%,
-                rgba(0,0,0,0.04) 54%,
-                rgba(0,0,0,0.12) 78%,
-                rgba(0,0,0,0.20) 100%
-            );
-        }
-    }
+
 
 
 /* ── Leadership nav + readability polish ─────────────────── */
@@ -2329,59 +2262,66 @@
         <div class="section-label">The Work in Action</div>
         <h2 class="section-title">Moments of Excellence</h2>
         
-        <div class="carousel-wrap">
-            <div class="carousel-track-outer" id="carouselOuter">
-                <div class="carousel-track" id="carouselTrack">
-                    <div class="carousel-slide">
-                        <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/26-DSC_8374.jpg" alt="Born Elite Basketball" loading="lazy" />
-                    </div>
-                    <div class="carousel-slide">
-                        <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/41-DSC_8331.jpg" alt="Born Elite Basketball" loading="lazy" />
-                    </div>
-                    <div class="carousel-slide">
-                        <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/67-DSC_8241.jpg" alt="Born Elite Basketball" loading="lazy" />
-                    </div>
-                    <div class="carousel-slide">
-                        <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/92-DSC_8205.jpg" alt="Born Elite Basketball" loading="lazy" />
-                    </div>
-                    <div class="carousel-slide">
-                        <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/45-DSC_8326.jpg" alt="Born Elite Basketball" loading="lazy" />
-                    </div>
-                    <div class="carousel-slide">
-                        <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/57-DSC_8294.jpg" alt="Born Elite Basketball" loading="lazy" />
-                    </div>
-                    <div class="carousel-slide">
-                        <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/74-DSC_8232.jpg" alt="Born Elite Basketball" loading="lazy" />
-                    </div>
-                    <div class="carousel-slide">
-                        <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/52-DSC_8304.jpg" alt="Born Elite Basketball" loading="lazy" />
-                    </div>
-                    <div class="carousel-slide">
-                        <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/62-DSC_8290.jpg" alt="Born Elite Basketball" loading="lazy" />
-                    </div>
-                    <div class="carousel-slide">
-                        <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/98-DSC_8196.jpg" alt="Born Elite Basketball" loading="lazy" />
-                    </div>
-                    <div class="carousel-slide">
-                        <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/119-DSC_8162.jpg" alt="Born Elite Basketball" loading="lazy" />
-                    </div>
-                    <div class="carousel-slide">
-                        <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/91-DSC_8206.jpg" alt="Born Elite Basketball" loading="lazy" />
-                    </div>
-                    <div class="carousel-slide">
-                        <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/122-DSC_8153.jpg" alt="Born Elite Basketball" loading="lazy" />
-                    </div>
-                    <div class="carousel-slide">
-                        <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/116-DSC_8167.jpg" alt="Born Elite Basketball" loading="lazy" />
-                    </div>
+        <div class="moe-wrap">
+            <div class="moe-strip" id="moeStrip" tabindex="0">
+                <div class="moe-card">
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/26-DSC_8374.jpg" alt="Born Elite Basketball" loading="lazy" decoding="async" />
+                </div>
+                <div class="moe-card">
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/41-DSC_8331.jpg" alt="Born Elite Basketball" loading="lazy" decoding="async" />
+                </div>
+                <div class="moe-card">
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/67-DSC_8241.jpg" alt="Born Elite Basketball" loading="lazy" decoding="async" />
+                </div>
+                <div class="moe-card">
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/92-DSC_8205.jpg" alt="Born Elite Basketball" loading="lazy" decoding="async" />
+                </div>
+                <div class="moe-card">
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/45-DSC_8326.jpg" alt="Born Elite Basketball" loading="lazy" decoding="async" />
+                </div>
+                <div class="moe-card">
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/57-DSC_8294.jpg" alt="Born Elite Basketball" loading="lazy" decoding="async" />
+                </div>
+                <div class="moe-card">
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/74-DSC_8232.jpg" alt="Born Elite Basketball" loading="lazy" decoding="async" />
+                </div>
+                <div class="moe-card">
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/52-DSC_8304.jpg" alt="Born Elite Basketball" loading="lazy" decoding="async" />
+                </div>
+                <div class="moe-card">
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/62-DSC_8290.jpg" alt="Born Elite Basketball" loading="lazy" decoding="async" />
+                </div>
+                <div class="moe-card">
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/98-DSC_8196.jpg" alt="Born Elite Basketball" loading="lazy" decoding="async" />
+                </div>
+                <div class="moe-card">
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/119-DSC_8162.jpg" alt="Born Elite Basketball" loading="lazy" decoding="async" />
+                </div>
+                <div class="moe-card">
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/91-DSC_8206.jpg" alt="Born Elite Basketball" loading="lazy" decoding="async" />
+                </div>
+                <div class="moe-card">
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/122-DSC_8153.jpg" alt="Born Elite Basketball" loading="lazy" decoding="async" />
+                </div>
+                <div class="moe-card">
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/116-DSC_8167.jpg" alt="Born Elite Basketball" loading="lazy" decoding="async" />
+                </div>
+                <div class="moe-card be-portrait">
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/be_03.webp" alt="Born Elite Basketball" loading="lazy" decoding="async" />
+                </div>
+                <div class="moe-card be-portrait">
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/be_07.webp" alt="Born Elite Basketball" loading="lazy" decoding="async" />
+                </div>
+                <div class="moe-card landscape-bottom">
+                    <img src="https://pub-9c98bae60cbe43cbbcce301855f2b450.r2.dev/be_09.webp" alt="Born Elite Basketball" loading="lazy" decoding="async" />
                 </div>
             </div>
-            <div class="carousel-controls">
-                <button class="carousel-btn" id="carouselPrev" aria-label="Previous">
+            <div class="moe-controls">
+                <button class="moe-arrow" id="moeLeft" aria-label="Previous">
                     <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
                 </button>
-                <div class="carousel-dots" id="carouselDots"></div>
-                <button class="carousel-btn" id="carouselNext" aria-label="Next">
+                <div class="moe-dots" id="moeDots"></div>
+                <button class="moe-arrow" id="moeRight" aria-label="Next">
                     <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
                 </button>
             </div>
@@ -2605,85 +2545,84 @@
         });
 
 
-        // Carousel
+        // Moments of Excellence
         (function() {
-            const track     = document.getElementById('carouselTrack');
-            const dotsWrap  = document.getElementById('carouselDots');
-            const prevBtn   = document.getElementById('carouselPrev');
-            const nextBtn   = document.getElementById('carouselNext');
-            if (!track) return;
+            const strip    = document.getElementById('moeStrip');
+            const dotsWrap = document.getElementById('moeDots');
+            const btnL     = document.getElementById('moeLeft');
+            const btnR     = document.getElementById('moeRight');
+            if (!strip) return;
 
-            const slides = Array.from(track.querySelectorAll('.carousel-slide'));
-            let current  = 0;
-            let perView  = window.innerWidth >= 769 ? 3 : 1;
-            const total  = slides.length;
+            // Shuffle on every load
+            const kids = Array.from(strip.children);
+            for (let i = kids.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                strip.appendChild(kids[j]);
+                kids.splice(j, 1);
+            }
+
+            const cards = Array.from(strip.querySelectorAll('.moe-card'));
+            const N = cards.length;
+            let cur = 0;
 
             // Build dots
-            function buildDots() {
-                dotsWrap.innerHTML = '';
-                const count = perView === 1 ? total : Math.ceil(total / perView);
-                for (let i = 0; i < count; i++) {
-                    const d = document.createElement('button');
-                    d.className = 'carousel-dot' + (i === 0 ? ' active' : '');
-                    d.setAttribute('aria-label', 'Go to slide ' + (i + 1));
-                    d.addEventListener('click', () => goTo(i * perView));
-                    dotsWrap.appendChild(d);
-                }
+            cards.forEach((_, i) => {
+                const d = document.createElement('button');
+                d.className = 'moe-dot' + (i === 0 ? ' active' : '');
+                d.setAttribute('aria-label', 'Photo ' + (i + 1));
+                d.addEventListener('click', () => scrollTo(i));
+                dotsWrap.appendChild(d);
+            });
+            const dots = Array.from(dotsWrap.querySelectorAll('.moe-dot'));
+
+            function updateDots(i) {
+                cur = i;
+                dots.forEach((d, k) => d.classList.toggle('active', k === i));
+                btnL.classList.toggle('disabled', i === 0);
+                btnR.classList.toggle('disabled', i >= N - visibleCount());
             }
 
-            function updateDots() {
-                const dots = dotsWrap.querySelectorAll('.carousel-dot');
-                const idx = Math.floor(current / perView);
-                dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+            function visibleCount() {
+                return window.innerWidth >= 800 ? 3 : 1;
             }
 
-            function goTo(idx) {
-                const max = total - perView;
-                current = Math.max(0, Math.min(idx, max));
-                if (perView === 1) {
-                    track.style.transform = `translateX(-${current * 100}%)`;
-                } else {
-                    // desktop: slides are fixed width inside overflow:visible container
-                    const slideWidth = track.querySelector('.carousel-slide').offsetWidth + 16;
-                    track.style.transform = `translateX(-${current * slideWidth}px)`;
-                }
-                updateDots();
+            function cardWidth() {
+                return cards[0].offsetWidth + 16; // card + gap
             }
 
-            prevBtn.addEventListener('click', () => goTo(current - perView));
-            nextBtn.addEventListener('click', () => goTo(current + perView));
+            function scrollTo(i) {
+                const idx = Math.max(0, Math.min(i, N - 1));
+                strip.scrollTo({ left: cards[idx].offsetLeft - strip.offsetLeft, behavior: 'smooth' });
+                updateDots(idx);
+            }
 
-            // Touch swipe
-            let startX = 0;
-            track.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
-            track.addEventListener('touchend', e => {
-                const dx = e.changedTouches[0].clientX - startX;
-                if (Math.abs(dx) > 40) goTo(current + (dx < 0 ? perView : -perView));
+            btnL.addEventListener('click', () => scrollTo(cur - visibleCount()));
+            btnR.addEventListener('click', () => scrollTo(cur + visibleCount()));
+
+            // Keyboard arrows
+            strip.addEventListener('keydown', e => {
+                if (e.key === 'ArrowLeft')  { e.preventDefault(); scrollTo(cur - 1); }
+                if (e.key === 'ArrowRight') { e.preventDefault(); scrollTo(cur + 1); }
             });
 
-            // Animate slides in view
-            if (!isMobileViewport) {
-                const carouselObs = new IntersectionObserver(entries => {
-                    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('animate-in'); });
-                }, { threshold: 0.1 });
-                slides.forEach(s => carouselObs.observe(s));
-            } else {
-                slides.forEach(s => s.classList.add('animate-in'));
-            }
-
-            // Init
-            buildDots();
-            goTo(0);
-
-            // Reflow on resize — debounced to prevent layout thrashing
-            let _resizeTimer;
-            window.addEventListener('resize', () => {
-                clearTimeout(_resizeTimer);
-                _resizeTimer = setTimeout(() => {
-                    const newPer = window.innerWidth >= 769 ? 3 : 1;
-                    if (newPer !== perView) { perView = newPer; current = 0; buildDots(); goTo(0); }
-                }, 150);
+            // Sync dot + arrows on native scroll
+            let scrollTimer;
+            strip.addEventListener('scroll', () => {
+                clearTimeout(scrollTimer);
+                scrollTimer = setTimeout(() => {
+                    // Find which card is most visible
+                    const stripLeft = strip.scrollLeft;
+                    let best = 0, bestDist = Infinity;
+                    cards.forEach((c, i) => {
+                        const dist = Math.abs(c.offsetLeft - strip.offsetLeft - stripLeft);
+                        if (dist < bestDist) { bestDist = dist; best = i; }
+                    });
+                    updateDots(best);
+                }, 80);
             }, { passive: true });
+
+            // Init state
+            updateDots(0);
         })();
 
         // Form submission
